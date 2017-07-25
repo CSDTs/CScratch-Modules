@@ -14,14 +14,8 @@ vm.runtime._primitives.motion_translate_iny = function (args, util) {
 		}
 		//repeat args times
 		for (i=0;i<times;i++){
-			const penSkinId = vm.runtime.renderer.createPenSkin();
-			const penDrawableId = vm.runtime.renderer.createDrawable();
 			// stamp
-			vm.runtime.renderer.setDrawableOrder(penDrawableId, 1);
-			vm.runtime.renderer.updateDrawableProperties(penDrawableId, {skinId: penSkinId});
-			const target = util.target;
-            vm.runtime.renderer.penStamp(penSkinId, target.drawableID);
-            vm.runtime.requestRedraw();
+			vm.runtime._primitives.pen_stamp(args,util);
 			// move
 			util.target.setXY(util.target.x , util.target.y+dy );
 
@@ -32,7 +26,7 @@ vm.runtime._primitives.motion_translate_iny = function (args, util) {
 
 ScratchBlocks.Blocks['motion_translate_iny'] = {
   /**
-   * Translate_in_x Block+.
+   * Translate_in_y Block+.
    * @this Blockly.Block
    */
   init: function () {
@@ -51,10 +45,10 @@ ScratchBlocks.Blocks['motion_translate_iny'] = {
   }
 };
 
-var toolboxDOM = (new
+let toolboxDOM_translatebyy = (new
 DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml');
-var newBlockDOM = (new DOMParser).parseFromString(NEW_BLOCK_STRING_translatebyy,
+let newBlockDOM_translatebyy = (new DOMParser).parseFromString(NEW_BLOCK_STRING_translatebyy,
 'text/xml');
-toolboxDOM.getElementsByName('Motion')[0].appendChild(newBlockDOM.children[0]);
-var toolboxXML = (new XMLSerializer).serializeToString(toolboxDOM);
-Blockly.getMainWorkspace().updateToolbox(toolboxXML);
+toolboxDOM_translatebyy.getElementsByName('Motion')[0].appendChild(newBlockDOM_translatebyy.children[0]);
+let toolboxXML_translatebyy = (new XMLSerializer).serializeToString(toolboxDOM_translatebyy);
+Blockly.getMainWorkspace().updateToolbox(toolboxXML_translatebyy);

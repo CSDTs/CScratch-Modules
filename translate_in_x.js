@@ -40,10 +40,10 @@ ScratchBlocks.Blocks['motion_translate_inx'] = {
   }
 };
 
-var toolboxDOM = (new
+let toolboxDOM_translatebyx = (new
 DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml');
-var newBlockDOM = (new DOMParser).parseFromString(NEW_BLOCK_STRING_translatebyx,
+let newBlockDOM_translatebyx = (new DOMParser).parseFromString(NEW_BLOCK_STRING_translatebyx,
 'text/xml');
-toolboxDOM.getElementsByName('Motion')[0].appendChild(newBlockDOM.children[0]);
-var toolboxXML = (new XMLSerializer).serializeToString(toolboxDOM);
-Blockly.getMainWorkspace().updateToolbox(toolboxXML);
+toolboxDOM_translatebyx.getElementsByName('Motion')[0].appendChild(newBlockDOM_translatebyx.children[0]);
+let toolboxXML_translatebyx = (new XMLSerializer).serializeToString(toolboxDOM_translatebyx);
+Blockly.getMainWorkspace().updateToolbox(toolboxXML_translatebyx);

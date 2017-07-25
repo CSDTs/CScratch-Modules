@@ -14,9 +14,6 @@ ScratchBlocks.Blocks['operators_true'] = {
   init: function () {
     this.jsonInit ( {
         message0:"true",
-          inputsInline:0,
-          previousStatement:null,
-          nextStatement:null,
           category:ScratchBlocks.Categories.operators,
           colour:ScratchBlocks.Colours.operators.primary,
           colourSecondary:ScratchBlocks.Colours.operators.secondary,
