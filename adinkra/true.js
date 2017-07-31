@@ -1,5 +1,5 @@
-const NEW_BLOCK_STRING_true = '<block type="operators_true" id="operators_true"></block>';
-const NEW_BLOCK_CATEGORY_true = 'Operators';
+let NEW_BLOCK_STRING_true = '<block type="operators_true" id="operators_true"></block>';
+let NEW_BLOCK_CATEGORY_true = 'Operators';
 
 
 vm.runtime._primitives.operators_true= function (args) {
@@ -8,7 +8,7 @@ vm.runtime._primitives.operators_true= function (args) {
 
 ScratchBlocks.Blocks['operators_true'] = {
   /**
-   * Translate_in_x Block+.
+   * Operator true Block+.
    * @this Blockly.Block
    */
   init: function () {

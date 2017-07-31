@@ -1,5 +1,5 @@
-const NEW_BLOCK_STRING_false = '<block type="operators_false" id="operators_false"></block>';
-const NEW_BLOCK_CATEGORY_false = 'Operators';
+let NEW_BLOCK_STRING_false = '<block type="operators_false" id="operators_false"></block>';
+let NEW_BLOCK_CATEGORY_false = 'Operators';
 
 
 vm.runtime._primitives.operators_false= function (args) {

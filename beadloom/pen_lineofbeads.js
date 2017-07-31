@@ -1,17 +1,17 @@
-const NEW_BLOCK_STRING_lineofbeads = '<block type="pen_lineofbeads" id="pen_lineofbeads"><value name="NUMb"><shadow type="math_number"><field name="NUM">15</field></shadow></value>'
+let NEW_BLOCK_STRING_lineofbeads = '<block type="pen_lineofbeads" id="pen_lineofbeads"><value name="NUMb"><shadow type="math_number"><field name="NUM">15</field></shadow></value>'
 +'<value name="rise"><shadow type="math_number"><field name="NUM">2</field></shadow></value>'
 +'<value name="run"><shadow type="math_number"><field name="NUM">2</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_shiftandstamp = 'Pen';
-const NEW_BLOCK_STRING_translateby_width = '<block type="motion_translate_bywidth" id="motion_translate_bywidth"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_translatebywidth = 'Motion';
-const NEW_BLOCK_STRING_translateby_height = '<block type="motion_translate_byheight" id="motion_translate_byheight"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_translateby_height = 'Motion';
+let NEW_BLOCK_CATEGORY_shiftandstamp = 'Pen';
+let NEW_BLOCK_STRING_translateby_width = '<block type="motion_translate_bywidth" id="motion_translate_bywidth"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
+let NEW_BLOCK_CATEGORY_translatebywidth = 'Motion';
+let NEW_BLOCK_STRING_translateby_height = '<block type="motion_translate_byheight" id="motion_translate_byheight"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
+let NEW_BLOCK_CATEGORY_translateby_height = 'Motion';
 ///////////////////////////////////////////////////////////////////////////////////////
 /*translate by width
 */
 vm.runtime._primitives.motion_translate_bywidth = function (args, util) {
 		var percent= Number(args.STEPS)/100;
-		const size= (util.target.getBounds().right) - (util.target.getBounds().left);
+		let size= (util.target.getBounds().right) - (util.target.getBounds().left);
 		var dx=size * percent;
 		// stamp
 		vm.runtime._primitives.pen_stamp(args,util);
@@ -45,7 +45,7 @@ ScratchBlocks.Blocks['motion_translate_bywidth'] = {
 */
 vm.runtime._primitives.motion_translate_byheight = function (args, util) {
 		var percent= Number(args.STEPS)/100;
-		const size= (util.target.getBounds().top) - (util.target.getBounds().bottom);
+		let size= (util.target.getBounds().top) - (util.target.getBounds().bottom);
 		var dy=size*percent;
 		// stamp
 		vm.runtime._primitives.pen_stamp(args,util);

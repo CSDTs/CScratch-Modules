@@ -1,30 +1,30 @@
-const NEW_BLOCK_STRING_rt = '<block type="pen_rt" id="pen_rt"><value name="beads"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
+let NEW_BLOCK_STRING_rt = '<block type="pen_rt" id="pen_rt"><value name="beads"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
 +'<value name="rows"><shadow type="math_number"><field name="NUM">2</field></shadow></value>'
 +'<value name="total"><shadow type="math_number"><field name="NUM">15</field></shadow></value>'
 +'<value name="direction"><shadow type="text"><field name="TEXT">+x</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_rt = 'Pen';
+let NEW_BLOCK_CATEGORY_rt = 'Pen';
 //
-const NEW_BLOCK_STRING_translatebyx_nostamp = '<block type="motion_translate_inx_nostamp" id="motion_translate_inx_nostamp"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_translatebyx = 'Motion';
+let NEW_BLOCK_STRING_translatebyx_nostamp = '<block type="motion_translate_inx_nostamp" id="motion_translate_inx_nostamp"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
+let NEW_BLOCK_CATEGORY_translatebyx = 'Motion';
 //
-const NEW_BLOCK_STRING_translatebyy_nostamp = '<block type="motion_translate_iny_nostamp" id="motion_translate_iny_nostamp"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_translatebyy = 'Motion';
+let NEW_BLOCK_STRING_translatebyy_nostamp = '<block type="motion_translate_iny_nostamp" id="motion_translate_iny_nostamp"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
+let NEW_BLOCK_CATEGORY_translatebyy = 'Motion';
 //
-const NEW_BLOCK_STRING_lineofbeads = '<block type="pen_lineofbeads" id="pen_lineofbeads"><value name="NUMb"><shadow type="math_number"><field name="NUM">15</field></shadow></value>'
+let NEW_BLOCK_STRING_lineofbeads = '<block type="pen_lineofbeads" id="pen_lineofbeads"><value name="NUMb"><shadow type="math_number"><field name="NUM">15</field></shadow></value>'
 +'<value name="rise"><shadow type="math_number"><field name="NUM">2</field></shadow></value>'
 +'<value name="run"><shadow type="math_number"><field name="NUM">2</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_shiftandstamp = 'Pen';
-const NEW_BLOCK_STRING_translateby_width = '<block type="motion_translate_bywidth" id="motion_translate_bywidth"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_translatebywidth = 'Motion';
-const NEW_BLOCK_STRING_translateby_height = '<block type="motion_translate_byheight" id="motion_translate_byheight"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_translateby_height = 'Motion';
+let NEW_BLOCK_CATEGORY_shiftandstamp = 'Pen';
+let NEW_BLOCK_STRING_translateby_width = '<block type="motion_translate_bywidth" id="motion_translate_bywidth"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
+let NEW_BLOCK_CATEGORY_translatebywidth = 'Motion';
+let NEW_BLOCK_STRING_translateby_height = '<block type="motion_translate_byheight" id="motion_translate_byheight"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
+let NEW_BLOCK_CATEGORY_translateby_height = 'Motion';
 //
 /*****************************************************************************************************
 ******************************************************************************************************
 *****************************************************************************************************/
 vm.runtime._primitives.motion_translate_inx_nostamp = function (args, util) {
 		var times= Number(args.STEPS);
-		const size= (util.target.getBounds().right) - (util.target.getBounds().left);
+		let size= (util.target.getBounds().right) - (util.target.getBounds().left);
 		var dx=0;
 		if (times>0) {dx = size; }
 		else {
@@ -192,7 +192,7 @@ ScratchBlocks.Blocks['pen_rt'] = {
 */
 vm.runtime._primitives.motion_translate_bywidth = function (args, util) {
 		var percent= Number(args.STEPS)/100;
-		const size= (util.target.getBounds().right) - (util.target.getBounds().left);
+		let size= (util.target.getBounds().right) - (util.target.getBounds().left);
 		var dx=size * percent;
 		// move
 		args.STEPS=dx;
@@ -225,7 +225,7 @@ ScratchBlocks.Blocks['motion_translate_bywidth'] = {
 vm.runtime._primitives.motion_translate_byheight = function (args, util) {
 		var percent= Number(args.STEPS)/100;
 		let radians = Math.PI*(90-util.target.direction)/180;
-		const size= (util.target.getBounds().top) - (util.target.getBounds().bottom);
+		let size= (util.target.getBounds().top) - (util.target.getBounds().bottom);
 		let dx = size * -1* Math.sin(radians)*percent;
         let dy = size * Math.cos(radians)*percent;
 

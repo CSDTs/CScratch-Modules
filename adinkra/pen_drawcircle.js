@@ -1,10 +1,10 @@
-const NEW_BLOCK_STRING_drawcircle = '<block type="pen_drawcircle" id="pen_drawcircle"><value name="NUM1"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
+let NEW_BLOCK_STRING_drawcircle = '<block type="pen_drawcircle" id="pen_drawcircle"><value name="NUM1"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
 + '<value name="NUM2"><shadow type="math_number"><field name="NUM">360</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_shiftandstamp = 'Pen';
+let NEW_BLOCK_CATEGORY_shiftandstamp = 'Pen';
 
 
 vm.runtime._primitives.pen_drawcircle = function (args, util) {
-		const rad2deg=180/Math.PI;
+		let rad2deg=180/Math.PI;
 		let diameter= Number(args.NUM1);
 		let sweep= Number(args.NUM2);
 		let anglecount=0;

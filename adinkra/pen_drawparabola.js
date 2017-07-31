@@ -1,19 +1,19 @@
-const NEW_BLOCK_STRING_parabola = '<block type="pen_parabola" id="pen_parabola"><value name="NUMa"><shadow type="math_number"><field name="NUM">50</field></shadow></value>'
+let NEW_BLOCK_STRING_parabola = '<block type="pen_parabola" id="pen_parabola"><value name="NUMa"><shadow type="math_number"><field name="NUM">50</field></shadow></value>'
 +'<value name="sweep"><shadow type="math_number"><field name="NUM">180</field></shadow></value>'
 +'<value name="size"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
 +'<value name="widthrate"><shadow type="math_number"><field name="NUM">0.3</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_parabola = 'Pen';
+let NEW_BLOCK_CATEGORY_parabola = 'Pen';
 
 
 vm.runtime._primitives.pen_parabola = function (args, util) {
-		const rad2deg= 180/Math.PI;
-		const deg2rad= Math.PI/180;
+		let rad2deg= 180/Math.PI;
+		let deg2rad= Math.PI/180;
 		let a=Number(args.NUMa);
 		let sweep=Number(args.sweep);
 		let size=Number(args.size);
 		let widthrate=Number(args.widthrate);
-		const x_orgin=util.target.x;
-		const y_orgin=util.target.y;
+		let x_orgin=util.target.x;
+		let y_orgin=util.target.y;
 		let starting_direction=util.target.direction;
 		let tinc=4;
 		let t=sweep*-0.5;

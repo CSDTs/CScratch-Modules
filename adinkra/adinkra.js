@@ -1,30 +1,30 @@
-const NEW_BLOCK_STRING_logspiralc = '<block type="pen_logspiralc" id="pen_logspiralc"><value name="NUMC"><shadow type="math_number"><field name="NUM">1.002</field></shadow></value>'
+let NEW_BLOCK_STRING_logspiralc = '<block type="pen_logspiralc" id="pen_logspiralc"><value name="NUMC"><shadow type="math_number"><field name="NUM">1.002</field></shadow></value>'
 +'<value name="startangle"><shadow type="math_number"><field name="NUM">180</field></shadow></value>'
 +'<value name="endangle"><shadow type="math_number"><field name="NUM">0</field></shadow></value>'
 +'<value name="size"><shadow type="math_number"><field name="NUM">500</field></shadow></value>'
 +'<value name="pengrowth"><shadow type="math_number"><field name="NUM">0.2</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_logspiralc = 'Pen';
+let NEW_BLOCK_CATEGORY_logspiralc = 'Pen';
 //
-const NEW_BLOCK_STRING_drawcircle = '<block type="pen_drawcircle" id="pen_drawcircle"><value name="NUM1"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
+let NEW_BLOCK_STRING_drawcircle = '<block type="pen_drawcircle" id="pen_drawcircle"><value name="NUM1"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
 + '<value name="NUM2"><shadow type="math_number"><field name="NUM">360</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_drawcircle= 'Pen';
+let NEW_BLOCK_CATEGORY_drawcircle= 'Pen';
 //
-const NEW_BLOCK_STRING_drawline = '<block type="pen_drawline" id="pen_drawline"><value name="length"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
+let NEW_BLOCK_STRING_drawline = '<block type="pen_drawline" id="pen_drawline"><value name="length"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
 +'<value name="pensize"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
 +'<value name="growth"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_drawline = 'Pen';
+let NEW_BLOCK_CATEGORY_drawline = 'Pen';
 //
-const NEW_BLOCK_STRING_parabola = '<block type="pen_parabola" id="pen_parabola"><value name="NUMa"><shadow type="math_number"><field name="NUM">50</field></shadow></value>'
+let NEW_BLOCK_STRING_parabola = '<block type="pen_parabola" id="pen_parabola"><value name="NUMa"><shadow type="math_number"><field name="NUM">50</field></shadow></value>'
 +'<value name="sweep"><shadow type="math_number"><field name="NUM">180</field></shadow></value>'
 +'<value name="size"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
 +'<value name="widthrate"><shadow type="math_number"><field name="NUM">0.3</field></shadow></value></block>';
 //
-const NEW_BLOCK_STRING_false = '<block type="operators_false" id="operators_false"></block>';
-const NEW_BLOCK_CATEGORY_false = 'Operators';
-const NEW_BLOCK_CATEGORY_parabola = 'Pen';
+let NEW_BLOCK_STRING_false = '<block type="operators_false" id="operators_false"></block>';
+let NEW_BLOCK_CATEGORY_false = 'Operators';
+let NEW_BLOCK_CATEGORY_parabola = 'Pen';
 //
-const NEW_BLOCK_STRING_true = '<block type="operators_true" id="operators_true"></block>';
-const NEW_BLOCK_CATEGORY_true = 'Operators';
+let NEW_BLOCK_STRING_true = '<block type="operators_true" id="operators_true"></block>';
+let NEW_BLOCK_CATEGORY_true = 'Operators';
 /*
 **
 **   all Functions for adinkra
@@ -38,17 +38,17 @@ vm.runtime._primitives.pen_logspiralc = function (args, util) {
 		let size =Number(args.size);
 		let pengrowth= Number(args.pengrowth);
 		let clockwise= true;
-		const x_orgin= util.target.x;
-		const y_orgin= util.target.y;
-		const s_direction=util.target.direction;
+		let x_orgin= util.target.x;
+		let y_orgin= util.target.y;
+		let s_direction=util.target.direction;
 		let starting_direction=0;
 		let beta=Math.log(C);
 		let t=startangle;
 		let tinc=4;
 		let roffset=size*Math.pow(Math.E,beta*startangle)-size;
 		let r=0;
-		const rad2deg=180/Math.PI;
-		const deg2rad= Math.PI/180;
+		let rad2deg=180/Math.PI;
+		let deg2rad= Math.PI/180;
 		if ( C <= 1) {
 			return 0;
 		}
@@ -167,7 +167,7 @@ ScratchBlocks.Blocks['pen_logspiralc'] = {
    * 
    */
 vm.runtime._primitives.pen_drawcircle = function (args, util) {
-		const rad2deg=180/Math.PI;
+		let rad2deg=180/Math.PI;
 		let diameter= Number(args.NUM1);
 		let sweep= Number(args.NUM2);
 		let anglecount=0;
@@ -309,14 +309,14 @@ ScratchBlocks.Blocks['pen_drawline'] = {
    * 
    */
 vm.runtime._primitives.pen_parabola = function (args, util) {
-		const rad2deg= 180/Math.PI;
-		const deg2rad= Math.PI/180;
+		let rad2deg= 180/Math.PI;
+		let deg2rad= Math.PI/180;
 		let a=Number(args.NUMa);
 		let sweep=Number(args.sweep);
 		let size=Number(args.size);
 		let widthrate=Number(args.widthrate);
-		const x_orgin=util.target.x;
-		const y_orgin=util.target.y;
+		let x_orgin=util.target.x;
+		let y_orgin=util.target.y;
 		let starting_direction=util.target.direction;
 		let tinc=4;
 		let t=sweep*-0.5;
