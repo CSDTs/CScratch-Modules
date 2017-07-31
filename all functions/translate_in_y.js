@@ -1,11 +1,11 @@
-const NEW_BLOCK_STRING_translatebyy = '<block type="motion_translate_iny" id="motion_translate_iny"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_translatebyy = 'Motion';
+let NEW_BLOCK_STRING_translatebyy = '<block type="motion_translate_iny" id="motion_translate_iny"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
+let NEW_BLOCK_CATEGORY_translatebyy = 'Motion';
 
 
 vm.runtime._primitives.motion_translate_iny = function (args, util) {
 		
 		var times= Number(args.STEPS);
-		const size= (util.target.getBounds().top) - (util.target.getBounds().bottom);
+		let size= (util.target.getBounds().top) - (util.target.getBounds().bottom);
 		var dy=0;
 		if (times>0) {dy = size; }
 		else {

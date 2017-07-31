@@ -1,11 +1,15 @@
-const NEW_BLOCK_STRING_translateby_height = '<block type="motion_translate_byheight" id="motion_translate_byheight"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_translateby_height = 'Motion';
+let NEW_BLOCK_STRING_translateby_height = '<block type="motion_translate_byheight" id="motion_translate_byheight"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
+let NEW_BLOCK_CATEGORY_translateby_height = 'Motion';
 
 
 vm.runtime._primitives.motion_translate_byheight = function (args, util) {
 		var percent= Number(args.STEPS)/100;
-		const size= (util.target.getBounds().top) - (util.target.getBounds().bottom);
-		var dy=size*percent;
+		let size= (util.target.getBounds().top) - (util.target.getBounds().bottom);
+		var dy=0;
+		if (percent>0) {dy = size*percent; }
+		else {
+			dy= -1*size*percent;
+		}
 		// stamp
 		vm.runtime._primitives.pen_stamp(args,util);
 		// move

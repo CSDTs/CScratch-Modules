@@ -1,19 +1,16 @@
-const NEW_BLOCK_STRING_translateby_width = '<block type="motion_translate_bywidth" id="motion_translate_bywidth"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_translatebywidth = 'Motion';
+let NEW_BLOCK_STRING_translateby_width = '<block type="motion_translate_bywidth" id="motion_translate_bywidth"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
+let NEW_BLOCK_CATEGORY_translatebywidth = 'Motion';
 
 
 vm.runtime._primitives.motion_translate_bywidth = function (args, util) {
 		var percent= Number(args.STEPS)/100;
-		const size= (util.target.getBounds().right) - (util.target.getBounds().left);
-		var dx=0;
-		if (percent>0) {dx = size*percent; }
-		else {
-			dx= -1*size*percent;
-		}
+		let size= (util.target.getBounds().right) - (util.target.getBounds().left);
+		var dx=size * percent;
 		// stamp
 		vm.runtime._primitives.pen_stamp(args,util);
 		// move
-		util.target.setXY(util.target.x + dx, util.target.y );
+		args.STEPS=dx;
+		vm.runtime._primitives.motion_movesteps(args,util);
     }
 
 ScratchBlocks.Blocks['motion_translate_bywidth'] = {
@@ -37,10 +34,8 @@ ScratchBlocks.Blocks['motion_translate_bywidth'] = {
   }
 };
 
-var toolboxDOM_width = (new
-DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml');
-var newBlockDOM_width = (new DOMParser).parseFromString(NEW_BLOCK_STRING_translateby_width,
-'text/xml');
+var toolboxDOM_width = (new DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml');
+var newBlockDOM_width = (new DOMParser).parseFromString(NEW_BLOCK_STRING_translateby_width,'text/xml');
 toolboxDOM_width.getElementsByName('Motion')[0].appendChild(newBlockDOM_width.children[0]);
 var toolboxXML_width = (new XMLSerializer).serializeToString(toolboxDOM_width);
 Blockly.getMainWorkspace().updateToolbox(toolboxXML_width);

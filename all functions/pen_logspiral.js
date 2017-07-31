@@ -1,9 +1,9 @@
-const NEW_BLOCK_STRING_logspiralc = '<block type="pen_logspiralc" id="pen_logspiralc"><value name="NUMC"><shadow type="math_number"><field name="NUM">1.002</field></shadow></value>'
+let NEW_BLOCK_STRING_logspiralc = '<block type="pen_logspiralc" id="pen_logspiralc"><value name="NUMC"><shadow type="math_number"><field name="NUM">1.002</field></shadow></value>'
 +'<value name="startangle"><shadow type="math_number"><field name="NUM">180</field></shadow></value>'
 +'<value name="endangle"><shadow type="math_number"><field name="NUM">0</field></shadow></value>'
 +'<value name="size"><shadow type="math_number"><field name="NUM">500</field></shadow></value>'
 +'<value name="pengrowth"><shadow type="math_number"><field name="NUM">0.2</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_shiftandstamp = 'Pen';
+let NEW_BLOCK_CATEGORY_shiftandstamp = 'Pen';
 
 
 vm.runtime._primitives.pen_logspiralc = function (args, util) {
@@ -13,17 +13,17 @@ vm.runtime._primitives.pen_logspiralc = function (args, util) {
 		let size =Number(args.size);
 		let pengrowth= Number(args.pengrowth);
 		let clockwise= true;
-		const x_orgin= util.target.x;
-		const y_orgin= util.target.y;
-		const s_direction=util.target.direction;
+		let x_orgin= util.target.x;
+		let y_orgin= util.target.y;
+		let s_direction=util.target.direction;
 		let starting_direction=0;
 		let beta=Math.log(C);
 		let t=startangle;
 		let tinc=4;
 		let roffset=size*Math.pow(Math.E,beta*startangle)-size;
 		let r=0;
-		const rad2deg=180/Math.PI;
-		const deg2rad= Math.PI/180;
+		let rad2deg=180/Math.PI;
+		let deg2rad= Math.PI/180;
 		if ( C <= 1) {
 			return 0;
 		}
