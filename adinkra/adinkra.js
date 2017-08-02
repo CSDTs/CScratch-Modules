@@ -1,24 +1,24 @@
-let NEW_BLOCK_STRING_logspiralc = '<block type='pen_logspiralc' id='pen_logspiralc'><value name='NUMC'><shadow type='math_number'><field name='NUM'>1.002</field></shadow></value>'
-+'<value name='startangle'><shadow type='math_number'><field name='NUM'>180</field></shadow></value>'
-+'<value name='endangle'><shadow type='math_number'><field name='NUM'>0</field></shadow></value>'
-+'<value name='size'><shadow type='math_number'><field name='NUM'>500</field></shadow></value>'
-+'<value name='pengrowth'><shadow type='math_number'><field name='NUM'>0.2</field></shadow></value></block>'
+let NEW_BLOCK_STRING_logspiralc = '<block type="pen_logspiralc" id="pen_logspiralc"><value name="NUMC"><shadow type="math_number"><field name="NUM">1.002</field></shadow></value>'
++'<value name="startangle"><shadow type="math_number"><field name="NUM">180</field></shadow></value>'
++'<value name="endangle"><shadow type="math_number"><field name="NUM">0</field></shadow></value>'
++'<value name="size"><shadow type="math_number"><field name="NUM">500</field></shadow></value>'
++'<value name="pengrowth"><shadow type="math_number"><field name="NUM">0.2</field></shadow></value></block>';
 //
-let NEW_BLOCK_STRING_drawcircle = '<block type='pen_drawcircle' id='pen_drawcircle'><value name='NUM1'><shadow type='math_number'><field name='NUM'>100</field></shadow></value>'
-+ '<value name='NUM2'><shadow type='math_number'><field name='NUM'>360</field></shadow></value></block>'
+let NEW_BLOCK_STRING_drawcircle = '<block type="pen_drawcircle" id="pen_drawcircle"><value name="NUM1"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
++ '<value name="NUM2"><shadow type="math_number"><field name="NUM">360</field></shadow></value></block>';
 //
-let NEW_BLOCK_STRING_drawline = '<block type='pen_drawline' id='pen_drawline'><value name='length'><shadow type='math_number'><field name='NUM'>100</field></shadow></value>'
-+'<value name='pensize'><shadow type='math_number'><field name='NUM'>1</field></shadow></value>'
-+'<value name='growth'><shadow type='math_number'><field name='NUM'>1</field></shadow></value></block>'
+let NEW_BLOCK_STRING_drawline = '<block type="pen_drawline" id="pen_drawline"><value name="length"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
++'<value name="pensize"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
++'<value name="growth"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block>';
 //
-let NEW_BLOCK_STRING_parabola = '<block type='pen_parabola' id='pen_parabola'><value name='NUMa'><shadow type='math_number'><field name='NUM'>50</field></shadow></value>'
-+'<value name='sweep'><shadow type='math_number'><field name='NUM'>180</field></shadow></value>'
-+'<value name='size'><shadow type='math_number'><field name='NUM'>1</field></shadow></value>'
-+'<value name='widthrate'><shadow type='math_number'><field name='NUM'>0.3</field></shadow></value></block>'
+let NEW_BLOCK_STRING_parabola = '<block type="pen_parabola" id="pen_parabola"><value name="NUMa"><shadow type="math_number"><field name="NUM">50</field></shadow></value>'
++'<value name="sweep"><shadow type="math_number"><field name="NUM">180</field></shadow></value>'
++'<value name="size"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
++'<value name="widthrate"><shadow type="math_number"><field name="NUM">0.3</field></shadow></value></block>';
 //
-let NEW_BLOCK_STRING_false = '<block type='operators_false' id='operators_false'></block>'
+let NEW_BLOCK_STRING_false = '<block type="operators_false" id="operators_false"></block>';
 //
-let NEW_BLOCK_STRING_true = '<block type='operators_true' id='operators_true'></block>'
+let NEW_BLOCK_STRING_true = '<block type="operators_true" id="operators_true"></block>';
 /*
 **
 **   all Functions for adinkra
