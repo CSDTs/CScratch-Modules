@@ -12,18 +12,18 @@ vm.runtime._primitives.pen_logspiralc = function (args, util) {
 		let endangle = Number(args.endangle);
 		let size =Number(args.size);
 		let pengrowth= Number(args.pengrowth);
-		let clockwise= true;
-		let x_orgin= util.target.x;
-		let y_orgin= util.target.y;
-		let s_direction=util.target.direction;
+		let clockwise= args.operand;
+		const x_orgin= util.target.x;
+		const y_orgin= util.target.y;
+		const s_direction=util.target.direction;
 		let starting_direction=0;
 		let beta=Math.log(C);
 		let t=startangle;
 		let tinc=4;
 		let roffset=size*Math.pow(Math.E,beta*startangle)-size;
 		let r=0;
-		let rad2deg=180/Math.PI;
-		let deg2rad= Math.PI/180;
+		const rad2deg=180/Math.PI;
+		const deg2rad= Math.PI/180;
 		if ( C <= 1) {
 			return 0;
 		}
@@ -74,11 +74,11 @@ vm.runtime._primitives.pen_logspiralc = function (args, util) {
 			else{
 				if (clockwise){
 					args.DEGREES=tinc;
-					vm.runtime._primitives.motion_turnleft(args,util);
+					vm.runtime._primitives.motion_turnright(args,util);
 				}
 				else{
 					args.DEGREES=tinc;
-					vm.runtime._primitives.motion_turnright(args,util);
+					vm.runtime._primitives.motion_turnleft(args,util);
 				}	
 			}
 			args.SIZE=pengrowth;
