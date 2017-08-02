@@ -3,16 +3,13 @@ let NEW_BLOCK_STRING_logspiralc = '<block type="pen_logspiralc" id="pen_logspira
 +'<value name="endangle"><shadow type="math_number"><field name="NUM">0</field></shadow></value>'
 +'<value name="size"><shadow type="math_number"><field name="NUM">500</field></shadow></value>'
 +'<value name="pengrowth"><shadow type="math_number"><field name="NUM">0.2</field></shadow></value></block>';
-let NEW_BLOCK_CATEGORY_logspiralc = 'Pen';
 //
 let NEW_BLOCK_STRING_drawcircle = '<block type="pen_drawcircle" id="pen_drawcircle"><value name="NUM1"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
 + '<value name="NUM2"><shadow type="math_number"><field name="NUM">360</field></shadow></value></block>';
-let NEW_BLOCK_CATEGORY_drawcircle= 'Pen';
 //
 let NEW_BLOCK_STRING_drawline = '<block type="pen_drawline" id="pen_drawline"><value name="length"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
 +'<value name="pensize"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
 +'<value name="growth"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block>';
-let NEW_BLOCK_CATEGORY_drawline = 'Pen';
 //
 let NEW_BLOCK_STRING_parabola = '<block type="pen_parabola" id="pen_parabola"><value name="NUMa"><shadow type="math_number"><field name="NUM">50</field></shadow></value>'
 +'<value name="sweep"><shadow type="math_number"><field name="NUM">180</field></shadow></value>'
@@ -20,11 +17,8 @@ let NEW_BLOCK_STRING_parabola = '<block type="pen_parabola" id="pen_parabola"><v
 +'<value name="widthrate"><shadow type="math_number"><field name="NUM">0.3</field></shadow></value></block>';
 //
 let NEW_BLOCK_STRING_false = '<block type="operators_false" id="operators_false"></block>';
-let NEW_BLOCK_CATEGORY_false = 'Operators';
-let NEW_BLOCK_CATEGORY_parabola = 'Pen';
 //
 let NEW_BLOCK_STRING_true = '<block type="operators_true" id="operators_true"></block>';
-let NEW_BLOCK_CATEGORY_true = 'Operators';
 /*
 **
 **   all Functions for adinkra
@@ -32,86 +26,86 @@ let NEW_BLOCK_CATEGORY_true = 'Operators';
 */
 // draw log spiral
 vm.runtime._primitives.pen_logspiralc = function (args, util) {
-		let C = Number(args.NUMC);
-		let startangle= Number(args.startangle);
-		let endangle = Number(args.endangle);
-		let size =Number(args.size);
-		let pengrowth= Number(args.pengrowth);
-		let clockwise= args.operand;
-		let x_orgin= util.target.x;
-		let y_orgin= util.target.y;
-		let s_direction=util.target.direction;
-		let starting_direction=0;
-		let beta=Math.log(C);
-		let t=startangle;
-		let tinc=4;
-		let roffset=size*Math.pow(Math.E,beta*startangle)-size;
-		let r=0;
-		let rad2deg=180/Math.PI;
-		let deg2rad= Math.PI/180;
-		if ( C <= 1) {
-			return 0;
-		}
-		if (C > 1.1) {
-			return 0;
-		}
-		if (startangle>endangle){
-			starting_direction=s_direction+90;
+	let C = Number(args.NUMC);
+	let startangle= Number(args.startangle);		
+	let endangle = Number(args.endangle);
+	let size =Number(args.size);
+	let pengrowth= Number(args.pengrowth);
+	let clockwise= args.operand;
+	let x_orgin= util.target.x;
+	let y_orgin= util.target.y;
+	let s_direction=util.target.direction;
+	let starting_direction=0;
+	let beta=Math.log(C);
+	let t=startangle;
+	let tinc=4;
+	let roffset=size*Math.pow(Math.E,beta*startangle)-size;
+	let r=0;
+	let rad2deg=180/Math.PI;
+	let deg2rad= Math.PI/180;
+	if ( C <= 1) {
+		return 0;
+	}
+	if (C > 1.1) {
+		return 0;		
+	}
+	if (startangle>endangle){
+		starting_direction=s_direction+90;
+	}
+	else{
+		starting_direction=s_direction;
+	}
+	if (endangle>startangle){
+		tinc=4;
+		if (clockwise) {
+			args.DEGREES= Math.atan(1/beta)*rad2deg;
+			vm.runtime._primitives.motion_turnright(args,util);
 		}
 		else{
-			starting_direction=s_direction;
+			args.DEGREES= Math.atan(1/beta)*rad2deg;
+			vm.runtime._primitives.motion_turnleft(args,util);
 		}
-		if (endangle>startangle){
-			tinc=4;
-			if (clockwise) {
-				args.DEGREES= Math.atan(1/beta)*rad2deg;
+	}
+	else{
+		tinc=-4;
+		if (clockwise){
+			args.DEGREES= Math.atan(1/beta)*rad2deg+180;
+			vm.runtime._primitives.motion_turnleft(args,util);
+0		}
+		else{
+			args.DEGREES= Math.atan(1/beta)*rad2deg+180;
+			vm.runtime._primitives.motion_turnright(args,util);
+		}
+	}
+	for (i=0;i< Math.abs((endangle-startangle)/tinc);i++){
+		t=t+tinc;
+		r= size*Math.pow(Math.E,beta*t)-size;
+		if (startangle>endangle){
+			if (clockwise){
+				args.DEGREES=tinc;
 				vm.runtime._primitives.motion_turnright(args,util);
 			}
 			else{
-				args.DEGREES= Math.atan(1/beta)*rad2deg;
+				args.DEGREES=tinc;
 				vm.runtime._primitives.motion_turnleft(args,util);
 			}	
 		}
 		else{
-			tinc=-4;
 			if (clockwise){
-				args.DEGREES= Math.atan(1/beta)*rad2deg+180;
+				args.DEGREES=tinc;
 				vm.runtime._primitives.motion_turnleft(args,util);
-0			}
+			}
 			else{
-				args.DEGREES= Math.atan(1/beta)*rad2deg+180;
+				args.DEGREES=tinc;
 				vm.runtime._primitives.motion_turnright(args,util);
-			}
+			}	
 		}
-		for (i=0;i< Math.abs((endangle-startangle)/tinc);i++){
-			t=t+tinc;
-			r= size*Math.pow(Math.E,beta*t)-size;
-			if (startangle>endangle){
-				if (clockwise){
-					args.DEGREES=tinc;
-					vm.runtime._primitives.motion_turnright(args,util);
-				}
-				else{
-					args.DEGREES=tinc;
-					vm.runtime._primitives.motion_turnleft(args,util);
-				}	
-			}
-			else{
-				if (clockwise){
-					args.DEGREES=tinc;
-					vm.runtime._primitives.motion_turnleft(args,util);
-				}
-				else{
-					args.DEGREES=tinc;
-					vm.runtime._primitives.motion_turnright(args,util);
-				}	
-			}
-			args.SIZE=pengrowth;
-			vm.runtime._primitives.pen_changepensizeby(args,util);
-			if (!clockwise){
-				let x_go= (x_orgin+ r* Math.cos((t+starting_direction)*deg2rad))- 
+		args.SIZE=pengrowth;
+		vm.runtime._primitives.pen_changepensizeby(args,util);
+		if (!clockwise){
+			let x_go= (x_orgin+ r* Math.cos((t+starting_direction)*deg2rad))- 
 				(roffset*Math.cos((startangle+starting_direction)*deg2rad));
-				let y_go= (y_orgin+r* Math.sin((t+starting_direction)*deg2rad))-
+			let y_go= (y_orgin+r* Math.sin((t+starting_direction)*deg2rad))-
 				(roffset*Math.sin((startangle+starting_direction)*deg2rad));
 				args.X= x_go;
 				args.Y= y_go;
@@ -119,21 +113,21 @@ vm.runtime._primitives.pen_logspiralc = function (args, util) {
 				args.DURATION=0.001;
 				vm.runtime._primitives.control_wait(args,util);
 			}
-			else{
-				let x_go= (x_orgin+ r* Math.cos((t*-1+starting_direction)*deg2rad))- 
-				(roffset*Math.cos((startangle*-1+starting_direction)*deg2rad));
-				let y_go= (y_orgin+ r*Math.sin((t*-1+starting_direction)*deg2rad))-
-				(roffset*Math.sin((startangle*-1+starting_direction)*deg2rad));
-				args.X= x_go;
-				args.Y= y_go;
-				vm.runtime._primitives.motion_gotoxy(args,util);
-				args.DURATION=0.001;
-				vm.runtime._primitives.control_wait(args,util);
-			}	
-			
+		else{
+			let x_go= (x_orgin+ r* Math.cos((t*-1+starting_direction)*deg2rad))- 
+			(roffset*Math.cos((startangle*-1+starting_direction)*deg2rad));
+			let y_go= (y_orgin+ r*Math.sin((t*-1+starting_direction)*deg2rad))-
+			(roffset*Math.sin((startangle*-1+starting_direction)*deg2rad));
+			args.X= x_go;
+			args.Y= y_go;
+			vm.runtime._primitives.motion_gotoxy(args,util);
+			args.DURATION=0.001;
+			vm.runtime._primitives.control_wait(args,util);
 		}	
+			
+	}	
 		
-    }
+}
 
 ScratchBlocks.Blocks['pen_logspiralc'] = {
   /**
@@ -167,22 +161,22 @@ ScratchBlocks.Blocks['pen_logspiralc'] = {
    * 
    */
 vm.runtime._primitives.pen_drawcircle = function (args, util) {
-		let rad2deg=180/Math.PI;
-		let diameter= Number(args.NUM1);
-		let sweep= Number(args.NUM2);
-		let anglecount=0;
-		let stepinc=6;
-		let numbsides= 180 /(Math.asin(stepinc/diameter)*rad2deg);
-		while ((360/numbsides +anglecount) <= sweep){
-			anglecount+=360/numbsides;
-			args.DEGREES=360/numbsides;
-			vm.runtime._primitives.motion_turnleft(args, util);
-			args.STEPS= stepinc;
-			vm.runtime._primitives.motion_movesteps(args, util);
-		}
-		args.DEGREES= sweep-anglecount;
+	let rad2deg=180/Math.PI;
+	let diameter= Number(args.NUM1);
+	let sweep= Number(args.NUM2);
+	let anglecount=0;
+	let stepinc=6;
+	let numbsides= 180 /(Math.asin(stepinc/diameter)*rad2deg);
+	while ((360/numbsides +anglecount) <= sweep){
+		anglecount+=360/numbsides;
+		args.DEGREES=360/numbsides;
 		vm.runtime._primitives.motion_turnleft(args, util);
-    }
+		args.STEPS= stepinc;
+		vm.runtime._primitives.motion_movesteps(args, util);
+	}
+	args.DEGREES= sweep-anglecount;
+	vm.runtime._primitives.motion_turnleft(args, util);
+}
 
 ScratchBlocks.Blocks['pen_drawcircle'] = {
   /**
@@ -211,72 +205,72 @@ ScratchBlocks.Blocks['pen_drawcircle'] = {
    * 
    */
 vm.runtime._primitives.pen_drawline = function (args, util) {
-		let linelength=Number(args.length);
-		let initialpensize= Number(args.pensize);
-		let pengrowth1= Number(args.growth);
-		let roundend=args.operand;
-		let stepinc=2;
-		let pensizetemp=initialpensize;
-		let x_temp=0;
-		let y_temp=0;
-		let pengrowth2=0;
-		let pensizefinal=0;
+	let linelength=Number(args.length);
+	let initialpensize= Number(args.pensize);
+	let pengrowth1= Number(args.growth);
+	let roundend=args.operand;
+	let stepinc=2;
+	let pensizetemp=initialpensize;
+	let x_temp=0;
+	let y_temp=0;
+	let pengrowth2=0;
+	let pensizefinal=0;
 		
-		if (linelength<0){
-			args.DEGREES= 180;
-			vm.runtime._primitives.motion_turnleft(args,util);
-			linelength=Math.abs(linelength);
-		}
-		for (i=0;i<linelength/stepinc;i++){
-			pensizetemp=pensizetemp+pengrowth1;
-			args.SIZE=pensizetemp;
-			vm.runtime._primitives.pen_setpensizeto(args,util);
-			args.STEPS= stepinc;
+	if (linelength<0){
+		args.DEGREES= 180;
+		vm.runtime._primitives.motion_turnleft(args,util);
+		linelength=Math.abs(linelength);
+	}
+	for (i=0;i<linelength/stepinc;i++){
+		pensizetemp=pensizetemp+pengrowth1;
+		args.SIZE=pensizetemp;
+		vm.runtime._primitives.pen_setpensizeto(args,util);
+		args.STEPS= stepinc;
+		vm.runtime._primitives.motion_movesteps(args,util);
+	}
+	pensizefinal=pensizetemp;
+	if (!roundend){
+		x_temp=util.target.x;
+		y_temp=util.target.y;
+		args.DEGREES= 45+15* (pengrowth1/stepinc);
+		vm.runtime._primitives.motion_turnleft(args,util);
+		pengrowth2= (3-pengrowth1/stepinc)/2.1;
+		pensizestemp=pensizetemp-pengrowth2*2;
+		while (pensizetemp>=1){
+			args.STEPS= 1;
 			vm.runtime._primitives.motion_movesteps(args,util);
-		}
-		pensizefinal=pensizetemp;
-		if (!roundend){
-			x_temp=util.target.x;
-			y_temp=util.target.y;
-			args.DEGREES= 45+15* (pengrowth1/stepinc);
-			vm.runtime._primitives.motion_turnleft(args,util);
-			pengrowth2= (3-pengrowth1/stepinc)/2.1;
-			pensizestemp=pensizetemp-pengrowth2*2;
-			while (pensizetemp>=1){
-				args.STEPS= 1;
-				vm.runtime._primitives.motion_movesteps(args,util);
-				args.SIZE=pensizetemp;
-				vm.runtime._primitives.pen_setpensizeto(args,util);
-				pensizetemp=pensizetemp-pengrowth2;
-			}
-			args.X= x_temp;
-			args.Y= y_temp;
-			vm.runtime._primitives.motion_gotoxy(args,util);
-			args.SIZE=pensizefinal;
-			vm.runtime._primitives.pen_setpensizeto(args,util);
-			pensizetemp=pensizefinal;
-			args.DEGREES= 90+(30*(pengrowth1/stepinc));
-			vm.runtime._primitives.motion_turnright(args,util);
-			pengrowth2=(3-(pengrowth1/stepinc))/2.1;
-			pensizetemp= pensizetemp-(pengrowth2 *2);
 			args.SIZE=pensizetemp;
 			vm.runtime._primitives.pen_setpensizeto(args,util);
-			while (pensizetemp>=1){
-				args.STEPS= 1;
-				vm.runtime._primitives.motion_movesteps(args,util);
-				args.SIZE=pensizetemp;
-				vm.runtime._primitives.pen_setpensizeto(args,util);
-				pensizetemp=pensizetemp-pengrowth2;
-			}
-			args.X= x_temp;
-			args.Y= y_temp;
-			vm.runtime._primitives.motion_gotoxy(args,util);
-			args.DEGREES= 45+(15* (pengrowth1/stepinc));
-			vm.runtime._primitives.motion_turnleft(args,util);
+			pensizetemp=pensizetemp-pengrowth2;
 		}
+		args.X= x_temp;
+		args.Y= y_temp;
+		vm.runtime._primitives.motion_gotoxy(args,util);
 		args.SIZE=pensizefinal;
 		vm.runtime._primitives.pen_setpensizeto(args,util);
-    }
+		pensizetemp=pensizefinal;
+		args.DEGREES= 90+(30*(pengrowth1/stepinc));
+		vm.runtime._primitives.motion_turnright(args,util);
+		pengrowth2=(3-(pengrowth1/stepinc))/2.1;
+		pensizetemp= pensizetemp-(pengrowth2 *2);
+		args.SIZE=pensizetemp;
+		vm.runtime._primitives.pen_setpensizeto(args,util);
+		while (pensizetemp>=1){
+			args.STEPS= 1;
+			vm.runtime._primitives.motion_movesteps(args,util);
+			args.SIZE=pensizetemp;
+			vm.runtime._primitives.pen_setpensizeto(args,util);
+			pensizetemp=pensizetemp-pengrowth2;
+		}
+		args.X= x_temp;
+		args.Y= y_temp;
+		vm.runtime._primitives.motion_gotoxy(args,util);
+		args.DEGREES= 45+(15* (pengrowth1/stepinc));
+		vm.runtime._primitives.motion_turnleft(args,util);
+	}
+	args.SIZE=pensizefinal;
+	vm.runtime._primitives.pen_setpensizeto(args,util);
+}
 
 ScratchBlocks.Blocks['pen_drawline'] = {
   /**
@@ -309,72 +303,72 @@ ScratchBlocks.Blocks['pen_drawline'] = {
    * 
    */
 vm.runtime._primitives.pen_parabola = function (args, util) {
-		let rad2deg= 180/Math.PI;
-		let deg2rad= Math.PI/180;
-		let a=Number(args.NUMa);
-		let sweep=Number(args.sweep);
-		let size=Number(args.size);
-		let widthrate=Number(args.widthrate);
-		let x_orgin=util.target.x;
-		let y_orgin=util.target.y;
-		let starting_direction=util.target.direction;
-		let tinc=4;
-		let t=sweep*-0.5;
-		let r= size*(-2*a)/(1+ Math.cos(t*deg2rad));
-		let x_old= x_orgin;
-		let y_old= y_orgin;
-		let x_new=0;
-		let y_new=0;
-		vm.runtime._primitives.looks_hide(args,util);
-		vm.runtime._primitives.pen_penup(args,util);
-		args.DIRECTION= util.target.direction - t / 2;
-		vm.runtime._primitives.motion_pointindirection(args,util);
-		args.STEPS= r*-1;
-		vm.runtime._primitives.motion_movesteps(args,util);
-		while (t <= sweep*0.5){
-				args.DEGREES= tinc;
-				vm.runtime._primitives.motion_turnright(args,util);
-				t=t+tinc;
-				if (t-tinc*3<0){
-					args.SIZE=widthrate;
-					vm.runtime._primitives.pen_changepensizeby(args,util);
-				}
-				else{
-					args.SIZE=widthrate*-1;
-					vm.runtime._primitives.pen_changepensizeby(args,util);
-				}
-				r= size*(-2*a /(1+Math.cos(t*deg2rad)));
-				args.STEPS=r;
-				vm.runtime._primitives.motion_movesteps(args,util);
-				vm.runtime._primitives.looks_show(args,util);
-				args.DIRECTION= util.target.direction-t/2 -90;
-				vm.runtime._primitives.motion_pointindirection(args,util);
-				args.DURATION=0.001;
-				vm.runtime._primitives.control_wait(args,util);
-				x_new=util.target.x;
-				y_new=util.target.y;
-				args.X= x_old;
-				args.Y= y_old;
-				vm.runtime._primitives.motion_gotoxy(args,util);
-				vm.runtime._primitives.pen_pendown(args,util);
-				args.X= x_new;
-				args.Y= y_new;
-				vm.runtime._primitives.motion_gotoxy(args,util);
-				args.DIRECTION= util.target.direction- t/-2 +90;
-				vm.runtime._primitives.motion_pointindirection(args,util);
-				vm.runtime._primitives.pen_penup(args,util);
-				vm.runtime._primitives.looks_hide(args,util);
-				args.STEPS=r*-1;
-				vm.runtime._primitives.motion_movesteps(args,util);
-				x_old=x_new;
-				y_old=y_new;
-		}
-		args.X= x_new;
-		args.Y= y_new;
-		vm.runtime._primitives.motion_gotoxy(args,util);
-		vm.runtime._primitives.looks_show(args,util);
-		args.DEGREES=t/2+180;
-		vm.runtime._primitives.motion_turnright(args,util);
+	let rad2deg= 180/Math.PI;
+	let deg2rad= Math.PI/180;
+	let a=Number(args.NUMa);
+	let sweep=Number(args.sweep);
+	let size=Number(args.size);
+	let widthrate=Number(args.widthrate);
+	let x_orgin=util.target.x;
+	let y_orgin=util.target.y;
+	let starting_direction=util.target.direction;
+	let tinc=4;
+	let t=sweep*-0.5;
+	let r= size*(-2*a)/(1+ Math.cos(t*deg2rad));
+	let x_old= x_orgin;
+	let y_old= y_orgin;
+	let x_new=0;
+	let y_new=0;
+	vm.runtime._primitives.looks_hide(args,util);
+	vm.runtime._primitives.pen_penup(args,util);
+	args.DIRECTION= util.target.direction - t / 2;
+	vm.runtime._primitives.motion_pointindirection(args,util);
+	args.STEPS= r*-1;
+	vm.runtime._primitives.motion_movesteps(args,util);
+	while (t <= sweep*0.5){
+			args.DEGREES= tinc;
+			vm.runtime._primitives.motion_turnright(args,util);
+			t=t+tinc;
+			if (t-tinc*3<0){
+				args.SIZE=widthrate;
+				vm.runtime._primitives.pen_changepensizeby(args,util);
+			}
+			else{
+				args.SIZE=widthrate*-1;
+				vm.runtime._primitives.pen_changepensizeby(args,util);
+			}
+			r= size*(-2*a /(1+Math.cos(t*deg2rad)));
+			args.STEPS=r;
+			vm.runtime._primitives.motion_movesteps(args,util);
+			vm.runtime._primitives.looks_show(args,util);
+			args.DIRECTION= util.target.direction-t/2 -90;
+			vm.runtime._primitives.motion_pointindirection(args,util);
+			args.DURATION=0.001;
+			vm.runtime._primitives.control_wait(args,util);
+			x_new=util.target.x;
+			y_new=util.target.y;
+			args.X= x_old;
+			args.Y= y_old;
+			vm.runtime._primitives.motion_gotoxy(args,util);
+			vm.runtime._primitives.pen_pendown(args,util);
+			args.X= x_new;
+			args.Y= y_new;
+			vm.runtime._primitives.motion_gotoxy(args,util);
+			args.DIRECTION= util.target.direction- t/-2 +90;
+			vm.runtime._primitives.motion_pointindirection(args,util);
+			vm.runtime._primitives.pen_penup(args,util);
+			vm.runtime._primitives.looks_hide(args,util);
+			args.STEPS=r*-1;
+			vm.runtime._primitives.motion_movesteps(args,util);
+			x_old=x_new;
+			y_old=y_new;
+	}
+	args.X= x_new;
+	args.Y= y_new;
+	vm.runtime._primitives.motion_gotoxy(args,util);
+	vm.runtime._primitives.looks_show(args,util);
+	args.DEGREES=t/2+180;
+	vm.runtime._primitives.motion_turnright(args,util);
 }
 
 ScratchBlocks.Blocks['pen_parabola'] = {
