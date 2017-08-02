@@ -1,24 +1,24 @@
-let NEW_BLOCK_STRING_logspiralc = '<block type="pen_logspiralc" id="pen_logspiralc"><value name="NUMC"><shadow type="math_number"><field name="NUM">1.002</field></shadow></value>'
-+'<value name="startangle"><shadow type="math_number"><field name="NUM">180</field></shadow></value>'
-+'<value name="endangle"><shadow type="math_number"><field name="NUM">0</field></shadow></value>'
-+'<value name="size"><shadow type="math_number"><field name="NUM">500</field></shadow></value>'
-+'<value name="pengrowth"><shadow type="math_number"><field name="NUM">0.2</field></shadow></value></block>'
+let NEW_BLOCK_STRING_logspiralc = '<block type='pen_logspiralc' id='pen_logspiralc'><value name='NUMC'><shadow type='math_number'><field name='NUM'>1.002</field></shadow></value>'
++'<value name='startangle'><shadow type='math_number'><field name='NUM'>180</field></shadow></value>'
++'<value name='endangle'><shadow type='math_number'><field name='NUM'>0</field></shadow></value>'
++'<value name='size'><shadow type='math_number'><field name='NUM'>500</field></shadow></value>'
++'<value name='pengrowth'><shadow type='math_number'><field name='NUM'>0.2</field></shadow></value></block>'
 //
-let NEW_BLOCK_STRING_drawcircle = '<block type="pen_drawcircle" id="pen_drawcircle"><value name="NUM1"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
-+ '<value name="NUM2"><shadow type="math_number"><field name="NUM">360</field></shadow></value></block>'
+let NEW_BLOCK_STRING_drawcircle = '<block type='pen_drawcircle' id='pen_drawcircle'><value name='NUM1'><shadow type='math_number'><field name='NUM'>100</field></shadow></value>'
++ '<value name='NUM2'><shadow type='math_number'><field name='NUM'>360</field></shadow></value></block>'
 //
-let NEW_BLOCK_STRING_drawline = '<block type="pen_drawline" id="pen_drawline"><value name="length"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
-+'<value name="pensize"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
-+'<value name="growth"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block>'
+let NEW_BLOCK_STRING_drawline = '<block type='pen_drawline' id='pen_drawline'><value name='length'><shadow type='math_number'><field name='NUM'>100</field></shadow></value>'
++'<value name='pensize'><shadow type='math_number'><field name='NUM'>1</field></shadow></value>'
++'<value name='growth'><shadow type='math_number'><field name='NUM'>1</field></shadow></value></block>'
 //
-let NEW_BLOCK_STRING_parabola = '<block type="pen_parabola" id="pen_parabola"><value name="NUMa"><shadow type="math_number"><field name="NUM">50</field></shadow></value>'
-+'<value name="sweep"><shadow type="math_number"><field name="NUM">180</field></shadow></value>'
-+'<value name="size"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
-+'<value name="widthrate"><shadow type="math_number"><field name="NUM">0.3</field></shadow></value></block>'
+let NEW_BLOCK_STRING_parabola = '<block type='pen_parabola' id='pen_parabola'><value name='NUMa'><shadow type='math_number'><field name='NUM'>50</field></shadow></value>'
++'<value name='sweep'><shadow type='math_number'><field name='NUM'>180</field></shadow></value>'
++'<value name='size'><shadow type='math_number'><field name='NUM'>1</field></shadow></value>'
++'<value name='widthrate'><shadow type='math_number'><field name='NUM'>0.3</field></shadow></value></block>'
 //
-let NEW_BLOCK_STRING_false = '<block type="operators_false" id="operators_false"></block>'
+let NEW_BLOCK_STRING_false = '<block type='operators_false' id='operators_false'></block>'
 //
-let NEW_BLOCK_STRING_true = '<block type="operators_true" id="operators_true"></block>'
+let NEW_BLOCK_STRING_true = '<block type='operators_true' id='operators_true'></block>'
 /*
 **
 **   all Functions for adinkra
@@ -71,13 +71,13 @@ vm.runtime._primitives.pen_logspiralc = function (args, util) {
 		if (clockwise){
 			args.DEGREES= Math.atan(1/beta)*rad2deg+180
 			vm.runtime._primitives.motion_turnleft(args,util)
-0		}
+		}
 		else{
 			args.DEGREES= Math.atan(1/beta)*rad2deg+180
 			vm.runtime._primitives.motion_turnright(args,util)
 		}
 	}
-	for (i=0;i< Math.abs((endangle-startangle)/tinc);i++){
+	for (let i=0;i< Math.abs((endangle-startangle)/tinc);i++){
 		t=t+tinc
 		r= size*Math.pow(Math.E,beta*t)-size
 		if (startangle>endangle){
@@ -86,38 +86,34 @@ vm.runtime._primitives.pen_logspiralc = function (args, util) {
 				vm.runtime._primitives.motion_turnright(args,util)
 			}
 			else{
-				args.DEGREES=tinc;
+				args.DEGREES=tinc
 				vm.runtime._primitives.motion_turnleft(args,util)
 			}	
 		}
 		else{
 			if (clockwise){
-				args.DEGREES=tinc;
+				args.DEGREES=tinc
 				vm.runtime._primitives.motion_turnleft(args,util)
 			}
 			else{
-				args.DEGREES=tinc;
+				args.DEGREES=tinc
 				vm.runtime._primitives.motion_turnright(args,util)
 			}	
 		}
 		args.SIZE=pengrowth
 		vm.runtime._primitives.pen_changepensizeby(args,util)
 		if (!clockwise){
-			let x_go= (x_orgin+ r* Math.cos((t+starting_direction)*deg2rad))- 
-				(roffset*Math.cos((startangle+starting_direction)*deg2rad))
-			let y_go= (y_orgin+r* Math.sin((t+starting_direction)*deg2rad))-
-				(roffset*Math.sin((startangle+starting_direction)*deg2rad))
-				args.X= x_go
-				args.Y= y_go
-				vm.runtime._primitives.motion_gotoxy(args,util)
-				args.DURATION=0.001
-				vm.runtime._primitives.control_wait(args,util)
+			let x_go= (x_orgin+ r* Math.cos((t+starting_direction)*deg2rad))- (roffset*Math.cos((startangle+starting_direction)*deg2rad))
+			let y_go= (y_orgin+r* Math.sin((t+starting_direction)*deg2rad))-(roffset*Math.sin((startangle+starting_direction)*deg2rad))
+			args.X= x_go
+			args.Y= y_go
+			vm.runtime._primitives.motion_gotoxy(args,util)
+			args.DURATION=0.001
+			vm.runtime._primitives.control_wait(args,util)
 			}
 		else{
-			let x_go= (x_orgin+ r* Math.cos((t*-1+starting_direction)*deg2rad))- 
-			(roffset*Math.cos((startangle*-1+starting_direction)*deg2rad))
-			let y_go= (y_orgin+ r*Math.sin((t*-1+starting_direction)*deg2rad))-
-			(roffset*Math.sin((startangle*-1+starting_direction)*deg2rad))
+			let x_go= (x_orgin+ r* Math.cos((t*-1+starting_direction)*deg2rad))- (roffset*Math.cos((startangle*-1+starting_direction)*deg2rad))
+			let y_go= (y_orgin+ r*Math.sin((t*-1+starting_direction)*deg2rad))-(roffset*Math.sin((startangle*-1+starting_direction)*deg2rad))
 			args.X= x_go
 			args.Y= y_go
 			vm.runtime._primitives.motion_gotoxy(args,util)
@@ -136,14 +132,14 @@ ScratchBlocks.Blocks['pen_logspiralc'] = {
    */
   init: function () {
     this.jsonInit ( {
-        "message0":"log spiral C %1 start angle %2 end angle %3 size %4 pen growth%5 clockwise %6",
+        'message0':'log spiral C %1 start angle %2 end angle %3 size %4 pen growth%5 clockwise %6',
 		 args0:
-          [{type:"input_value",name:"NUMC"},
-		   {type:"input_value",name:"startangle"},
-		   {type:"input_value",name:"endangle"},
-		   {type:"input_value",name:"size"},
-		   {type:"input_value",name:"pengrowth"},
-		   {type:"input_value",name:"operand", check:"Boolean"}
+          [{type:'input_value',name:'NUMC'},
+		   {type:'input_value',name:'startangle'},
+		   {type:'input_value',name:'endangle'},
+		   {type:'input_value',name:'size'},
+		   {type:'input_value',name:'pengrowth'},
+		   {type:'input_value',name:'operand', check:'Boolean'}
 		  ],
 
           inputsInline:!0,
@@ -185,10 +181,10 @@ ScratchBlocks.Blocks['pen_drawcircle'] = {
    */
   init: function () {
     this.jsonInit ( {
-        message0:"circle: diameter %1 sweep %2",
+        message0:'circle: diameter %1 sweep %2',
 		 args0:
-          [{type:"input_value",name:"NUM1"},
-		   {type:"input_value",name:"NUM2"}
+          [{type:'input_value',name:'NUM1'},
+		   {type:'input_value',name:'NUM2'}
 		  ],
           inputsInline:!0,
           previousStatement:null,
@@ -221,7 +217,7 @@ vm.runtime._primitives.pen_drawline = function (args, util) {
 		vm.runtime._primitives.motion_turnleft(args,util)
 		linelength=Math.abs(linelength)
 	}
-	for (i=0;i<linelength/stepinc;i++){
+	for (let i=0;i<linelength/stepinc;i++){
 		pensizetemp=pensizetemp+pengrowth1
 		args.SIZE=pensizetemp
 		vm.runtime._primitives.pen_setpensizeto(args,util)
@@ -279,12 +275,12 @@ ScratchBlocks.Blocks['pen_drawline'] = {
    */
   init: function () {
     this.jsonInit ( {
-        "message0":"line: length %1 pen size %2 growth %3 round end? %4",
+        'message0':'line: length %1 pen size %2 growth %3 round end? %4',
 		 args0:
-          [{type:"input_value",name:"length"},
-		   {type:"input_value",name:"pensize"},
-		   {type:"input_value",name:"growth"},
-		   {type:"input_value",name:"operand", check:"Boolean"}
+          [{type:'input_value',name:'length'},
+		   {type:'input_value',name:'pensize'},
+		   {type:'input_value',name:'growth'},
+		   {type:'input_value',name:'operand', check:'Boolean'}
 		  ],
 
           inputsInline:!0,
@@ -378,12 +374,12 @@ ScratchBlocks.Blocks['pen_parabola'] = {
    */
   init: function () {
     this.jsonInit ( {
-        "message0":"parabola a %1 sweep %2 size %3 width rate %4",
+        'message0':'parabola a %1 sweep %2 size %3 width rate %4',
 		 args0:
-          [{type:"input_value",name:"NUMa"},
-		   {type:"input_value",name:"sweep"},
-		   {type:"input_value",name:"size"},
-		   {type:"input_value",name:"widthrate"},
+          [{type:'input_value',name:'NUMa'},
+		   {type:'input_value',name:'sweep'},
+		   {type:'input_value',name:'size'},
+		   {type:'input_value',name:'widthrate'},
 		  ],
 
           inputsInline:!0,
@@ -410,12 +406,12 @@ ScratchBlocks.Blocks['operators_false'] = {
    */
   init: function () {
     this.jsonInit ( {
-        message0:"false",
+        message0:'false',
           category:ScratchBlocks.Categories.operators,
           colour:ScratchBlocks.Colours.operators.primary,
           colourSecondary:ScratchBlocks.Colours.operators.secondary,
           colourTertiary:ScratchBlocks.Colours.operators.tertiary,
-		  "extensions": ["colours_operators", "output_boolean"],
+		  'extensions': ['colours_operators', 'output_boolean'],
     })
   }
 };
@@ -434,12 +430,12 @@ ScratchBlocks.Blocks['operators_true'] = {
    */
   init: function () {
     this.jsonInit ( {
-        message0:"true",
+        message0:'true',
           category:ScratchBlocks.Categories.operators,
           colour:ScratchBlocks.Colours.operators.primary,
           colourSecondary:ScratchBlocks.Colours.operators.secondary,
           colourTertiary:ScratchBlocks.Colours.operators.tertiary,
-		  "extensions": ["colours_operators", "output_boolean"],
+		  'extensions': ['colours_operators', 'output_boolean'],
     })
   }
 };
