@@ -2,6 +2,7 @@ let NEW_BLOCK_STRING_logspiralc = '<block type="pen_logspiralc" id="pen_logspira
 +'<value name="startangle"><shadow type="math_number"><field name="NUM">180</field></shadow></value>'
 +'<value name="endangle"><shadow type="math_number"><field name="NUM">0</field></shadow></value>'
 +'<value name="size"><shadow type="math_number"><field name="NUM">500</field></shadow></value>'
+<<<<<<< HEAD
 +'<value name="pengrowth"><shadow type="math_number"><field name="NUM">0.2</field></shadow></value></block>'
 //
 let NEW_BLOCK_STRING_drawcircle = '<block type="pen_drawcircle" id="pen_drawcircle"><value name="NUM1"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
@@ -10,15 +11,33 @@ let NEW_BLOCK_STRING_drawcircle = '<block type="pen_drawcircle" id="pen_drawcirc
 let NEW_BLOCK_STRING_drawline = '<block type="pen_drawline" id="pen_drawline"><value name="length"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
 +'<value name="pensize"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
 +'<value name="growth"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block>'
+=======
++'<value name="pengrowth"><shadow type="math_number"><field name="NUM">0.2</field></shadow></value></block>';
+//
+let NEW_BLOCK_STRING_drawcircle = '<block type="pen_drawcircle" id="pen_drawcircle"><value name="NUM1"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
++ '<value name="NUM2"><shadow type="math_number"><field name="NUM">360</field></shadow></value></block>';
+//
+let NEW_BLOCK_STRING_drawline = '<block type="pen_drawline" id="pen_drawline"><value name="length"><shadow type="math_number"><field name="NUM">100</field></shadow></value>'
++'<value name="pensize"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
++'<value name="growth"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block>';
+>>>>>>> a473bea237bdf928d9ccbfeb49b07abe1c3853a4
 //
 let NEW_BLOCK_STRING_parabola = '<block type="pen_parabola" id="pen_parabola"><value name="NUMa"><shadow type="math_number"><field name="NUM">50</field></shadow></value>'
 +'<value name="sweep"><shadow type="math_number"><field name="NUM">180</field></shadow></value>'
 +'<value name="size"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'
+<<<<<<< HEAD
 +'<value name="widthrate"><shadow type="math_number"><field name="NUM">0.3</field></shadow></value></block>'
 //
 let NEW_BLOCK_STRING_false = '<block type="operators_false" id="operators_false"></block>'
 //
 let NEW_BLOCK_STRING_true = '<block type="operators_true" id="operators_true"></block>'
+=======
++'<value name="widthrate"><shadow type="math_number"><field name="NUM">0.3</field></shadow></value></block>';
+//
+let NEW_BLOCK_STRING_false = '<block type="operators_false" id="operators_false"></block>';
+//
+let NEW_BLOCK_STRING_true = '<block type="operators_true" id="operators_true"></block>';
+>>>>>>> a473bea237bdf928d9ccbfeb49b07abe1c3853a4
 /*
 **
 **   all Functions for adinkra
@@ -110,7 +129,11 @@ vm.runtime._primitives.pen_logspiralc = function (args, util) {
 			vm.runtime._primitives.motion_gotoxy(args,util)
 			args.DURATION=0.001
 			vm.runtime._primitives.control_wait(args,util)
+<<<<<<< HEAD
 		}
+=======
+			}
+>>>>>>> a473bea237bdf928d9ccbfeb49b07abe1c3853a4
 		else{
 			let x_go= (x_orgin+ r* Math.cos((t*-1+starting_direction)*deg2rad))- (roffset*Math.cos((startangle*-1+starting_direction)*deg2rad))
 			let y_go= (y_orgin+ r*Math.sin((t*-1+starting_direction)*deg2rad))-(roffset*Math.sin((startangle*-1+starting_direction)*deg2rad))
@@ -126,6 +149,7 @@ vm.runtime._primitives.pen_logspiralc = function (args, util) {
 }
 
 ScratchBlocks.Blocks['pen_logspiralc'] = {
+<<<<<<< HEAD
 	/**
 	* drawcircle Block+.   
 	* @this Blockly.Block
@@ -141,6 +165,23 @@ ScratchBlocks.Blocks['pen_logspiralc'] = {
 		 {type:'input_value',name:'pengrowth'},
 		 {type:'input_value',name:'operand', check:'Boolean'}
 		],
+=======
+  /**
+   * drawcircle Block+.
+   * @this Blockly.Block
+   */
+  init: function () {
+    this.jsonInit ( {
+        'message0':'log spiral C %1 start angle %2 end angle %3 size %4 pen growth%5 clockwise %6',
+		 args0:
+          [{type:'input_value',name:'NUMC'},
+		   {type:'input_value',name:'startangle'},
+		   {type:'input_value',name:'endangle'},
+		   {type:'input_value',name:'size'},
+		   {type:'input_value',name:'pengrowth'},
+		   {type:'input_value',name:'operand', check:'Boolean'}
+		  ],
+>>>>>>> a473bea237bdf928d9ccbfeb49b07abe1c3853a4
 
           inputsInline:!0,
           previousStatement:null,
