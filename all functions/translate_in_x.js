@@ -1,10 +1,10 @@
-const NEW_BLOCK_STRING_translatebyx = '<block type="motion_translate_inx" id="motion_translate_inx"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
-const NEW_BLOCK_CATEGORY_translatebyx = 'Motion';
+let NEW_BLOCK_STRING_translatebyx = '<block type="motion_translate_inx" id="motion_translate_inx"><value name="STEPS"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>';
+let NEW_BLOCK_CATEGORY_translatebyx = 'Motion';
 
 
 vm.runtime._primitives.motion_translate_inx = function (args, util) {
 		var times= Number(args.STEPS);
-		const size= (util.target.getBounds().right) - (util.target.getBounds().left);
+		let size= (util.target.getBounds().right) - (util.target.getBounds().left);
 		var dx=0;
 		if (times>0) {dx = size; }
 		else {
@@ -40,10 +40,10 @@ ScratchBlocks.Blocks['motion_translate_inx'] = {
   }
 };
 
-var toolboxDOM = (new
+let toolboxDOM_translatebyx = (new
 DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml');
-var newBlockDOM = (new DOMParser).parseFromString(NEW_BLOCK_STRING_translatebyx,
+let newBlockDOM_translatebyx = (new DOMParser).parseFromString(NEW_BLOCK_STRING_translatebyx,
 'text/xml');
-toolboxDOM.getElementsByName('Motion')[0].appendChild(newBlockDOM.children[0]);
-var toolboxXML = (new XMLSerializer).serializeToString(toolboxDOM);
-Blockly.getMainWorkspace().updateToolbox(toolboxXML);
+toolboxDOM_translatebyx.getElementsByName('Motion')[0].appendChild(newBlockDOM_translatebyx.children[0]);
+let toolboxXML_translatebyx = (new XMLSerializer).serializeToString(toolboxDOM_translatebyx);
+Blockly.getMainWorkspace().updateToolbox(toolboxXML_translatebyx);

@@ -1,22 +1,19 @@
-const NEW_BLOCK_STRING_true = '<block type="operators_true" id="operators_true"></block>';
-const NEW_BLOCK_CATEGORY_true = 'Operators';
+let NEW_BLOCK_STRING_false = '<block type="operators_false" id="operators_false"></block>';
+let NEW_BLOCK_CATEGORY_false = 'Operators';
 
 
-vm.runtime._primitives.operators_true= function (args) {
-		return true;
+vm.runtime._primitives.operators_false= function (args) {
+		return false;
     }
 
-ScratchBlocks.Blocks['operators_true'] = {
+ScratchBlocks.Blocks['operators_false'] = {
   /**
-   * Translate_in_x Block+.
+   * False Block+.
    * @this Blockly.Block
    */
   init: function () {
     this.jsonInit ( {
-        message0:"true",
-          inputsInline:0,
-          previousStatement:null,
-          nextStatement:null,
+        message0:"false",
           category:ScratchBlocks.Categories.operators,
           colour:ScratchBlocks.Colours.operators.primary,
           colourSecondary:ScratchBlocks.Colours.operators.secondary,
@@ -27,7 +24,7 @@ ScratchBlocks.Blocks['operators_true'] = {
 };
 
 var toolboxDOM = (new DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml');
-var newBlockDOM = (new DOMParser).parseFromString(NEW_BLOCK_STRING_true,
+var newBlockDOM = (new DOMParser).parseFromString(NEW_BLOCK_STRING_false,
 'text/xml');
 toolboxDOM.getElementsByName('Operators')[0].appendChild(newBlockDOM.children[0]);
 var toolboxXML = (new XMLSerializer).serializeToString(toolboxDOM);
