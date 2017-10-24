@@ -1,3 +1,4 @@
+// MOTION BLOCKS
 let NEW_BLOCK_STRING_rotate = '<block type="motion_rotate" id="motion_rotate">'
 +'<value name="DEGREESX"> <shadow type="math_number"><field name="NUM">0</field>'
 +'</shadow></value><value name="DEGREESY"><shadow type="math_number">'
@@ -46,6 +47,59 @@ let NEW_BLOCK_STRING_yposition = '<block type="motion_yposition" id="motion_ypos
 
 let NEW_BLOCK_STRING_zposition = '<block type="motion_zposition" id="motion_zposition"></block>'
 
+// LOOKS BLOCKS
+let NEW_BLOCK_STRING_show = '<block type="looks_show" id="looks_show"></block>'
+
+let NEW_BLOCK_STRING_hide = '<block type="looks_hide" id="looks_hide"></block>'
+
+let NEW_BLOCK_STRING_switchcostumeto = '<block type="looks_switchcostumeto" id="looks_switchcostumeto">'
++'<value name="COSTUME"><shadow type="looks_costume"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_nextcostume = '<block type="looks_nextcostume" id="looks_nextcostume"></block>'
+
+let NEW_BLOCK_STRING_nextbackdrop = '<block type="looks_nextbackdrop" id="looks_nextbackdrop"></block>'
+
+let NEW_BLOCK_STRING_switchbackdropto = '<block type="looks_switchbackdropto" id="looks_switchbackdropto">'
++'<value name="BACKDROP"><shadow type="looks_backdrops"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_switchbackdroptoandwait = '<block type="looks_switchbackdroptoandwait"id="looks_switchbackdroptoandwait">'
++'<value name="BACKDROP"><shadow type="looks_backdrops"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_setscaleto = '<block type="looks_setscaleto" id="looks_setscaleto"><value name="SCALEX">'
++'<shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="SCALEY">'
++'<shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="SCALEZ">'
++'<shadow type="math_number"><field name="NUM">1</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_costumeorder = '<block type="looks_costumeorder" id="looks_costumeorder"></block>'
+
+let NEW_BLOCK_STRING_backdroporder = '<block type="looks_backdroporder" id="looks_backdroporder"></block>'
+
+let NEW_BLOCK_STRING_backdropname = '<block type="looks_backdropname" id="looks_backdropname"></block>'
+
+let NEW_BLOCK_STRING_setcamerato = '<block type="looks_setcamerato" id="looks_setcamerato"><value name="X">'
++'<shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="Y"><shadow type="math_number">'
++'<field name="NUM">50</field></shadow></value><value name="Z"><shadow type="math_number"><field name="NUM">500</field>'
++'</shadow></value></block>'
+
+let NEW_BLOCK_STRING_changecameraxby = '<block type="looks_changecameraxby" id="looks_changecameraxby">'
++'<value name="DX"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_changecamerayby = '<block type="looks_changecamerayby" id="looks_changecameraxby">'
++'<value name="DY"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_changecamerazby = '<block type="looks_changecamerazby" id="looks_changecameraxby">'
++'<value name="DZ"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_turncameraaroundx = '<block type="looks_turncameraaroundx" id="looks_changecameraxby">'
++'<value name="DEGREES"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_turncameraaroundy = '<block type="looks_turncameraaroundy" id="looks_changecameraxby">'
++'<value name="DEGREES"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_turncameraaroundz = '<block type="looks_turncameraaroundz" id="looks_changecameraxby">'
++'<value name="DEGREES"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>'
+
+// MOTION VM FUNCTIONS
 vm.runtime._primitives.motion_rotate = function (args, util) {
     let x = Number(args.NUM_X);
     let y = Number(args.NUM_Y);
@@ -85,17 +139,89 @@ vm.runtime._primitives.motion_setz = function (args, util) {
 }
 
 vm.runtime._primitives.motion_xposition = function (args, util) {
-
+    return Number(args.NUM_X);
 }
 
 vm.runtime._primitives.motion_yposition = function (args, util) {
-
+    return Number(args.NUM_Y);
 }
 
 vm.runtime._primitives.motion_zposition = function (args, util) {
+    return Number(args.NUM_Z);
+}
+
+// LOOKS VM FUNCTIONS
+vm.runtime._primitives.looks_show = function (args, util) {
 
 }
 
+vm.runtime._primitives.looks_hide = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_switchcostumeto = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_nextcostume = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_nextbackdrop = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_switchbackdropto = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_switchbackdroptoandwait = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_setscaleto = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_costumeorder = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_backdroporder = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_backdropname = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_setcamerato = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_changecameraxby = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_changecamerayby = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_changecamerazby = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_turncameraaroundx = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_turncameraaroundy = function (args, util) {
+
+}
+
+vm.runtime._primitives.looks_turncameraaroundz = function (args, util) {
+
+}
 
 let toolboxDOM = (new DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml')
 let newBlockDOM_rotate = (new DOMParser).parseFromString(NEW_BLOCK_STRING_rotate, 'text/xml')
@@ -110,6 +236,24 @@ let newBlockDOM_setz = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setz, 't
 let newBlockDOM_xposition = (new DOMParser).parseFromString(NEW_BLOCK_STRING_xposition, 'text/xml')
 let newBlockDOM_yposition = (new DOMParser).parseFromString(NEW_BLOCK_STRING_yposition, 'text/xml')
 let newBlockDOM_zposition = (new DOMParser).parseFromString(NEW_BLOCK_STRING_zposition, 'text/xml')
+let newBlockDOM_show = (new DOMParser).parseFromString(NEW_BLOCK_STRING_show, 'text/xml')
+let newBlockDOM_hide = (new DOMParser).parseFromString(NEW_BLOCK_STRING_hide, 'text/xml')
+let newBlockDOM_switchcostumeto = (new DOMParser).parseFromString(NEW_BLOCK_STRING_switchcostumeto, 'text/xml')
+let newBlockDOM_nextcostume = (new DOMParser).parseFromString(NEW_BLOCK_STRING_nextcostume, 'text/xml')
+let newBlockDOM_nextbackdrop = (new DOMParser).parseFromString(NEW_BLOCK_STRING_nextbackdrop, 'text/xml')
+let newBlockDOM_switchbackdropto = (new DOMParser).parseFromString(NEW_BLOCK_STRING_switchbackdropto, 'text/xml')
+let newBlockDOM_switchbackdroptoandwait = (new DOMParser).parseFromString(NEW_BLOCK_STRING_switchbackdroptoandwait, 'text/xml')
+let newBlockDOM_setscaleto = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setscaleto, 'text/xml')
+let newBlockDOM_costumeorder = (new DOMParser).parseFromString(NEW_BLOCK_STRING_costumeorder, 'text/xml')
+let newBlockDOM_backdroporder = (new DOMParser).parseFromString(NEW_BLOCK_STRING_backdroporder, 'text/xml')
+let newBlockDOM_backdropname = (new DOMParser).parseFromString(NEW_BLOCK_STRING_backdropname, 'text/xml')
+let newBlockDOM_setcamerato = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setcamerato, 'text/xml')
+let newBlockDOM_changecameraxby = (new DOMParser).parseFromString(NEW_BLOCK_STRING_changecameraxby, 'text/xml')
+let newBlockDOM_changecamerayby = (new DOMParser).parseFromString(NEW_BLOCK_STRING_changecamerayby, 'text/xml')
+let newBlockDOM_changecamerazby = (new DOMParser).parseFromString(NEW_BLOCK_STRING_changecamerazby, 'text/xml')
+let newBlockDOM_turncameraaroundx = (new DOMParser).parseFromString(NEW_BLOCK_STRING_turncameraaroundx, 'text/xml')
+let newBlockDOM_turncameraaroundy = (new DOMParser).parseFromString(NEW_BLOCK_STRING_turncameraaroundy, 'text/xml')
+let newBlockDOM_turncameraaroundz = (new DOMParser).parseFromString(NEW_BLOCK_STRING_turncameraaroundz, 'text/xml')
 
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_rotate.children[0])
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_setrotation.children[0])
@@ -123,6 +267,23 @@ toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_setz.children[
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_xposition.children[0])
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_yposition.children[0])
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_zposition.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_show.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_hide.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_switchcostumeto.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_nextcostume.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_nextbackdrop.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_switchbackdropto.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_switchbackdroptoandwait.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_setscaleto.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_costumeorder.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_backdroporder.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_setcamerato.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_changecameraxby.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_changecamerayby.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_changecamerazby.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_turncameraaroundx.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_turncameraaroundy.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_turncameraaroundz.children[0])
 
 let toolboxXML = (new XMLSerializer).serializeToString(toolboxDOM)
 Blockly.getMainWorkspace().updateToolbox(toolboxXML)
