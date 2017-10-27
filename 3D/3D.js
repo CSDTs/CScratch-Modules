@@ -99,6 +99,29 @@ let NEW_BLOCK_STRING_turncameraaroundy = '<block type="looks_turncameraaroundy" 
 let NEW_BLOCK_STRING_turncameraaroundz = '<block type="looks_turncameraaroundz" id="looks_changecameraxby">'
 +'<value name="DEGREES"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>'
 
+// SOUND BLOCKS
+let NEW_BLOCK_STRING_play = '<block type="sound_play" id="sound_play"><value name="SOUND_MENU">'
++'<shadow type="sound_sounds_menu"></shadow> </value></block>'
+
+let NEW_BLOCK_STRING_playuntildone = '<block type="sound_playuntildone" id="sound_playuntildone">'
++'<value name="SOUND_MENU"><shadow type="sound_sounds_menu"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_stopallsounds = '<block type="sound_stopallsounds" id="sound_stopallsounds"></block>'
+
+let NEW_BLOCK_STRING_playdrumforbeats = '<block type="sound_playdrumforbeats" id="sound_playdrumforbeats">'
++'<value name="DRUM"> +<shadow type="sound_drums_menu"></shadow> +</value> +<value name="BEATS">'
++'<shadow type="math_number"><field name="NUM">0.25</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_restforbeats = '<block type="sound_restforbeats" id="sound_restforbeats">'
++'<value name="BEATS"><shadow type="math_number"><field name="NUM">0.25</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_playnoteforbeats = '<block type="sound_playnoteforbeats" id="sound_playnoteforbeats">'
++'<value name="NOTE"><shadow type="math_number"><field name="NUM">60</field></shadow></value>'
++'<value name="BEATS"><shadow type="math_number"><field name="NUM">0.5</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_setinstrumentto = '<block type="sound_setinstrumentto" id="sound_setinstrumentto">'
++'<value name="INSTRUMENT"> +<shadow type="sound_instruments_menu"></shadow> +</value> +</block>'
+
 // MOTION VM FUNCTIONS
 vm.runtime._primitives.motion_rotate = function (args, util) {
     let x = Number(args.NUM_X);
@@ -223,6 +246,31 @@ vm.runtime._primitives.looks_turncameraaroundz = function (args, util) {
 
 }
 
+// SOUND VM FUNCTIONS
+vm.runtime._primitives.sound_play = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_playuntildone = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_stopallsounds = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_playdrumforbeats = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_restforbeats = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_playnoteforbeats = function (args, util) {
+
+}
+
 let toolboxDOM = (new DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml')
 let newBlockDOM_rotate = (new DOMParser).parseFromString(NEW_BLOCK_STRING_rotate, 'text/xml')
 let newBlockDOM_setrotation = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setrotation, 'text/xml')
@@ -254,6 +302,12 @@ let newBlockDOM_changecamerazby = (new DOMParser).parseFromString(NEW_BLOCK_STRI
 let newBlockDOM_turncameraaroundx = (new DOMParser).parseFromString(NEW_BLOCK_STRING_turncameraaroundx, 'text/xml')
 let newBlockDOM_turncameraaroundy = (new DOMParser).parseFromString(NEW_BLOCK_STRING_turncameraaroundy, 'text/xml')
 let newBlockDOM_turncameraaroundz = (new DOMParser).parseFromString(NEW_BLOCK_STRING_turncameraaroundz, 'text/xml')
+let newBlockDOM_play = (new DOMParser).parseFromString(NEW_BLOCK_STRING_play, 'text/xml')
+let newBlockDOM_playuntildone = (new DOMParser).parseFromString(NEW_BLOCK_STRING_playuntildone, 'text/xml')
+let newBlockDOM_stopallsounds = (new DOMParser).parseFromString(NEW_BLOCK_STRING_stopallsounds, 'text/xml')
+let newBlockDOM_playdrumforbeats = (new DOMParser).parseFromString(NEW_BLOCK_STRING_playdrumforbeats, 'text/xml')
+let newBlockDOM_restforbeats = (new DOMParser).parseFromString(NEW_BLOCK_STRING_restforbeats, 'text/xml')
+let newBlockDOM_playnoteforbeats = (new DOMParser).parseFromString(NEW_BLOCK_STRING_playnoteforbeats, 'text/xml')
 
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_rotate.children[0])
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_setrotation.children[0])
@@ -284,6 +338,12 @@ toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_changecamerazby
 toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_turncameraaroundx.children[0])
 toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_turncameraaroundy.children[0])
 toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_turncameraaroundz.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_play.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_playuntildone.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_stopallsounds.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_playdrumforbeats.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_restforbeats.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_playnoteforbeats.children[0])
 
 let toolboxXML = (new XMLSerializer).serializeToString(toolboxDOM)
 Blockly.getMainWorkspace().updateToolbox(toolboxXML)
