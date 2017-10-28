@@ -122,6 +122,30 @@ let NEW_BLOCK_STRING_playnoteforbeats = '<block type="sound_playnoteforbeats" id
 let NEW_BLOCK_STRING_setinstrumentto = '<block type="sound_setinstrumentto" id="sound_setinstrumentto">'
 +'<value name="INSTRUMENT"> +<shadow type="sound_instruments_menu"></shadow> +</value> +</block>'
 
+let NEW_BLOCK_STRING_changeeffectby = '<block type="sound_changeeffectby" id="sound_changeeffectby"> +'
++'<value name="VALUE"> +<shadow type="math_number"><field name="NUM">10</field></shadow></value> +</block> +'
+
+let NEW_BLOCK_STRING_seteffectto = '<block type="sound_seteffectto" id="sound_seteffectto"> +'
++'<value name="VALUE"> +<shadow type="math_number"><field name="NUM">100</field></shadow></value> +</block> +'
+
+let NEW_BLOCK_STRING_cleareffects = '<block type="sound_cleareffects" id="sound_cleareffects"></block> +'
+
+let NEW_BLOCK_STRING_changevolumeby = '<block type="sound_changevolumeby" id="sound_changevolumeby">'
++'<value name="VOLUME"><shadow type="math_number"><field name="NUM">-10</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_setvolumeto = '<block type="sound_setvolumeto" id="sound_setvolumeto"><value name="VOLUME">'
++'<shadow type="math_number"><field name="NUM">100</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_volume = '<block type="sound_volume" id="sound_volume"></block>'
+
+let NEW_BLOCK_STRING_changetempoby = '<block type="sound_changetempoby" id="sound_changetempoby">'
++'<value name="TEMPO"><shadow type="math_number"><field name="NUM">20</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_settempotobpm = '<block type="sound_settempotobpm" id="sound_settempotobpm">'
++'<value name="TEMPO"><shadow type="math_number"><field name="NUM">60</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_tempo = '<block type="sound_tempo" id="sound_tempo"></block>'
+
 // MOTION VM FUNCTIONS
 vm.runtime._primitives.motion_rotate = function (args, util) {
     let x = Number(args.NUM_X);
@@ -271,6 +295,46 @@ vm.runtime._primitives.sound_playnoteforbeats = function (args, util) {
 
 }
 
+vm.runtime._primitives.sound_setinstrumentto = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_changeeffectby = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_seteffectto = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_cleareffects = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_changevolumeby = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_setvolumeto = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_volume = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_changetempoby = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_settempotobpm = function (args, util) {
+
+}
+
+vm.runtime._primitives.sound_tempo = function (args, util) {
+
+}
+
 let toolboxDOM = (new DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml')
 let newBlockDOM_rotate = (new DOMParser).parseFromString(NEW_BLOCK_STRING_rotate, 'text/xml')
 let newBlockDOM_setrotation = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setrotation, 'text/xml')
@@ -308,6 +372,16 @@ let newBlockDOM_stopallsounds = (new DOMParser).parseFromString(NEW_BLOCK_STRING
 let newBlockDOM_playdrumforbeats = (new DOMParser).parseFromString(NEW_BLOCK_STRING_playdrumforbeats, 'text/xml')
 let newBlockDOM_restforbeats = (new DOMParser).parseFromString(NEW_BLOCK_STRING_restforbeats, 'text/xml')
 let newBlockDOM_playnoteforbeats = (new DOMParser).parseFromString(NEW_BLOCK_STRING_playnoteforbeats, 'text/xml')
+let newBlockDOM_setinstrumentto = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setinstrumentto, 'text/xml')
+let newBlockDOM_changeeffectby = (new DOMParser).parseFromString(NEW_BLOCK_STRING_changeeffectby, 'text/xml')
+let newBlockDOM_seteffectto = (new DOMParser).parseFromString(NEW_BLOCK_STRING_seteffectto, 'text/xml')
+let newBlockDOM_cleareffects = (new DOMParser).parseFromString(NEW_BLOCK_STRING_cleareffects, 'text/xml')
+let newBlockDOM_changevolumeby = (new DOMParser).parseFromString(NEW_BLOCK_STRING_changevolumeby, 'text/xml')
+let newBlockDOM_setvolumeto = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setvolumeto, 'text/xml')
+let newBlockDOM_volume = (new DOMParser).parseFromString(NEW_BLOCK_STRING_volume, 'text/xml')
+let newBlockDOM_changetempoby = (new DOMParser).parseFromString(NEW_BLOCK_STRING_changetempoby, 'text/xml')
+let newBlockDOM_settempotobpm = (new DOMParser).parseFromString(NEW_BLOCK_STRING_settempotobpm, 'text/xml')
+let newBlockDOM_tempo = (new DOMParser).parseFromString(NEW_BLOCK_STRING_tempo, 'text/xml')
 
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_rotate.children[0])
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_setrotation.children[0])
@@ -344,6 +418,16 @@ toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_stopallsounds.c
 toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_playdrumforbeats.children[0])
 toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_restforbeats.children[0])
 toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_playnoteforbeats.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_setinstrumentto.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_changeeffectby.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_seteffectto.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_cleareffects.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_changevolumeby.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_setvolumeto.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_volume.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_changetempoby.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_settempotobpm.children[0])
+toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_tempo.children[0])
 
 let toolboxXML = (new XMLSerializer).serializeToString(toolboxDOM)
 Blockly.getMainWorkspace().updateToolbox(toolboxXML)
