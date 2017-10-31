@@ -257,6 +257,79 @@ let NEW_BLOCK_STRING_current = '<block type="sensing_current" id="sensing_curren
 
 let NEW_BLOCK_STRING_dayssince2000 = '<block type="sensing_dayssince2000" id="sensing_dayssince2000"></block>'
 
+// OPERATORS BLOCKS
+let NEW_BLOCK_STRING_add = '<block type="operator_add" id="operator_add"><value name="NUM1">'
++'<shadow type="math_number"><field name="NUM"></field></shadow></value><value name="NUM2">'
++'<shadow type="math_number"><field name="NUM"></field></shadow></value></block>'
+
+let NEW_BL0CK_STRING_subtract = '<block type="operator_subtract" id="operator_subtract">'
++'<value name="NUM1"><shadow type="math_number"><field name="NUM"></field></shadow>'
++'</value><value name="NUM2"><shadow type="math_number"><field name="NUM"></field>'
++'</shadow></value></block>'
+
+let NEW_BLOCK_STRING_multiply = '<block type="operator_multiply" id="operator_multiply">'
++'<value name="NUM1"><shadow type="math_number"><field name="NUM"></field></shadow>'
++'</value><value name="NUM2"><shadow type="math_number"><field name="NUM"></field>'
++'</shadow></value></block>'
+
+let NEW_BLOCK_STRING_divide = '<block type="operator_divide" id="operator_divide">'
++'<value name="NUM1"><shadow type="math_number"><field name="NUM"></field></shadow>'
++'</value><value name="NUM2"><shadow type="math_number"><field name="NUM"></field>'
++'</shadow></value></block>'
+
+let NEW_BLOCK_STRING_random = '<block type="operator_random" id="operator_random">'
++'<value name="FROM"><shadow type="math_number"><field name="NUM">1</field>'
++'</shadow></value><value name="TO"><shadow type="math_number">'
++'<field name="NUM">10</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_lt = '<block type="operator_lt" id="operator_lt">'
++'<value name="OPERAND1"><shadow type="text"><field name="TEXT"></field></shadow>'
++'</value><value name="OPERAND2"><shadow type="text"><field name="TEXT"></field>'
++'</shadow></value></block>'
+
+let NEW_BLOCK_STRING_equals = '<block type="operator_equals" id="operator_equals">'
++'<value name="OPERAND1"><shadow type="text"><field name="TEXT"></field></shadow>'
++'</value><value name="OPERAND2"><shadow type="text"><field name="TEXT"></field>'
++'</shadow></value></block>'
+
+let NEW_BLOCK_STRING_gt = '<block type="operator_gt" id="operator_gt">'
++'<value name="OPERAND1"><shadow type="text"><field name="TEXT"></field>'
++'</shadow></value><value name="OPERAND2"><shadow type="text">'
++'<field name="TEXT"></field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_and = '<block type="operator_and" id="operator_and"></block>'
+
+let NEW_BLOCK_STRING_and = '<block type="operator_or" id="operator_or"></block>'
+
+let NEW_BLOCK_STRING_not = '<block type="operator_not" id="operator_not"></block>'
+
+let NEW_BLOCK_STRING_join = '<block type="operator_join" id="operator_join">'
++'<value name="STRING1"><shadow type="text"><field name="TEXT">hello</field>'
++'</shadow></value><value name="STRING2"><shadow type="text">'
++'<field name="TEXT">world</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_letter_of = '<block type="operator_letter_of" id="operator_letter_of">'
++'<value name="LETTER"><shadow type="math_whole_number"><field name="NUM">1</field>'
++'</shadow></value><value name="STRING"><shadow type="text"><field name="TEXT">world</field>'
++'</shadow></value></block>'
+
+let NEW_BLOCK_STRING_length = '<block type="operator_length" id="operator_length">'
++'<value name="STRING"><shadow type="text"><field name="TEXT">world</field>'
++'</shadow></value></block>'
+
+let NEW_BLOCK_STRING_mod = '<block type="operator_mod" id="operator_mod">'
++'<value name="NUM1"><shadow type="math_number"><field name="NUM"></field>'
++'</shadow></value><value name="NUM2"><shadow type="math_number">'
++'<field name="NUM"></field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_round = '<block type="operator_round" id="operator_round">'
++'<value name="NUM"><shadow type="math_number"><field name="NUM"></field>'
++'</shadow></value></block>'
+
+let NEW_BLOCK_STRING_mathop = '<block type="operator_mathop" id="operator_mathop">'
++'<value name="NUM"><shadow type="math_number"><field name="NUM"></field>'
++'</shadow></value></block>'
+
 // MOTION VM FUNCTIONS
 vm.runtime._primitives.motion_rotate = function (args, util) {
     let x = Number(args.NUM_X);
@@ -609,6 +682,74 @@ vm.runtime._primitives.sensing_dayssince2000 = function (args, util) {
 
 }
 
+// OPERATORS VM FUNCTIONS
+vm.runtime._primitives.operator_add = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_subtract = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_multiply = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_divide = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_random = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_lt = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_equals = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_gt = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_and = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_or = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_not = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_join = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_letter_of = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_length = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_mod = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_round = function (args, util) {
+
+}
+
+vm.runtime._primitives.operator_mathop = function (args, util) {
+
+}
 
 let toolboxDOM = (new DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml')
 let newBlockDOM_rotate = (new DOMParser).parseFromString(NEW_BLOCK_STRING_rotate, 'text/xml')
@@ -697,6 +838,23 @@ let newBlockDOM_resettimer = (new DOMParser).parseFromString(NEW_BLOCK_STRING_re
 let newBlockDOM_of = (new DOMParser).parseFromString(NEW_BLOCK_STRING_of, 'text/xml')
 let newBlockDOM_current = (new DOMParser).parseFromString(NEW_BLOCK_STRING_current, 'text/xml')
 let newBlockDOM_dayssince2000 = (new DOMParser).parseFromString(NEW_BLOCK_STRING_dayssince2000, 'text/xml')
+let newBlockDOM_add = (new DOMParser).parseFromString(NEW_BLOCK_STRING_add, 'text/xml')
+let newBlockDOM_subtract = (new DOMParser).parseFromString(NEW_BLOCK_STRING_subtract, 'text/xml')
+let newBlockDOM_multiply = (new DOMParser).parseFromString(NEW_BLOCK_STRING_multiply, 'text/xml')
+let newBlockDOM_divide = (new DOMParser).parseFromString(NEW_BLOCK_STRING_divide, 'text/xml')
+let newBlockDOM_random = (new DOMParser).parseFromString(NEW_BLOCK_STRING_random, 'text/xml')
+let newBlockDOM_lt = (new DOMParser).parseFromString(NEW_BLOCK_STRING_lt, 'text/xml')
+let newBlockDOM_equals = (new DOMParser).parseFromString(NEW_BLOCK_STRING_equals, 'text/xml')
+let newBlockDOM_gt = (new DOMParser).parseFromString(NEW_BLOCK_STRING_gt, 'text/xml')
+let newBlockDOM_and = (new DOMParser).parseFromString(NEW_BLOCK_STRING_and, 'text/xml')
+let newBlockDOM_or = (new DOMParser).parseFromString(NEW_BLOCK_STRING_or, 'text/xml')
+let newBlockDOM_not = (new DOMParser).parseFromString(NEW_BLOCK_STRING_not, 'text/xml')
+let newBlockDOM_join = (new DOMParser).parseFromString(NEW_BLOCK_STRING_join, 'text/xml')
+let newBlockDOM_letter_of = (new DOMParser).parseFromString(NEW_BLOCK_STRING_letter_of, 'text/xml')
+let newBlockDOM_length = (new DOMParser).parseFromString(NEW_BLOCK_STRING_length, 'text/xml')
+let newBlockDOM_mod = (new DOMParser).parseFromString(NEW_BLOCK_STRING_mod, 'text/xml')
+let newBlockDOM_round = (new DOMParser).parseFromString(NEW_BLOCK_STRING_round, 'text/xml')
+let newBlockDOM_mathop = (new DOMParser).parseFromString(NEW_BLOCK_STRING_mathop, 'text/xml')
 
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_rotate.children[0])
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_setrotation.children[0])
@@ -783,6 +941,23 @@ toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_resettimer.ch
 toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_of.children[0])
 toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_current.children[0])
 toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_dayssince2000.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_add.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_subtract.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_multiply.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_divide.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_random.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_lt.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_equals.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_gt.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_and.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_or.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_not.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_join.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_letter_of.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_length.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_mod.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_round.children[0])
+toolboxDOM.getElementsByName('operator')[0].appendChild(newBlockDOM_mathop.children[0])
 
 let toolboxXML = (new XMLSerializer).serializeToString(toolboxDOM)
 Blockly.getMainWorkspace().updateToolbox(toolboxXML)
