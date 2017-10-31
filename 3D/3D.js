@@ -146,6 +146,53 @@ let NEW_BLOCK_STRING_settempotobpm = '<block type="sound_settempotobpm" id="soun
 
 let NEW_BLOCK_STRING_tempo = '<block type="sound_tempo" id="sound_tempo"></block>'
 
+// PEN BLOCKS
+let NEW_BLOCK_STRING_clear = '<block type="pen_clear" id="pen_clear"></block>'
+
+let NEW_BLOCK_STRING_stamp = '<block type="pen_stamp" id="pen_stamp"></block>'
+
+let NEW_BLOCK_STRING_pendown = '<block type="pen_pendown" id="pen_pendown"></block>'
+
+let NEW_BLOCK_STRING_penup = '<block type="pen_penup" id="pen_penup"></block>'
+
+let NEW_BLOCK_STRING_setpencolortocolor = '<block type="pen_setpencolortocolor" id="pen_setpencolortocolor">'
++'<value name="COLOR"><shadow type="colour_picker"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_changepencolorby = '<block type="pen_changepencolorby" id="pen_changepencolorby">'
++'<value name="COLOR"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_setpencolortonum = '<block type="pen_setpencolortonum" id="pen_setpencolortonum">'
++'<value name="COLOR"><shadow type="math_number"><field name="NUM">0</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_changepenshadeby = '<block type="pen_changepenshadeby" id="pen_changepenshadeby">'
++'<value name="SHADE"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_setpenshadeto = '<block type="pen_setpenshadeto" id="pen_setpenshadeto">'
++'<value name="SHADE"><shadow type="math_number"><field name="NUM">50</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_changepensizeby = '<block type="pen_changepensizeby" id="pen_changepensizeby">'
++'<value name="SIZE"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_setpensizeto = '<block type="pen_setpensizeto" id="pen_setpensizeto">'
++'<value name="SIZE"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_sphere = '<block type="pen_sphere" id="pen_sphere"><value name="RADIUS">'
++'<shadow type="math_number"><field name="NUM">50</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_box = '<block type="pen_box" id="pen_box"><value name="WIDTH">'
++'<shadow type="math_number"><field name="NUM">50</field></shadow></value><value name="HEIGHT">'
++'<shadow type="math_number"><field name="NUM">50</field></shadow></value><value name="DEPTH">'
++'<shadow type="math_number"><field name="NUM">50</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_arc = '<block type="pen_arc" id="pen_box"><value name="WIDTH">'
++'<shadow type="math_number"><field name="NUM">50</field></shadow></value>'
++'<value name="HEIGHT"><shadow type="math_number"><field name="NUM">50</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_cylinder = '<block type="pen_cylinder" id="pen_box"><value name="TOP">'
++'<shadow type="math_number"><field name="NUM">50</field></shadow></value><value name="BOTTOM">'
++'<shadow type="math_number"><field name="NUM">50</field></shadow></value><value name="HEIGHT">'
++'<shadow type="math_number"><field name="NUM">100</field></shadow></value></block>'
+
 // MOTION VM FUNCTIONS
 vm.runtime._primitives.motion_rotate = function (args, util) {
     let x = Number(args.NUM_X);
@@ -335,6 +382,67 @@ vm.runtime._primitives.sound_tempo = function (args, util) {
 
 }
 
+// PEN VM FUNCTIONS
+vm.runtime._primitives.pen_clear = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_stamp = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_pendown = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_penup = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_setpencolortocolor = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_changepencolorby = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_setpencolortonum = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_changepenshadeby = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_setpenshadeto = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_changepensizeby = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_setpensizeto = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_sphere = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_box = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_arc = function (args, util) {
+
+}
+
+vm.runtime._primitives.pen_cylinder = function (args, util) {
+
+}
+
 let toolboxDOM = (new DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml')
 let newBlockDOM_rotate = (new DOMParser).parseFromString(NEW_BLOCK_STRING_rotate, 'text/xml')
 let newBlockDOM_setrotation = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setrotation, 'text/xml')
@@ -382,6 +490,21 @@ let newBlockDOM_volume = (new DOMParser).parseFromString(NEW_BLOCK_STRING_volume
 let newBlockDOM_changetempoby = (new DOMParser).parseFromString(NEW_BLOCK_STRING_changetempoby, 'text/xml')
 let newBlockDOM_settempotobpm = (new DOMParser).parseFromString(NEW_BLOCK_STRING_settempotobpm, 'text/xml')
 let newBlockDOM_tempo = (new DOMParser).parseFromString(NEW_BLOCK_STRING_tempo, 'text/xml')
+let newBlockDOM_clear = (new DOMParser).parseFromString(NEW_BLOCK_STRING_clear, 'text/xml')
+let newBlockDOM_stamp = (new DOMParser).parseFromString(NEW_BLOCK_STRING_stamp, 'text/xml')
+let newBlockDOM_pendown = (new DOMParser).parseFromString(NEW_BLOCK_STRING_pendown, 'text/xml')
+let newBlockDOM_penup = (new DOMParser).parseFromString(NEW_BLOCK_STRING_penup, 'text/xml')
+let newBlockDOM_setpencolortocolor = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setpencolortocolor, 'text/xml')
+let newBlockDOM_changepencolorby = (new DOMParser).parseFromString(NEW_BLOCK_STRING_changepencolorby, 'text/xml')
+let newBlockDOM_setpencolortonum = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setpencolortonum, 'text/xml')
+let newBlockDOM_changepenshadeby = (new DOMParser).parseFromString(NEW_BLOCK_STRING_changepenshadeby, 'text/xml')
+let newBlockDOM_setpenshadeto = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setpenshadeto, 'text/xml')
+let newBlockDOM_changepensizeby = (new DOMParser).parseFromString(NEW_BLOCK_STRING_changepensizeby, 'text/xml')
+let newBlockDOM_setpensizeto = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setpensizeto, 'text/xml')
+let newBlockDOM_sphere = (new DOMParser).parseFromString(NEW_BLOCK_STRING_sphere, 'text/xml')
+let newBlockDOM_box = (new DOMParser).parseFromString(NEW_BLOCK_STRING_box, 'text/xml')
+let newBlockDOM_arc = (new DOMParser).parseFromString(NEW_BLOCK_STRING_arc, 'text/xml')
+let newBlockDOM_cylinder = (new DOMParser).parseFromString(NEW_BLOCK_STRING_cylinder, 'text/xml')
 
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_rotate.children[0])
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_setrotation.children[0])
@@ -428,6 +551,21 @@ toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_volume.children
 toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_changetempoby.children[0])
 toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_settempotobpm.children[0])
 toolboxDOM.getElementsByName('sound')[0].appendChild(newBlockDOM_tempo.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_clear.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_stamp.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_pendown.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_penup.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_setpencolortocolor.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_changepencolorby.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_setpencolortonum.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_changepenshadeby.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_setpenshadeto.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_changepensizeby.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_setpensizeto.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_sphere.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_box.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_arc.children[0])
+toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_cylinder.children[0])
 
 let toolboxXML = (new XMLSerializer).serializeToString(toolboxDOM)
 Blockly.getMainWorkspace().updateToolbox(toolboxXML)
