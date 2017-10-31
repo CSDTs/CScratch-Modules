@@ -219,6 +219,44 @@ let NEW_BLOCK_STRING_create_clone_of = '<block type="control_create_clone_of" id
 
 let NEW_BLOCK_STRING_delete_this_clone = '<block type="control_delete_this_clone" id="control_delete_this_clone"></block>'
 
+// ALL SENSING BLOCKS
+let NEW_BLOCK_STRING_touchingobject = '<block type="sensing_touchingobject" id="sensing_touchingobject">'
++'<value name="TOUCHINGOBJECTMENU"><shadow type="sensing_touchingobjectmenu"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_touchingcolor = '<block type="sensing_touchingcolor" id="sensing_touchingcolor">'
++'<value name="COLOR"><shadow type="colour_picker"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_coloristouchingcolor = '<block type="sensing_coloristouchingcolor" id="sensing_coloristouchingcolor">'
++'<value name="COLOR"><shadow type="colour_picker"></shadow></value><value name="COLOR2">'
++'<shadow type="colour_picker"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_distanceto = '<block type="sensing_distanceto" id="sensing_distanceto">'
++'<value name="DISTANCETOMENU"><shadow type="sensing_distancetomenu"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_keypressed = '<block type="sensing_keypressed" id="sensing_keypressed">'
++'<value name="KEY_OPTION"><shadow type="sensing_keyoptions"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_mousedown = '<block type="sensing_mousedown" id="sensing_mousedown"></block>'
+
+let NEW_BLOCK_STRING_mousex = '<block type="sensing_mousex" id="sensing_mousex"></block>'
+
+let NEW_BLOCK_STRING_mousey = '<block type="sensing_mousey" id="sensing_mousey"></block>'
+
+let NEW_BLOCK_STRING_loudness = '<block type="sensing_loudness" id="sensing_loudness"></block>'
+
+let NEW_BLOCK_STRING_timer = '<block type="sensing_timer" id="sensing_timer"></block>'
+
+let NEW_BLOCK_STRING_resettimer = '<block type="sensing_resettimer" id="sensing_resettimer"></block>'
+
+let NEW_BLOCK_STRING_of = '<block type="sensing_of" id="sensing_of"><value name="PROPERTY">'
++'<shadow type="sensing_of_property_menu"></shadow></value><value name="OBJECT">'
++'<shadow type="sensing_of_object_menu"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_current = '<block type="sensing_current" id="sensing_current">'
++'<value name="CURRENTMENU"><shadow type="sensing_currentmenu"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_dayssince2000 = '<block type="sensing_dayssince2000" id="sensing_dayssince2000"></block>'
+
 // MOTION VM FUNCTIONS
 vm.runtime._primitives.motion_rotate = function (args, util) {
     let x = Number(args.NUM_X);
@@ -514,6 +552,63 @@ vm.runtime._primitives.control_delete_this_clone = function (args, util) {
 
 }
 
+// SENSING VM FUNCTIONS
+vm.runtime._primitives.sensing_touchingobject = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_touchingcolor = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_coloristouchingcolor = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_distanceto = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_keypressed = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_mousedown = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_mousex = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_mousey = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_loudness = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_timer = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_resettimer = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_of = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_current = function (args, util) {
+
+}
+
+vm.runtime._primitives.sensing_dayssince2000 = function (args, util) {
+
+}
+
 
 let toolboxDOM = (new DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml')
 let newBlockDOM_rotate = (new DOMParser).parseFromString(NEW_BLOCK_STRING_rotate, 'text/xml')
@@ -588,6 +683,20 @@ let newBlockDOM_stop = (new DOMParser).parseFromString(NEW_BLOCK_STRING_stop, 't
 let newBlockDOM_start_as_clone = (new DOMParser).parseFromString(NEW_BLOCK_STRING_start_as_clone, 'text/xml')
 let newBlockDOM_create_clone_of = (new DOMParser).parseFromString(NEW_BLOCK_STRING_create_clone_of, 'text/xml')
 let newBlockDOM_delete_this_clone = (new DOMParser).parseFromString(NEW_BLOCK_STRING_delete_this_clone, 'text/xml')
+let newBlockDOM_touchingobject = (new DOMParser).parseFromString(NEW_BLOCK_STRING_touchingobject, 'text/xml')
+let newBlockDOM_touchingcolor = (new DOMParser).parseFromString(NEW_BLOCK_STRING_touchingcolor, 'text/xml')
+let newBlockDOM_coloristouchingcolor = (new DOMParser).parseFromString(NEW_BLOCK_STRING_coloristouchingcolor, 'text/xml')
+let newBlockDOM_distanceto = (new DOMParser).parseFromString(NEW_BLOCK_STRING_distanceto, 'text/xml')
+let newBlockDOM_keypressed = (new DOMParser).parseFromString(NEW_BLOCK_STRING_keypressed, 'text/xml')
+let newBlockDOM_mousedown = (new DOMParser).parseFromString(NEW_BLOCK_STRING_mousedown, 'text/xml')
+let newBlockDOM_mousex = (new DOMParser).parseFromString(NEW_BLOCK_STRING_mousex, 'text/xml')
+let newBlockDOM_mousey = (new DOMParser).parseFromString(NEW_BLOCK_STRING_mousey, 'text/xml')
+let newBlockDOM_loudness = (new DOMParser).parseFromString(NEW_BLOCK_STRING_loudness, 'text/xml')
+let newBlockDOM_timer = (new DOMParser).parseFromString(NEW_BLOCK_STRING_timer, 'text/xml')
+let newBlockDOM_resettimer = (new DOMParser).parseFromString(NEW_BLOCK_STRING_resettimer, 'text/xml')
+let newBlockDOM_of = (new DOMParser).parseFromString(NEW_BLOCK_STRING_of, 'text/xml')
+let newBlockDOM_current = (new DOMParser).parseFromString(NEW_BLOCK_STRING_current, 'text/xml')
+let newBlockDOM_dayssince2000 = (new DOMParser).parseFromString(NEW_BLOCK_STRING_dayssince2000, 'text/xml')
 
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_rotate.children[0])
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_setrotation.children[0])
@@ -660,6 +769,20 @@ toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_stop.children
 toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_start_as_clone.children[0])
 toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_create_clone_of.children[0])
 toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_delete_this_clone.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_touchingobject.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_touchingcolor.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_coloristouchingcolor.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_distanceto.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_keypressed.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_mousedown.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_mousex.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_mousey.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_loudness.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_timer.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_resettimer.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_of.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_current.children[0])
+toolboxDOM.getElementsByName('sensing')[0].appendChild(newBlockDOM_dayssince2000.children[0])
 
 let toolboxXML = (new XMLSerializer).serializeToString(toolboxDOM)
 Blockly.getMainWorkspace().updateToolbox(toolboxXML)
