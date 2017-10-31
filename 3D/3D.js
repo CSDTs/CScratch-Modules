@@ -193,6 +193,32 @@ let NEW_BLOCK_STRING_cylinder = '<block type="pen_cylinder" id="pen_box"><value 
 +'<shadow type="math_number"><field name="NUM">50</field></shadow></value><value name="HEIGHT">'
 +'<shadow type="math_number"><field name="NUM">100</field></shadow></value></block>'
 
+// CONTROL BLOCKS
+let NEW_BLOCK_STRING_wait = '<block type="control_wait" id="control_wait"><value name="DURATION">'
++'<shadow type="math_positive_number"><field name="NUM">1</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_repeat = '<block type="control_repeat" id="control_repeat"><value name="TIMES">'
++'<shadow type="math_whole_number"><field name="NUM">10</field></shadow></value></block>'
+
+let NEW_BLOCK_STRING_forever = '<block type="control_forever" id="control_forever"></block>'
+
+let NEW_BLOCK_STRING_if = '<block type="control_if" id="control_if"></block>'
+
+let NEW_BLOCK_STRING_if_else = '<block type="control_if_else" id="control_if_else"></block>'
+
+let NEW_BLOCK_STRING_wait_until = '<block type="control_wait_until" id="control_wait_until"></block>'
+
+let NEW_BLOCK_STRING_repeat_until = '<block type="control_repeat_until" id="control_repeat_until"></block>'
+
+let NEW_BLOCK_STRING_stop = '<block type="control_stop" id="control_stop"></block>'
+
+let NEW_BLOCK_STRING_start_as_clone = '<block type="control_start_as_clone" id="control_start_as_clone"></block>'
+
+let NEW_BLOCK_STRING_create_clone_of = '<block type="control_create_clone_of" id="control_create_clone_of">'
++'<value name="CLONE_OPTION"><shadow type="control_create_clone_of_menu"></shadow></value></block>'
+
+let NEW_BLOCK_STRING_delete_this_clone = '<block type="control_delete_this_clone" id="control_delete_this_clone"></block>'
+
 // MOTION VM FUNCTIONS
 vm.runtime._primitives.motion_rotate = function (args, util) {
     let x = Number(args.NUM_X);
@@ -443,6 +469,52 @@ vm.runtime._primitives.pen_cylinder = function (args, util) {
 
 }
 
+// CONTROL VM FUNCTIONS
+vm.runtime._primitives.control_wait = function (args, util) {
+
+}
+
+vm.runtime._primitives.control_repeat = function (args, util) {
+
+}
+
+vm.runtime._primitives.control_forever = function (args, util) {
+
+}
+
+vm.runtime._primitives.control_if = function (args, util) {
+
+}
+
+vm.runtime._primitives.control_if_else = function (args, util) {
+
+}
+
+vm.runtime._primitives.control_wait_until = function (args, util) {
+
+}
+
+vm.runtime._primitives.control_repeat_until = function (args, util) {
+
+}
+
+vm.runtime._primitives.control_stop = function (args, util) {
+
+}
+
+vm.runtime._primitives.control_start_as_clone = function (args, util) {
+
+}
+
+vm.runtime._primitives.control_create_clone_of = function (args, util) {
+
+}
+
+vm.runtime._primitives.control_delete_this_clone = function (args, util) {
+
+}
+
+
 let toolboxDOM = (new DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml')
 let newBlockDOM_rotate = (new DOMParser).parseFromString(NEW_BLOCK_STRING_rotate, 'text/xml')
 let newBlockDOM_setrotation = (new DOMParser).parseFromString(NEW_BLOCK_STRING_setrotation, 'text/xml')
@@ -505,6 +577,17 @@ let newBlockDOM_sphere = (new DOMParser).parseFromString(NEW_BLOCK_STRING_sphere
 let newBlockDOM_box = (new DOMParser).parseFromString(NEW_BLOCK_STRING_box, 'text/xml')
 let newBlockDOM_arc = (new DOMParser).parseFromString(NEW_BLOCK_STRING_arc, 'text/xml')
 let newBlockDOM_cylinder = (new DOMParser).parseFromString(NEW_BLOCK_STRING_cylinder, 'text/xml')
+let newBlockDOM_wait = (new DOMParser).parseFromString(NEW_BLOCK_STRING_wait, 'text/xml')
+let newBlockDOM_repeat = (new DOMParser).parseFromString(NEW_BLOCK_STRING_repeat, 'text/xml')
+let newBlockDOM_forever = (new DOMParser).parseFromString(NEW_BLOCK_STRING_forever, 'text/xml')
+let newBlockDOM_if = (new DOMParser).parseFromString(NEW_BLOCK_STRING_if, 'text/xml')
+let newBlockDOM_if_else = (new DOMParser).parseFromString(NEW_BLOCK_STRING_if_else, 'text/xml')
+let newBlockDOM_wait_until = (new DOMParser).parseFromString(NEW_BLOCK_STRING_wait_until, 'text/xml')
+let newBlockDOM_repeat_until = (new DOMParser).parseFromString(NEW_BLOCK_STRING_repeat_until, 'text/xml')
+let newBlockDOM_stop = (new DOMParser).parseFromString(NEW_BLOCK_STRING_stop, 'text/xml')
+let newBlockDOM_start_as_clone = (new DOMParser).parseFromString(NEW_BLOCK_STRING_start_as_clone, 'text/xml')
+let newBlockDOM_create_clone_of = (new DOMParser).parseFromString(NEW_BLOCK_STRING_create_clone_of, 'text/xml')
+let newBlockDOM_delete_this_clone = (new DOMParser).parseFromString(NEW_BLOCK_STRING_delete_this_clone, 'text/xml')
 
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_rotate.children[0])
 toolboxDOM.getElementsByName('motion')[0].appendChild(newBlockDOM_setrotation.children[0])
@@ -566,6 +649,17 @@ toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_sphere.children[0
 toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_box.children[0])
 toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_arc.children[0])
 toolboxDOM.getElementsByName('pen')[0].appendChild(newBlockDOM_cylinder.children[0])
+toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_wait.children[0])
+toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_repeat.children[0])
+toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_forever.children[0])
+toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_if.children[0])
+toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_if_else.children[0])
+toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_wait_until.children[0])
+toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_repeat_until.children[0])
+toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_stop.children[0])
+toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_start_as_clone.children[0])
+toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_create_clone_of.children[0])
+toolboxDOM.getElementsByName('control')[0].appendChild(newBlockDOM_delete_this_clone.children[0])
 
 let toolboxXML = (new XMLSerializer).serializeToString(toolboxDOM)
 Blockly.getMainWorkspace().updateToolbox(toolboxXML)
