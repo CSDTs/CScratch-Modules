@@ -437,19 +437,45 @@ vm.runtime._primitives.looks_backdropname = function (args, util) {
 }
 
 vm.runtime._primitives.looks_setcamerato = function (args, util) {
-
+    if (!util.target.isStage) return;
+    this.runtime.renderer.cameraPosition = [
+        Cast.toNumber(args.X),
+        Cast.toNumber(args.Y),
+        Cast.toNumber(args.Z)
+    ];
 }
 
 vm.runtime._primitives.looks_changecameraxby = function (args, util) {
-
+    if (!util.target.isStage) return;
+    const renderer = this.runtime.renderer;
+    const currentPosition = renderer.cameraPosition;
+    renderer.cameraPosition = [
+        currentPosition[0] + Cast.toNumber(args.DX),
+        currentPosition[1],
+        currentPosition[2]
+    ];
 }
 
 vm.runtime._primitives.looks_changecamerayby = function (args, util) {
-
+    if (!util.target.isStage) return;
+    const renderer = this.runtime.renderer;
+    const currentPosition = renderer.cameraPosition;
+    renderer.cameraPosition = [
+        currentPosition[0],
+        currentPosition[1] + Cast.toNumber(args.DY),
+        currentPosition[2]
+    ];
 }
 
 vm.runtime._primitives.looks_changecamerazby = function (args, util) {
-
+    if (!util.target.isStage) return;
+    const renderer = this.runtime.renderer;
+    const currentPosition = renderer.cameraPosition;
+    renderer.cameraPosition = [
+        currentPosition[0],
+        currentPosition[1],
+        currentPosition[2] + Cast.toNumber(args.DZ)
+    ];
 }
 
 vm.runtime._primitives.looks_turncameraaroundx = function (args, util) {
@@ -726,35 +752,75 @@ vm.runtime._primitives.pen_cylinder = function (args, util) {
 
 // CONTROL VM FUNCTIONS
 vm.runtime._primitives.control_wait = function (args, util) {
-
+    var duration = Math.max(0, 1000 * Cast.toNumber(args.DURATION));
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve();
+        }, duration);
+    });
 }
 
 vm.runtime._primitives.control_repeat = function (args, util) {
-
+    var times = Math.floor(Cast.toNumber(args.TIMES));
+    // Initialize loop
+    if (typeof util.stackFrame.loopCounter === 'undefined') {
+        util.stackFrame.loopCounter = times;
+    }
+    // Only execute once per frame.
+    // When the branch finishes, `repeat` will be executed again and
+    // the second branch will be taken, yielding for the rest of the frame.
+    // Decrease counter
+    util.stackFrame.loopCounter--;
+    // If we still have some left, start the branch.
+    if (util.stackFrame.loopCounter >= 0) {
+        util.startBranch(1, true);
+    }
 }
 
 vm.runtime._primitives.control_forever = function (args, util) {
-
+    util.startBranch(1, true);
 }
 
 vm.runtime._primitives.control_if = function (args, util) {
-
+    var condition = Cast.toBoolean(args.CONDITION);
+    if (condition) {
+        util.startBranch(1, false);
+    }
 }
 
 vm.runtime._primitives.control_if_else = function (args, util) {
-
+    var condition = Cast.toBoolean(args.CONDITION);
+    if (condition) {
+        util.startBranch(1, false);
+    } else {
+        util.startBranch(2, false);
+    }
 }
 
 vm.runtime._primitives.control_wait_until = function (args, util) {
-
+    var condition = Cast.toBoolean(args.CONDITION);
+    if (!condition) {
+        util.yield();
+    }
 }
 
 vm.runtime._primitives.control_repeat_until = function (args, util) {
-
+    var condition = Cast.toBoolean(args.CONDITION);
+    // If the condition is true, start the branch.
+    if (!condition) {
+        util.startBranch(1, true);
+    }
 }
 
 vm.runtime._primitives.control_stop = function (args, util) {
-
+    var option = args.STOP_OPTION;
+    if (option === 'all') {
+        util.stopAll();
+    } else if (option === 'other scripts in sprite' || option === 'other scripts in stage') {
+        util.stopOtherTargetThreads();
+    } else if (option === 'this script') {
+        util.stopThisScript();
+    }
 }
 
 vm.runtime._primitives.control_start_as_clone = function (args, util) {
@@ -766,7 +832,9 @@ vm.runtime._primitives.control_create_clone_of = function (args, util) {
 }
 
 vm.runtime._primitives.control_delete_this_clone = function (args, util) {
-
+    if (util.target.isOriginal) return;
+    this.runtime.disposeTarget(util.target);
+    this.runtime.stopForTarget(util.target);
 }
 
 // SENSING VM FUNCTIONS
