@@ -520,64 +520,198 @@ vm.runtime._primitives.sound_tempo = function (args, util) {
 }
 
 // PEN VM FUNCTIONS
+/**
+ * The pen "clear" block clears the pen layer's contents.
+ */
 vm.runtime._primitives.pen_clear = function (args, util) {
-
+    const penSkinId = this._getPenLayerID();
+    if (penSkinId >= 0) {
+        this.runtime.renderer.penClear(penSkinId);
+        this.runtime.requestRedraw();
+    }
 }
-
+/**
+ * The pen "stamp" block stamps the current drawable's image onto the pen layer.
+ * @param {object} args - the block arguments.
+ * @param {object} util - utility object provided by the runtime.
+ */
 vm.runtime._primitives.pen_stamp = function (args, util) {
-
+    const penSkinId = this._getPenLayerID();
+    if (penSkinId >= 0) {
+        const target = util.target;
+        this.runtime.renderer.penStamp(penSkinId, target.drawableID);
+        this.runtime.requestRedraw();
+    }
 }
-
+/**
+ * The pen "pen down" block causes the target to leave pen trails on future motion.
+ * @param {object} args - the block arguments.
+ * @param {object} util - utility object provided by the runtime.
+ */
 vm.runtime._primitives.pen_pendown = function (args, util) {
+    const target = util.target;
+    const penState = this._getPenState(target);
 
+    if (!penState.penDown) {
+        penState.penDown = true;
+        target.addListener(RenderedTarget.EVENT_TARGET_MOVED, this._onTargetMoved);
+    }
+
+    const penSkinId = this._getPenLayerID();
+    if (penSkinId >= 0) {
+        this.runtime.renderer.penPoint(penSkinId, penState.penAttributes, target.position);
+        this.runtime.requestRedraw();
+    }
 }
-
+/**
+ * The pen "pen up" block stops the target from leaving pen trails.
+ * @param {object} args - the block arguments.
+ * @param {object} util - utility object provided by the runtime.
+ */
 vm.runtime._primitives.pen_penup = function (args, util) {
+    const target = util.target;
+    const penState = this._getPenState(target);
 
+    if (penState.penDown) {
+        penState.penDown = false;
+        target.removeListener(RenderedTarget.EVENT_TARGET_MOVED, this._onTargetMoved);
+    }
 }
-
+/**
+ * The pen "set pen color to {color}" block sets the pen to a particular RGB color.
+ * @param {object} args - the block arguments.
+ *  @property {int} COLOR - the color to set, expressed as a 24-bit RGB value (0xRRGGBB).
+ * @param {object} util - utility object provided by the runtime.
+ */
 vm.runtime._primitives.pen_setpencolortocolor = function (args, util) {
+    const penState = this._getPenState(util.target);
+    const rgb = Cast.toRgbColorObject(args.COLOR);
+    const hsv = Color.rgbToHsv(rgb);
 
+    penState.hue = 200 * hsv.h / 360;
+    penState.shade = 50 * hsv.v;
+    penState.penAttributes.color[0] = rgb.r / 255.0;
+    penState.penAttributes.color[1] = rgb.g / 255.0;
+    penState.penAttributes.color[2] = rgb.b / 255.0;
+    if (rgb.hasOwnProperty('a')) {  // Will there always be an 'a'?
+        penState.penAttributes.color[3] = rgb.a / 255.0;
+    } else {
+        penState.penAttributes.color[3] = 1;
+    }
 }
-
+/**
+ * The pen "change pen color by {number}" block rotates the hue of the pen by the given amount.
+ * @param {object} args - the block arguments.
+ *  @property {number} COLOR - the amount of desired hue rotation.
+ * @param {object} util - utility object provided by the runtime.
+ */
 vm.runtime._primitives.pen_changepencolorby = function (args, util) {
-
+    const penState = this._getPenState(util.target);
+    penState.hue = this._wrapHueOrShade(penState.hue + Cast.toNumber(args.COLOR));
+    this._updatePenColor(penState);
 }
-
+/**
+ * The pen "set pen color to {number}" block sets the hue of the pen.
+ * @param {object} args - the block arguments.
+ *  @property {number} COLOR - the desired hue.
+ * @param {object} util - utility object provided by the runtime.
+ */
 vm.runtime._primitives.pen_setpencolortonum = function (args, util) {
-
+    const penState = this._getPenState(util.target);
+    penState.hue = this._wrapHueOrShade(Cast.toNumber(args.COLOR));
+    this._updatePenColor(penState);
 }
-
+/**
+ * The pen "change pen shade by {number}" block changes the "shade" of the pen, related to the HSV value.
+ * @param {object} args - the block arguments.
+ *  @property {number} SHADE - the amount of desired shade change.
+ * @param {object} util - utility object provided by the runtime.
+ */
 vm.runtime._primitives.pen_changepenshadeby = function (args, util) {
-
+    const penState = this._getPenState(util.target);
+    penState.shade = this._wrapHueOrShade(penState.shade + Cast.toNumber(args.SHADE));
+    this._updatePenColor(penState);
 }
-
+/**
+ * The pen "set pen shade to {number}" block sets the "shade" of the pen, related to the HSV value.
+ * @param {object} args - the block arguments.
+ *  @property {number} SHADE - the amount of desired shade change.
+ * @param {object} util - utility object provided by the runtime.
+ */
 vm.runtime._primitives.pen_setpenshadeto = function (args, util) {
-
+    const penState = this._getPenState(util.target);
+    penState.shade = this._wrapHueOrShade(Cast.toNumber(args.SHADE));
+    this._updatePenColor(penState);
 }
-
+/**
+ * The pen "change pen size by {number}" block changes the pen size by the given amount.
+ * @param {object} args - the block arguments.
+ *  @property {number} SIZE - the amount of desired size change.
+ * @param {object} util - utility object provided by the runtime.
+ */
 vm.runtime._primitives.pen_changepensizeby = function (args, util) {
-
+    const penAttributes = this._getPenState(util.target).penAttributes;
+    penAttributes.diameter = this._clampPenSize(penAttributes.diameter + Cast.toNumber(args.SIZE));
 }
-
+/**
+ * The pen "set pen size to {number}" block sets the pen size to the given amount.
+ * @param {object} args - the block arguments.
+ *  @property {number} SIZE - the amount of desired size change.
+ * @param {object} util - utility object provided by the runtime.
+ */
 vm.runtime._primitives.pen_setpensizeto = function (args, util) {
-
+    const penAttributes = this._getPenState(util.target).penAttributes;
+    penAttributes.diameter = this._clampPenSize(Cast.toNumber(args.SIZE));
 }
 
 vm.runtime._primitives.pen_sphere = function (args, util) {
+    const target = util.target;
+    const penAttributes = this._getPenState(target).penAttributes;
+    const penSkinId = this._getPenLayerID();
 
+    if (penSkinId >= 0) {
+        this.runtime.renderer.penSphere(penSkinId, penAttributes, Cast.toNumber(args.RADIUS), target.position);
+        this.runtime.requestRedraw();
+    }
 }
 
 vm.runtime._primitives.pen_box = function (args, util) {
+    const target = util.target;
+    const penAttributes = this._getPenState(target).penAttributes;
+    const penSkinId = this._getPenLayerID();
 
+    if (penSkinId >= 0) {
+        const dimensions = [Cast.toNumber(args.WIDTH), Cast.toNumber(args.HEIGHT), Cast.toNumber(args.DEPTH)];
+        const position = target.position;
+        const rotation = target.rotation;
+        this.runtime.renderer.penCube(penSkinId, penAttributes, dimensions, position, rotation);
+    }
 }
 
 vm.runtime._primitives.pen_arc = function (args, util) {
+    const target = util.target;
+    const penAttributes = this._getPenState(target).penAttributes;
+    const penSkinId = this._getPenLayerID();
 
+    if (penSkinId >= 0) {
+        const dimensions = [Cast.toNumber(args.WIDTH), Cast.toNumber(args.HEIGHT)];
+        const position = target.position;
+        const rotation = target.rotation;
+        this.runtime.renderer.penArc(penSkinId, penAttributes, dimensions, position, rotation);
+    }
 }
 
 vm.runtime._primitives.pen_cylinder = function (args, util) {
+    const target = util.target;
+    const penAttributes = this._getPenState(target).penAttributes;
+    const penSkinId = this._getPenLayerID();
 
+    if (penSkinId >= 0) {
+        const dimensions = [Cast.toNumber(args.TOP), Cast.toNumber(args.BOTTOM), Cast.toNumber(args.HEIGHT)];
+        const position = target.position;
+        const rotation = target.rotation;
+        this.runtime.renderer.penCylinder(penSkinId, penAttributes, dimensions, position, rotation);
+    }
 }
 
 // CONTROL VM FUNCTIONS
