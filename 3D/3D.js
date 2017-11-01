@@ -332,53 +332,63 @@ let NEW_BLOCK_STRING_mathop = '<block type="operator_mathop" id="operator_mathop
 
 // MOTION VM FUNCTIONS
 vm.runtime._primitives.motion_rotate = function (args, util) {
-    let x = Number(args.NUM_X);
-    let y = Number(args.NUM_Y);
-    let z = Number(args.NUM_Z);
+    util.target.setRotation(
+        util.target.rotation[0] + Cast.toNumber(args.DEGREESX),
+        util.target.rotation[1] + Cast.toNumber(args.DEGREESY),
+        util.target.rotation[2] + Cast.toNumber(args.DEGREESZ)
+    );
 }
 
 vm.runtime._primitives.motion_setrotation = function (args, util) {
-
+    util.target.setRotation(
+        Cast.toNumber(args.DEGREESX),
+        Cast.toNumber(args.DEGREESY),
+        Cast.toNumber(args.DEGREESZ)
+    );
 }
 
 vm.runtime._primitives.motion_gotoxyz = function (args, util) {
-
+    util.target.setXYZ(
+        Cast.toNumber(args.X),
+        Cast.toNumber(args.Y),
+        Cast.toNumber(args.Z)
+    );
 }
 
 vm.runtime._primitives.motion_changexby = function (args, util) {
-
+    util.target.setXYZ(util.target.x + Cast.toNumber(args.DX), util.target.y, util.target.z);
 }
 
 vm.runtime._primitives.motion_setx = function (args, util) {
-
+    util.target.setXYZ(Cast.toNumber(args.X), util.target.y, util.target.z);
 }
 
 vm.runtime._primitives.motion_changeyby = function (args, util) {
-
+    util.target.setXYZ(util.target.x, util.target.y + Cast.toNumber(args.DY), util.target.z);
 }
 
 vm.runtime._primitives.motion_sety = function (args, util) {
-
+    util.target.setXYZ(util.target.x, Cast.toNumber(args.Y), util.target.z);
 }
 
 vm.runtime._primitives.motion_changezby = function (args, util) {
-
+    util.target.setXYZ(util.target.x, util.target.y, util.target.z + Cast.toNumber(args.DZ));
 }
 
 vm.runtime._primitives.motion_setz = function (args, util) {
-
+    util.target.setXYZ(util.target.x, util.target.y, Cast.toNumber(args.Z));
 }
 
 vm.runtime._primitives.motion_xposition = function (args, util) {
-    return Number(args.NUM_X);
+    return util.target.x;
 }
 
 vm.runtime._primitives.motion_yposition = function (args, util) {
-    return Number(args.NUM_Y);
+    return util.target.y;
 }
 
 vm.runtime._primitives.motion_zposition = function (args, util) {
-    return Number(args.NUM_Z);
+    return util.target.z;
 }
 
 // LOOKS VM FUNCTIONS
