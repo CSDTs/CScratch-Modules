@@ -492,67 +492,170 @@ vm.runtime._primitives.looks_turncameraaroundz = function (args, util) {
 
 // SOUND VM FUNCTIONS
 vm.runtime._primitives.sound_play = function (args, util) {
-
+    var index = this._getSoundIndex(args.SOUND_MENU, util);
+    if (index >= 0) {
+        var soundId = util.target.sprite.sounds[index].soundId;
+        if (util.target.audioPlayer === null) return;
+        util.target.audioPlayer.playSound(soundId);
+    }
 }
 
 vm.runtime._primitives.sound_playuntildone = function (args, util) {
+    var index = this._getSoundIndex(args.SOUND_MENU, util);
+    if (index >= 0) {
+        var soundId = util.target.sprite.sounds[index].soundId;
+        if (util.target.audioPlayer === null) return;
+        return util.target.audioPlayer.playSound(soundId);
+    }
+}
 
+function _getSoundIndex(soundName, util) {
+    // if the sprite has no sounds, return -1
+    var len = util.target.sprite.sounds.length;
+    if (len === 0) {
+        return -1;
+    }
+
+    // look up by name first
+    var index = this.getSoundIndexByName(soundName, util);
+    if (index !== -1) {
+        return index;
+    }
+
+    // then try using the sound name as a 1-indexed index
+    var oneIndexedIndex = parseInt(soundName, 10);
+    if (!isNaN(oneIndexedIndex)) {
+        return MathUtil.wrapClamp(oneIndexedIndex - 1, 0, len - 1);
+    }
+
+    // could not be found as a name or converted to index, return -1
+    return -1;
 }
 
 vm.runtime._primitives.sound_stopallsounds = function (args, util) {
-
+    if (util.target.audioPlayer === null) return;
+    util.target.audioPlayer.stopAllSounds();
 }
 
 vm.runtime._primitives.sound_playdrumforbeats = function (args, util) {
-
+    var drum = Cast.toNumber(args.DRUM);
+    drum -= 1; // drums are one-indexed
+    if (typeof this.runtime.audioEngine === 'undefined') return;
+    drum = MathUtil.wrapClamp(drum, 0, this.runtime.audioEngine.numDrums - 1);
+    var beats = Cast.toNumber(args.BEATS);
+    beats = this._clampBeats(beats);
+    if (util.target.audioPlayer === null) return;
+    return util.target.audioPlayer.playDrumForBeats(drum, beats);
 }
 
 vm.runtime._primitives.sound_restforbeats = function (args, util) {
-
+    var beats = Cast.toNumber(args.BEATS);
+    beats = this._clampBeats(beats);
+    if (typeof this.runtime.audioEngine === 'undefined') return;
+    return this.runtime.audioEngine.waitForBeats(beats);
 }
 
 vm.runtime._primitives.sound_playnoteforbeats = function (args, util) {
+    var note = Cast.toNumber(args.NOTE);
+    note = MathUtil.clamp(note, Scratch3SoundBlocks.MIDI_NOTE_RANGE.min, Scratch3SoundBlocks.MIDI_NOTE_RANGE.max);
+    var beats = Cast.toNumber(args.BEATS);
+    beats = this._clampBeats(beats);
+    var soundState = this._getSoundState(util.target);
+    var inst = soundState.currentInstrument;
+    var vol = soundState.volume;
+    if (typeof this.runtime.audioEngine === 'undefined') return;
+    return this.runtime.audioEngine.playNoteForBeatsWithInstAndVol(note, beats, inst, vol);
+}
 
+function _clampBeats(beats) {
+    return MathUtil.clamp(beats, Scratch3SoundBlocks.BEAT_RANGE.min, Scratch3SoundBlocks.BEAT_RANGE.max);
 }
 
 vm.runtime._primitives.sound_setinstrumentto = function (args, util) {
-
+    var soundState = this._getSoundState(util.target);
+    var instNum = Cast.toNumber(args.INSTRUMENT);
+    instNum -= 1; // instruments are one-indexed
+    if (typeof this.runtime.audioEngine === 'undefined') return;
+    instNum = MathUtil.wrapClamp(instNum, 0, this.runtime.audioEngine.numInstruments - 1);
+    soundState.currentInstrument = instNum;
+    return this.runtime.audioEngine.instrumentPlayer.loadInstrument(soundState.currentInstrument);
 }
 
 vm.runtime._primitives.sound_changeeffectby = function (args, util) {
-
+    this._updateEffect(args, util, true);
 }
 
 vm.runtime._primitives.sound_seteffectto = function (args, util) {
-
+    this._updateEffect(args, util, false);
 }
 
 vm.runtime._primitives.sound_cleareffects = function (args, util) {
+    var soundState = this._getSoundState(util.target);
+    for (var effect in soundState.effects) {
+        if (!soundState.effects.hasOwnProperty(effect)) continue;
+        soundState.effects[effect] = 0;
+    }
+    if (util.target.audioPlayer === null) return;
+    util.target.audioPlayer.clearEffects();
+}
 
+function _updateEffect(args, util, change) {
+    var effect = Cast.toString(args.EFFECT).toLowerCase();
+    var value = Cast.toNumber(args.VALUE);
+
+    var soundState = this._getSoundState(util.target);
+    if (!soundState.effects.hasOwnProperty(effect)) return;
+
+    if (change) {
+        soundState.effects[effect] += value;
+    } else {
+        soundState.effects[effect] = value;
+    }
+
+    var effectRange = Scratch3SoundBlocks.EFFECT_RANGE[effect];
+    soundState.effects[effect] = MathUtil.clamp(soundState.effects[effect], effectRange.min, effectRange.max);
+
+    if (util.target.audioPlayer === null) return;
+    util.target.audioPlayer.setEffect(effect, soundState.effects[effect]);
 }
 
 vm.runtime._primitives.sound_changevolumeby = function (args, util) {
-
+    var soundState = this._getSoundState(util.target);
+    var volume = Cast.toNumber(args.VOLUME) + soundState.volume;
+    this._updateVolume(volume, util);
 }
 
 vm.runtime._primitives.sound_setvolumeto = function (args, util) {
-
+    var volume = Cast.toNumber(args.VOLUME);
+    this._updateVolume(volume, util);
 }
 
 vm.runtime._primitives.sound_volume = function (args, util) {
-
+    var soundState = this._getSoundState(util.target);
+    return soundState.volume;
 }
 
 vm.runtime._primitives.sound_changetempoby = function (args, util) {
-
+    var change = Cast.toNumber(args.TEMPO);
+    if (typeof this.runtime.audioEngine === 'undefined') return;
+    var tempo = change + this.runtime.audioEngine.currentTempo;
+    this._updateTempo(tempo);
 }
 
 vm.runtime._primitives.sound_settempotobpm = function (args, util) {
-
+    var tempo = Cast.toNumber(args.TEMPO);
+    this._updateTempo(tempo);
 }
 
 vm.runtime._primitives.sound_tempo = function (args, util) {
+    if (typeof this.runtime.audioEngine === 'undefined') return;
+    return this.runtime.audioEngine.currentTempo;
+}
 
+function _updateTempo(tempo) {
+    tempo = MathUtil.clamp(tempo, Scratch3SoundBlocks.TEMPO_RANGE.min, Scratch3SoundBlocks.TEMPO_RANGE.max);
+    if (typeof this.runtime.audioEngine === 'undefined') return;
+    this.runtime.audioEngine.setTempo(tempo);
 }
 
 // PEN VM FUNCTIONS
