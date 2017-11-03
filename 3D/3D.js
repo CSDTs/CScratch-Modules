@@ -393,47 +393,95 @@ vm.runtime._primitives.motion_zposition = function (args, util) {
 
 // LOOKS VM FUNCTIONS
 vm.runtime._primitives.looks_show = function (args, util) {
-
+    util.target.setVisible(true);
 }
 
 vm.runtime._primitives.looks_hide = function (args, util) {
+    util.target.setVisible(false);
+}
 
+function _setCostumeOrBackdrop(target, requestedCostume, optZeroIndex) {
+    if (typeof requestedCostume === 'number') {
+        target.setCostume(optZeroIndex ? requestedCostume : requestedCostume - 1);
+    } else {
+        var costumeIndex = target.getCostumeIndexByName(requestedCostume);
+        if (costumeIndex > -1) {
+            target.setCostume(costumeIndex);
+        } else if (requestedCostume === 'previous costume' || requestedCostume === 'previous backdrop') {
+            target.setCostume(target.currentCostume - 1);
+        } else if (requestedCostume === 'next costume' || requestedCostume === 'next backdrop') {
+            target.setCostume(target.currentCostume + 1);
+        } else {
+            var forcedNumber = Number(requestedCostume);
+            if (!isNaN(forcedNumber)) {
+                target.setCostume(optZeroIndex ? forcedNumber : forcedNumber - 1);
+            }
+        }
+    }
+    if (target === this.runtime.getTargetForStage()) {
+        // Target is the stage - start hats.
+        var newName = target.sprite.costumes[target.currentCostume].name;
+        return this.runtime.startHats('event_whenbackdropswitchesto', {
+            BACKDROP: newName
+        });
+    }
+    return [];
 }
 
 vm.runtime._primitives.looks_switchcostumeto = function (args, util) {
-
+    this._setCostumeOrBackdrop(util.target, args.COSTUME);
 }
 
 vm.runtime._primitives.looks_nextcostume = function (args, util) {
-
+    this._setCostumeOrBackdrop(util.target, util.target.currentCostume + 1, true);
 }
 
 vm.runtime._primitives.looks_nextbackdrop = function (args, util) {
-
+    var stage = this.runtime.getTargetForStage();
+    this._setCostumeOrBackdrop(stage, stage.currentCostume + 1, true);
 }
 
 vm.runtime._primitives.looks_switchbackdropto = function (args, util) {
-
+    this._setCostumeOrBackdrop(this.runtime.getTargetForStage(), args.BACKDROP);
 }
 
 vm.runtime._primitives.looks_switchbackdroptoandwait = function (args, util) {
-
+    // Have we run before, starting threads?
+    if (!util.stackFrame.startedThreads) {
+        // No - switch the backdrop.
+        util.stackFrame.startedThreads = this._setCostumeOrBackdrop(this.runtime.getTargetForStage(), args.BACKDROP);
+        if (util.stackFrame.startedThreads.length === 0) {
+            // Nothing was started.
+            return;
+        }
+    }
+    // We've run before; check if the wait is still going on.
+    var instance = this;
+    var waiting = util.stackFrame.startedThreads.some(function (thread) {
+        return instance.runtime.isActiveThread(thread);
+    });
+    if (waiting) {
+        util.yield();
+    }
 }
 
 vm.runtime._primitives.looks_setscaleto = function (args, util) {
-
+    var size = Cast.toNumber(args.SIZE);
+    util.target.setSize(size);
 }
 
 vm.runtime._primitives.looks_costumeorder = function (args, util) {
-
+    return util.target.currentCostume + 1;
 }
 
 vm.runtime._primitives.looks_backdroporder = function (args, util) {
-
+    var stage = this.runtime.getTargetForStage();
+    return stage.currentCostume + 1;
 }
 
 vm.runtime._primitives.looks_backdropname = function (args, util) {
-
+    var stage = this.runtime.getTargetForStage();
+    return stage.sprite.costumes[stage.currentCostume].name;
 }
 
 vm.runtime._primitives.looks_setcamerato = function (args, util) {
@@ -479,11 +527,13 @@ vm.runtime._primitives.looks_changecamerazby = function (args, util) {
 }
 
 vm.runtime._primitives.looks_turncameraaroundx = function (args, util) {
-
+    if (!util.target.isStage) return;
+    this.runtime.renderer.rotateCameraVertical(Cast.toNumber(args.DEGREES));
 }
 
 vm.runtime._primitives.looks_turncameraaroundy = function (args, util) {
-
+    if (!util.target.isStage) return;
+    this.runtime.renderer.rotateCameraHorizontal(Cast.toNumber(args.DEGREES));
 }
 
 vm.runtime._primitives.looks_turncameraaroundz = function (args, util) {
