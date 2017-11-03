@@ -977,11 +977,19 @@ vm.runtime._primitives.control_stop = function (args, util) {
 }
 
 vm.runtime._primitives.control_start_as_clone = function (args, util) {
-
+    var cloneTarget = util.target;
+    var newClone = cloneTarget.makeClone();
+    if (newClone) {
+        this.runtime.targets.push(newClone);
+    }
 }
 
 vm.runtime._primitives.control_create_clone_of = function (args, util) {
-
+    var cloneTarget = this.runtime.getSpriteTargetByName(args.CLONE_OPTION);
+    var newClone = cloneTarget.makeClone();
+    if (newClone) {
+        this.runtime.targets.push(newClone);
+    }
 }
 
 vm.runtime._primitives.control_delete_this_clone = function (args, util) {
@@ -992,128 +1000,266 @@ vm.runtime._primitives.control_delete_this_clone = function (args, util) {
 
 // SENSING VM FUNCTIONS
 vm.runtime._primitives.sensing_touchingobject = function (args, util) {
-
+    var requestedObject = args.TOUCHINGOBJECTMENU;
+    if (requestedObject === '_mouse_') {
+        var mouseX = util.ioQuery('mouse', 'getX');
+        var mouseY = util.ioQuery('mouse', 'getY');
+        return util.target.isTouchingPoint(mouseX, mouseY);
+    } else if (requestedObject === '_edge_') {
+        return util.target.isTouchingEdge();
+    }
+    return util.target.isTouchingSprite(requestedObject);
 }
 
 vm.runtime._primitives.sensing_touchingcolor = function (args, util) {
-
+    var color = Cast.toRgbColorList(args.COLOR);
+    return util.target.isTouchingColor(color);
 }
 
 vm.runtime._primitives.sensing_coloristouchingcolor = function (args, util) {
-
+    var maskColor = Cast.toRgbColorList(args.COLOR);
+    var targetColor = Cast.toRgbColorList(args.COLOR2);
+    return util.target.colorIsTouchingColor(targetColor, maskColor);
 }
 
 vm.runtime._primitives.sensing_distanceto = function (args, util) {
+    if (util.target.isStage) return 10000;
 
+    var targetX = 0;
+    var targetY = 0;
+    if (args.DISTANCETOMENU === '_mouse_') {
+        targetX = util.ioQuery('mouse', 'getX');
+        targetY = util.ioQuery('mouse', 'getY');
+    } else {
+        var distTarget = this.runtime.getSpriteTargetByName(args.DISTANCETOMENU);
+        if (!distTarget) return 10000;
+        targetX = distTarget.x;
+        targetY = distTarget.y;
+    }
+
+    var dx = util.target.x - targetX;
+    var dy = util.target.y - targetY;
+    return Math.sqrt(dx * dx + dy * dy);
 }
 
 vm.runtime._primitives.sensing_keypressed = function (args, util) {
-
+    return util.ioQuery('keyboard', 'getKeyIsDown', [args.KEY_OPTION]);
 }
 
 vm.runtime._primitives.sensing_mousedown = function (args, util) {
-
+    return util.ioQuery('mouse', 'getIsDown');
 }
 
 vm.runtime._primitives.sensing_mousex = function (args, util) {
-
+    return util.ioQuery('mouse', 'getX');
 }
 
 vm.runtime._primitives.sensing_mousey = function (args, util) {
-
+    return util.ioQuery('mouse', 'getY');
 }
 
 vm.runtime._primitives.sensing_loudness = function (args, util) {
-
+    if (typeof this.runtime.audioEngine === 'undefined') return -1;
+    return this.runtime.audioEngine.getLoudness();
 }
 
 vm.runtime._primitives.sensing_timer = function (args, util) {
-
+    return util.ioQuery('clock', 'projectTimer');
 }
 
 vm.runtime._primitives.sensing_resettimer = function (args, util) {
-
+    util.ioQuery('clock', 'resetProjectTimer');
 }
 
 vm.runtime._primitives.sensing_of = function (args, util) {
+    var attrTarget = void 0;
 
+    if (args.OBJECT === '_stage_') {
+        attrTarget = this.runtime.getTargetForStage();
+    } else {
+        attrTarget = this.runtime.getSpriteTargetByName(args.OBJECT);
+    }
+
+    // Generic attributes
+    if (attrTarget.isStage) {
+        switch (args.PROPERTY) {
+            // Scratch 1.4 support
+            case 'background #':
+                return attrTarget.currentCostume + 1;
+
+            case 'backdrop #':
+                return attrTarget.currentCostume + 1;
+            case 'backdrop name':
+                return attrTarget.sprite.costumes[attrTarget.currentCostume].name;
+            case 'volume':
+                return; // @todo: Keep this in mind for sound blocks!
+        }
+    } else {
+        switch (args.PROPERTY) {
+            case 'x position':
+                return attrTarget.x;
+            case 'y position':
+                return attrTarget.y;
+            case 'direction':
+                return attrTarget.direction;
+            case 'costume #':
+                return attrTarget.currentCostume + 1;
+            case 'costume name':
+                return attrTarget.sprite.costumes[attrTarget.currentCostume].name;
+            case 'size':
+                return attrTarget.size;
+            case 'volume':
+                return; // @todo: above, keep in mind for sound blocks..
+        }
+    }
+
+    // Variables
+    var varName = args.PROPERTY;
+    if (attrTarget.variables.hasOwnProperty(varName)) {
+        return attrTarget.variables[varName].value;
+    }
+
+    // Otherwise, 0
+    return 0;
 }
 
 vm.runtime._primitives.sensing_current = function (args, util) {
-
+    var menuOption = Cast.toString(args.CURRENTMENU).toLowerCase();
+    var date = new Date();
+    switch (menuOption) {
+        case 'year':
+            return date.getFullYear();
+        case 'month':
+            return date.getMonth() + 1; // getMonth is zero-based
+        case 'date':
+            return date.getDate();
+        case 'dayofweek':
+            return date.getDay() + 1; // getDay is zero-based, Sun=0
+        case 'hour':
+            return date.getHours();
+        case 'minute':
+            return date.getMinutes();
+        case 'second':
+            return date.getSeconds();
+    }
+    return 0;
 }
 
 vm.runtime._primitives.sensing_dayssince2000 = function (args, util) {
-
+    var msPerDay = 24 * 60 * 60 * 1000;
+    var start = new Date(2000, 0, 1); // Months are 0-indexed.
+    var today = new Date();
+    var dstAdjust = today.getTimezoneOffset() - start.getTimezoneOffset();
+    var mSecsSinceStart = today.valueOf() - start.valueOf();
+    mSecsSinceStart += (today.getTimezoneOffset() - dstAdjust) * 60 * 1000;
+    return mSecsSinceStart / msPerDay;
 }
 
 // OPERATORS VM FUNCTIONS
 vm.runtime._primitives.operator_add = function (args, util) {
-
+    return Cast.toNumber(args.NUM1) + Cast.toNumber(args.NUM2);
 }
 
 vm.runtime._primitives.operator_subtract = function (args, util) {
-
+    return Cast.toNumber(args.NUM1) - Cast.toNumber(args.NUM2);
 }
 
 vm.runtime._primitives.operator_multiply = function (args, util) {
-
+    return Cast.toNumber(args.NUM1) * Cast.toNumber(args.NUM2);
 }
 
 vm.runtime._primitives.operator_divide = function (args, util) {
-
+    return Cast.toNumber(args.NUM1) / Cast.toNumber(args.NUM2);
 }
 
 vm.runtime._primitives.operator_random = function (args, util) {
-
+    const nFrom = Cast.toNumber(args.FROM);
+    const nTo = Cast.toNumber(args.TO);
+    const low = nFrom <= nTo ? nFrom : nTo;
+    const high = nFrom <= nTo ? nTo : nFrom;
+    if (low === high) return low;
+    // If both arguments are ints, truncate the result to an int.
+    if (Cast.isInt(args.FROM) && Cast.isInt(args.TO)) {
+        return low + Math.floor(Math.random() * ((high + 1) - low));
+    }
+    return (Math.random() * (high - low)) + low;
 }
 
 vm.runtime._primitives.operator_lt = function (args, util) {
-
+    return Cast.compare(args.OPERAND1, args.OPERAND2) < 0;
 }
 
 vm.runtime._primitives.operator_equals = function (args, util) {
-
+    return Cast.compare(args.OPERAND1, args.OPERAND2) === 0;
 }
 
 vm.runtime._primitives.operator_gt = function (args, util) {
-
+    return Cast.compare(args.OPERAND1, args.OPERAND2) > 0;
 }
 
 vm.runtime._primitives.operator_and = function (args, util) {
-
+    return Cast.toBoolean(args.OPERAND1) && Cast.toBoolean(args.OPERAND2);
 }
 
 vm.runtime._primitives.operator_or = function (args, util) {
-
+    return Cast.toBoolean(args.OPERAND1) || Cast.toBoolean(args.OPERAND2);
 }
 
 vm.runtime._primitives.operator_not = function (args, util) {
-
+    return !Cast.toBoolean(args.OPERAND);
 }
 
 vm.runtime._primitives.operator_join = function (args, util) {
-
+    return Cast.toString(args.STRING1) + Cast.toString(args.STRING2);
 }
 
 vm.runtime._primitives.operator_letter_of = function (args, util) {
-
+    const index = Cast.toNumber(args.LETTER) - 1;
+    const str = Cast.toString(args.STRING);
+    // Out of bounds?
+    if (index < 0 || index >= str.length) {
+        return '';
+    }
+    return str.charAt(index);
 }
 
 vm.runtime._primitives.operator_length = function (args, util) {
-
+    return Cast.toString(args.STRING).length;
 }
 
 vm.runtime._primitives.operator_mod = function (args, util) {
-
+    const n = Cast.toNumber(args.NUM1);
+    const modulus = Cast.toNumber(args.NUM2);
+    let result = n % modulus;
+    // Scratch mod is kept positive.
+    if (result / modulus < 0) result += modulus;
+    return result;
 }
 
 vm.runtime._primitives.operator_round = function (args, util) {
-
+    return Math.round(Cast.toNumber(args.NUM));
 }
 
 vm.runtime._primitives.operator_mathop = function (args, util) {
-
+    const operator = Cast.toString(args.OPERATOR).toLowerCase();
+    const n = Cast.toNumber(args.NUM);
+    switch (operator) {
+    case 'abs': return Math.abs(n);
+    case 'floor': return Math.floor(n);
+    case 'ceiling': return Math.ceil(n);
+    case 'sqrt': return Math.sqrt(n);
+    case 'sin': return parseFloat(Math.sin((Math.PI * n) / 180).toFixed(10));
+    case 'cos': return parseFloat(Math.cos((Math.PI * n) / 180).toFixed(10));
+    case 'tan': return MathUtil.tan(n);
+    case 'asin': return (Math.asin(n) * 180) / Math.PI;
+    case 'acos': return (Math.acos(n) * 180) / Math.PI;
+    case 'atan': return (Math.atan(n) * 180) / Math.PI;
+    case 'ln': return Math.log(n);
+    case 'log': return Math.log(n) / Math.LN10;
+    case 'e ^': return Math.exp(n);
+    case '10 ^': return Math.pow(10, n);
+    }
+    return 0;
 }
 
 let toolboxDOM = (new DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml')
