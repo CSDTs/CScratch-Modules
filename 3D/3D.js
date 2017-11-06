@@ -262,7 +262,7 @@ let NEW_BLOCK_STRING_add = '<block type="operator_add" id="operator_add"><value 
 +'<shadow type="math_number"><field name="NUM"></field></shadow></value><value name="NUM2">'
 +'<shadow type="math_number"><field name="NUM"></field></shadow></value></block>'
 
-let NEW_BL0CK_STRING_subtract = '<block type="operator_subtract" id="operator_subtract">'
+let NEW_BLOCK_STRING_subtract = '<block type="operator_subtract" id="operator_subtract">'
 +'<value name="NUM1"><shadow type="math_number"><field name="NUM"></field></shadow>'
 +'</value><value name="NUM2"><shadow type="math_number"><field name="NUM"></field>'
 +'</shadow></value></block>'
@@ -299,7 +299,7 @@ let NEW_BLOCK_STRING_gt = '<block type="operator_gt" id="operator_gt">'
 
 let NEW_BLOCK_STRING_and = '<block type="operator_and" id="operator_and"></block>'
 
-let NEW_BLOCK_STRING_and = '<block type="operator_or" id="operator_or"></block>'
+let NEW_BLOCK_STRING_or = '<block type="operator_or" id="operator_or"></block>'
 
 let NEW_BLOCK_STRING_not = '<block type="operator_not" id="operator_not"></block>'
 
