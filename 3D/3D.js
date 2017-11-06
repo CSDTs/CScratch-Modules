@@ -332,934 +332,936 @@ let NEW_BLOCK_STRING_mathop = '<block type="operator_mathop" id="operator_mathop
 
 // MOTION VM FUNCTIONS
 vm.runtime._primitives.motion_rotate = function (args, util) {
-    util.target.setRotation(
-        util.target.rotation[0] + Cast.toNumber(args.DEGREESX),
-        util.target.rotation[1] + Cast.toNumber(args.DEGREESY),
-        util.target.rotation[2] + Cast.toNumber(args.DEGREESZ)
-    );
+	util.target.setRotation(
+		util.target.rotation[0] + Cast.toNumber(args.DEGREESX),
+		util.target.rotation[1] + Cast.toNumber(args.DEGREESY),
+		util.target.rotation[2] + Cast.toNumber(args.DEGREESZ)
+	);
 }
 
 vm.runtime._primitives.motion_setrotation = function (args, util) {
-    util.target.setRotation(
-        Cast.toNumber(args.DEGREESX),
-        Cast.toNumber(args.DEGREESY),
-        Cast.toNumber(args.DEGREESZ)
-    );
+	util.target.setRotation(
+		Cast.toNumber(args.DEGREESX),
+		Cast.toNumber(args.DEGREESY),
+		Cast.toNumber(args.DEGREESZ)
+	);
 }
 
 vm.runtime._primitives.motion_gotoxyz = function (args, util) {
-    util.target.setXYZ(
-        Cast.toNumber(args.X),
-        Cast.toNumber(args.Y),
-        Cast.toNumber(args.Z)
-    );
+	util.target.setXYZ(
+		Cast.toNumber(args.X),
+		Cast.toNumber(args.Y),
+		Cast.toNumber(args.Z)
+	);
 }
 
 vm.runtime._primitives.motion_changexby = function (args, util) {
-    util.target.setXYZ(util.target.x + Cast.toNumber(args.DX), util.target.y, util.target.z);
+	util.target.setXYZ(util.target.x + Cast.toNumber(args.DX), util.target.y, util.target.z);
 }
 
 vm.runtime._primitives.motion_setx = function (args, util) {
-    util.target.setXYZ(Cast.toNumber(args.X), util.target.y, util.target.z);
+	util.target.setXYZ(Cast.toNumber(args.X), util.target.y, util.target.z);
 }
 
 vm.runtime._primitives.motion_changeyby = function (args, util) {
-    util.target.setXYZ(util.target.x, util.target.y + Cast.toNumber(args.DY), util.target.z);
+	util.target.setXYZ(util.target.x, util.target.y + Cast.toNumber(args.DY), util.target.z);
 }
 
 vm.runtime._primitives.motion_sety = function (args, util) {
-    util.target.setXYZ(util.target.x, Cast.toNumber(args.Y), util.target.z);
+	util.target.setXYZ(util.target.x, Cast.toNumber(args.Y), util.target.z);
 }
 
 vm.runtime._primitives.motion_changezby = function (args, util) {
-    util.target.setXYZ(util.target.x, util.target.y, util.target.z + Cast.toNumber(args.DZ));
+	util.target.setXYZ(util.target.x, util.target.y, util.target.z + Cast.toNumber(args.DZ));
 }
 
 vm.runtime._primitives.motion_setz = function (args, util) {
-    util.target.setXYZ(util.target.x, util.target.y, Cast.toNumber(args.Z));
+	util.target.setXYZ(util.target.x, util.target.y, Cast.toNumber(args.Z));
 }
 
 vm.runtime._primitives.motion_xposition = function (args, util) {
-    return util.target.x;
+	return util.target.x;
 }
 
 vm.runtime._primitives.motion_yposition = function (args, util) {
-    return util.target.y;
+	return util.target.y;
 }
 
 vm.runtime._primitives.motion_zposition = function (args, util) {
-    return util.target.z;
+	return util.target.z;
 }
 
 // LOOKS VM FUNCTIONS
 vm.runtime._primitives.looks_show = function (args, util) {
-    util.target.setVisible(true);
+	util.target.setVisible(true);
 }
 
 vm.runtime._primitives.looks_hide = function (args, util) {
-    util.target.setVisible(false);
+	util.target.setVisible(false);
 }
 
 function _setCostumeOrBackdrop(target, requestedCostume, optZeroIndex) {
-    if (typeof requestedCostume === 'number') {
-        target.setCostume(optZeroIndex ? requestedCostume : requestedCostume - 1);
-    } else {
-        var costumeIndex = target.getCostumeIndexByName(requestedCostume);
-        if (costumeIndex > -1) {
-            target.setCostume(costumeIndex);
-        } else if (requestedCostume === 'previous costume' || requestedCostume === 'previous backdrop') {
-            target.setCostume(target.currentCostume - 1);
-        } else if (requestedCostume === 'next costume' || requestedCostume === 'next backdrop') {
-            target.setCostume(target.currentCostume + 1);
-        } else {
-            var forcedNumber = Number(requestedCostume);
-            if (!isNaN(forcedNumber)) {
-                target.setCostume(optZeroIndex ? forcedNumber : forcedNumber - 1);
-            }
-        }
-    }
-    if (target === this.runtime.getTargetForStage()) {
-        // Target is the stage - start hats.
-        var newName = target.sprite.costumes[target.currentCostume].name;
-        return this.runtime.startHats('event_whenbackdropswitchesto', {
-            BACKDROP: newName
-        });
-    }
-    return [];
+	if (typeof requestedCostume === 'number') {
+		target.setCostume(optZeroIndex ? requestedCostume : requestedCostume - 1);
+	} else {
+		var costumeIndex = target.getCostumeIndexByName(requestedCostume);
+		if (costumeIndex > -1) {
+			target.setCostume(costumeIndex);
+		} else if (requestedCostume === 'previous costume' || requestedCostume === 'previous backdrop') {
+			target.setCostume(target.currentCostume - 1);
+		} else if (requestedCostume === 'next costume' || requestedCostume === 'next backdrop') {
+			target.setCostume(target.currentCostume + 1);
+		} else {
+			var forcedNumber = Number(requestedCostume);
+			if (!isNaN(forcedNumber)) {
+				target.setCostume(optZeroIndex ? forcedNumber : forcedNumber - 1);
+			}
+		}
+	}
+	if (target === this.runtime.getTargetForStage()) {
+		// Target is the stage - start hats.
+		var newName = target.sprite.costumes[target.currentCostume].name;
+		return this.runtime.startHats('event_whenbackdropswitchesto', {
+			BACKDROP: newName
+		});
+	}
+	return [];
 }
 
 vm.runtime._primitives.looks_switchcostumeto = function (args, util) {
-    this._setCostumeOrBackdrop(util.target, args.COSTUME);
+	this._setCostumeOrBackdrop(util.target, args.COSTUME);
 }
 
 vm.runtime._primitives.looks_nextcostume = function (args, util) {
-    this._setCostumeOrBackdrop(util.target, util.target.currentCostume + 1, true);
+	this._setCostumeOrBackdrop(util.target, util.target.currentCostume + 1, true);
 }
 
 vm.runtime._primitives.looks_nextbackdrop = function (args, util) {
-    var stage = this.runtime.getTargetForStage();
-    this._setCostumeOrBackdrop(stage, stage.currentCostume + 1, true);
+	var stage = this.runtime.getTargetForStage();
+	this._setCostumeOrBackdrop(stage, stage.currentCostume + 1, true);
 }
 
 vm.runtime._primitives.looks_switchbackdropto = function (args, util) {
-    this._setCostumeOrBackdrop(this.runtime.getTargetForStage(), args.BACKDROP);
+	this._setCostumeOrBackdrop(this.runtime.getTargetForStage(), args.BACKDROP);
 }
 
 vm.runtime._primitives.looks_switchbackdroptoandwait = function (args, util) {
-    // Have we run before, starting threads?
-    if (!util.stackFrame.startedThreads) {
-        // No - switch the backdrop.
-        util.stackFrame.startedThreads = this._setCostumeOrBackdrop(this.runtime.getTargetForStage(), args.BACKDROP);
-        if (util.stackFrame.startedThreads.length === 0) {
-            // Nothing was started.
-            return;
-        }
-    }
-    // We've run before; check if the wait is still going on.
-    var instance = this;
-    var waiting = util.stackFrame.startedThreads.some(function (thread) {
-        return instance.runtime.isActiveThread(thread);
-    });
-    if (waiting) {
-        util.yield();
-    }
+	// Have we run before, starting threads?
+	if (!util.stackFrame.startedThreads) {
+		// No - switch the backdrop.
+		util.stackFrame.startedThreads = this._setCostumeOrBackdrop(this.runtime.getTargetForStage(), args.BACKDROP);
+		if (util.stackFrame.startedThreads.length === 0) {
+			// Nothing was started.
+			return;
+		}
+	}
+	// We've run before; check if the wait is still going on.
+	var instance = this;
+	var waiting = util.stackFrame.startedThreads.some(function (thread) {
+		return instance.runtime.isActiveThread(thread);
+	});
+	if (waiting) {
+		util.yield();
+	}
 }
 
 vm.runtime._primitives.looks_setscaleto = function (args, util) {
-    var size = Cast.toNumber(args.SIZE);
-    util.target.setSize(size);
+	var size = Cast.toNumber(args.SIZE);
+	util.target.setSize(size);
 }
 
 vm.runtime._primitives.looks_costumeorder = function (args, util) {
-    return util.target.currentCostume + 1;
+	return util.target.currentCostume + 1;
 }
 
 vm.runtime._primitives.looks_backdroporder = function (args, util) {
-    var stage = this.runtime.getTargetForStage();
-    return stage.currentCostume + 1;
+	var stage = this.runtime.getTargetForStage();
+	return stage.currentCostume + 1;
 }
 
 vm.runtime._primitives.looks_backdropname = function (args, util) {
-    var stage = this.runtime.getTargetForStage();
-    return stage.sprite.costumes[stage.currentCostume].name;
+	var stage = this.runtime.getTargetForStage();
+	return stage.sprite.costumes[stage.currentCostume].name;
 }
 
 vm.runtime._primitives.looks_setcamerato = function (args, util) {
-    if (!util.target.isStage) return;
-    this.runtime.renderer.cameraPosition = [
-        Cast.toNumber(args.X),
-        Cast.toNumber(args.Y),
-        Cast.toNumber(args.Z)
-    ];
+	if (!util.target.isStage) return;
+	this.runtime.renderer.cameraPosition = [
+		Cast.toNumber(args.X),
+		Cast.toNumber(args.Y),
+		Cast.toNumber(args.Z)
+	];
 }
 
 vm.runtime._primitives.looks_changecameraxby = function (args, util) {
-    if (!util.target.isStage) return;
-    const renderer = this.runtime.renderer;
-    const currentPosition = renderer.cameraPosition;
-    renderer.cameraPosition = [
-        currentPosition[0] + Cast.toNumber(args.DX),
-        currentPosition[1],
-        currentPosition[2]
-    ];
+	if (!util.target.isStage) return;
+	const renderer = this.runtime.renderer;
+	const currentPosition = renderer.cameraPosition;
+	renderer.cameraPosition = [
+		currentPosition[0] + Cast.toNumber(args.DX),
+		currentPosition[1],
+		currentPosition[2]
+	];
 }
 
 vm.runtime._primitives.looks_changecamerayby = function (args, util) {
-    if (!util.target.isStage) return;
-    const renderer = this.runtime.renderer;
-    const currentPosition = renderer.cameraPosition;
-    renderer.cameraPosition = [
-        currentPosition[0],
-        currentPosition[1] + Cast.toNumber(args.DY),
-        currentPosition[2]
-    ];
+	if (!util.target.isStage) return;
+	const renderer = this.runtime.renderer;
+	const currentPosition = renderer.cameraPosition;
+	renderer.cameraPosition = [
+		currentPosition[0],
+		currentPosition[1] + Cast.toNumber(args.DY),
+		currentPosition[2]
+	];
 }
 
 vm.runtime._primitives.looks_changecamerazby = function (args, util) {
-    if (!util.target.isStage) return;
-    const renderer = this.runtime.renderer;
-    const currentPosition = renderer.cameraPosition;
-    renderer.cameraPosition = [
-        currentPosition[0],
-        currentPosition[1],
-        currentPosition[2] + Cast.toNumber(args.DZ)
-    ];
+	if (!util.target.isStage) return;
+	const renderer = this.runtime.renderer;
+	const currentPosition = renderer.cameraPosition;
+	renderer.cameraPosition = [
+		currentPosition[0],
+		currentPosition[1],
+		currentPosition[2] + Cast.toNumber(args.DZ)
+	];
 }
 
 vm.runtime._primitives.looks_turncameraaroundx = function (args, util) {
-    if (!util.target.isStage) return;
-    this.runtime.renderer.rotateCameraVertical(Cast.toNumber(args.DEGREES));
+	if (!util.target.isStage) return;
+	this.runtime.renderer.rotateCameraVertical(Cast.toNumber(args.DEGREES));
 }
 
 vm.runtime._primitives.looks_turncameraaroundy = function (args, util) {
-    if (!util.target.isStage) return;
-    this.runtime.renderer.rotateCameraHorizontal(Cast.toNumber(args.DEGREES));
+	if (!util.target.isStage) return;
+	this.runtime.renderer.rotateCameraHorizontal(Cast.toNumber(args.DEGREES));
 }
 
 vm.runtime._primitives.looks_turncameraaroundz = function (args, util) {
-
+	// TODO
 }
 
 // SOUND VM FUNCTIONS
 vm.runtime._primitives.sound_play = function (args, util) {
-    var index = this._getSoundIndex(args.SOUND_MENU, util);
-    if (index >= 0) {
-        var soundId = util.target.sprite.sounds[index].soundId;
-        if (util.target.audioPlayer === null) return;
-        util.target.audioPlayer.playSound(soundId);
-    }
+	var index = this._getSoundIndex(args.SOUND_MENU, util);
+	if (index >= 0) {
+		var soundId = util.target.sprite.sounds[index].soundId;
+		if (util.target.audioPlayer === null) return;
+		util.target.audioPlayer.playSound(soundId);
+	}
 }
 
 vm.runtime._primitives.sound_playuntildone = function (args, util) {
-    var index = this._getSoundIndex(args.SOUND_MENU, util);
-    if (index >= 0) {
-        var soundId = util.target.sprite.sounds[index].soundId;
-        if (util.target.audioPlayer === null) return;
-        return util.target.audioPlayer.playSound(soundId);
-    }
+	var index = this._getSoundIndex(args.SOUND_MENU, util);
+	if (index >= 0) {
+		var soundId = util.target.sprite.sounds[index].soundId;
+		if (util.target.audioPlayer === null) return;
+		return util.target.audioPlayer.playSound(soundId);
+	}
 }
 
 function _getSoundIndex(soundName, util) {
-    // if the sprite has no sounds, return -1
-    var len = util.target.sprite.sounds.length;
-    if (len === 0) {
-        return -1;
-    }
+	// if the sprite has no sounds, return -1
+	var len = util.target.sprite.sounds.length;
+	if (len === 0) {
+		return -1;
+	}
 
-    // look up by name first
-    var index = this.getSoundIndexByName(soundName, util);
-    if (index !== -1) {
-        return index;
-    }
+	// look up by name first
+	var index = this.getSoundIndexByName(soundName, util);
+	if (index !== -1) {
+		return index;
+	}
 
-    // then try using the sound name as a 1-indexed index
-    var oneIndexedIndex = parseInt(soundName, 10);
-    if (!isNaN(oneIndexedIndex)) {
-        return MathUtil.wrapClamp(oneIndexedIndex - 1, 0, len - 1);
-    }
+	// then try using the sound name as a 1-indexed index
+	var oneIndexedIndex = parseInt(soundName, 10);
+	if (!isNaN(oneIndexedIndex)) {
+		return MathUtil.wrapClamp(oneIndexedIndex - 1, 0, len - 1);
+	}
 
-    // could not be found as a name or converted to index, return -1
-    return -1;
+	// could not be found as a name or converted to index, return -1
+	return -1;
 }
 
 vm.runtime._primitives.sound_stopallsounds = function (args, util) {
-    if (util.target.audioPlayer === null) return;
-    util.target.audioPlayer.stopAllSounds();
+	if (util.target.audioPlayer === null) return;
+	util.target.audioPlayer.stopAllSounds();
 }
 
 vm.runtime._primitives.sound_playdrumforbeats = function (args, util) {
-    var drum = Cast.toNumber(args.DRUM);
-    drum -= 1; // drums are one-indexed
-    if (typeof this.runtime.audioEngine === 'undefined') return;
-    drum = MathUtil.wrapClamp(drum, 0, this.runtime.audioEngine.numDrums - 1);
-    var beats = Cast.toNumber(args.BEATS);
-    beats = this._clampBeats(beats);
-    if (util.target.audioPlayer === null) return;
-    return util.target.audioPlayer.playDrumForBeats(drum, beats);
+	var drum = Cast.toNumber(args.DRUM);
+	drum -= 1; // drums are one-indexed
+	if (typeof this.runtime.audioEngine === 'undefined') return;
+	drum = MathUtil.wrapClamp(drum, 0, this.runtime.audioEngine.numDrums - 1);
+	var beats = Cast.toNumber(args.BEATS);
+	beats = this._clampBeats(beats);
+	if (util.target.audioPlayer === null) return;
+	return util.target.audioPlayer.playDrumForBeats(drum, beats);
 }
 
 vm.runtime._primitives.sound_restforbeats = function (args, util) {
-    var beats = Cast.toNumber(args.BEATS);
-    beats = this._clampBeats(beats);
-    if (typeof this.runtime.audioEngine === 'undefined') return;
-    return this.runtime.audioEngine.waitForBeats(beats);
+	var beats = Cast.toNumber(args.BEATS);
+	beats = this._clampBeats(beats);
+	if (typeof this.runtime.audioEngine === 'undefined') return;
+	return this.runtime.audioEngine.waitForBeats(beats);
 }
 
 vm.runtime._primitives.sound_playnoteforbeats = function (args, util) {
-    var note = Cast.toNumber(args.NOTE);
-    note = MathUtil.clamp(note, Scratch3SoundBlocks.MIDI_NOTE_RANGE.min, Scratch3SoundBlocks.MIDI_NOTE_RANGE.max);
-    var beats = Cast.toNumber(args.BEATS);
-    beats = this._clampBeats(beats);
-    var soundState = this._getSoundState(util.target);
-    var inst = soundState.currentInstrument;
-    var vol = soundState.volume;
-    if (typeof this.runtime.audioEngine === 'undefined') return;
-    return this.runtime.audioEngine.playNoteForBeatsWithInstAndVol(note, beats, inst, vol);
+	var note = Cast.toNumber(args.NOTE);
+	note = MathUtil.clamp(note, Scratch3SoundBlocks.MIDI_NOTE_RANGE.min, Scratch3SoundBlocks.MIDI_NOTE_RANGE.max);
+	var beats = Cast.toNumber(args.BEATS);
+	beats = this._clampBeats(beats);
+	var soundState = this._getSoundState(util.target);
+	var inst = soundState.currentInstrument;
+	var vol = soundState.volume;
+	if (typeof this.runtime.audioEngine === 'undefined') return;
+	return this.runtime.audioEngine.playNoteForBeatsWithInstAndVol(note, beats, inst, vol);
 }
 
 function _clampBeats(beats) {
-    return MathUtil.clamp(beats, Scratch3SoundBlocks.BEAT_RANGE.min, Scratch3SoundBlocks.BEAT_RANGE.max);
+	return MathUtil.clamp(beats, Scratch3SoundBlocks.BEAT_RANGE.min, Scratch3SoundBlocks.BEAT_RANGE.max);
 }
 
 vm.runtime._primitives.sound_setinstrumentto = function (args, util) {
-    var soundState = this._getSoundState(util.target);
-    var instNum = Cast.toNumber(args.INSTRUMENT);
-    instNum -= 1; // instruments are one-indexed
-    if (typeof this.runtime.audioEngine === 'undefined') return;
-    instNum = MathUtil.wrapClamp(instNum, 0, this.runtime.audioEngine.numInstruments - 1);
-    soundState.currentInstrument = instNum;
-    return this.runtime.audioEngine.instrumentPlayer.loadInstrument(soundState.currentInstrument);
+	var soundState = this._getSoundState(util.target);
+	var instNum = Cast.toNumber(args.INSTRUMENT);
+	instNum -= 1; // instruments are one-indexed
+	if (typeof this.runtime.audioEngine === 'undefined') return;
+	instNum = MathUtil.wrapClamp(instNum, 0, this.runtime.audioEngine.numInstruments - 1);
+	soundState.currentInstrument = instNum;
+	return this.runtime.audioEngine.instrumentPlayer.loadInstrument(soundState.currentInstrument);
 }
 
 vm.runtime._primitives.sound_changeeffectby = function (args, util) {
-    this._updateEffect(args, util, true);
+	this._updateEffect(args, util, true);
 }
 
 vm.runtime._primitives.sound_seteffectto = function (args, util) {
-    this._updateEffect(args, util, false);
+	this._updateEffect(args, util, false);
 }
 
 vm.runtime._primitives.sound_cleareffects = function (args, util) {
-    var soundState = this._getSoundState(util.target);
-    for (var effect in soundState.effects) {
-        if (!soundState.effects.hasOwnProperty(effect)) continue;
-        soundState.effects[effect] = 0;
-    }
-    if (util.target.audioPlayer === null) return;
-    util.target.audioPlayer.clearEffects();
+	var soundState = this._getSoundState(util.target);
+	for (var effect in soundState.effects) {
+		if (!soundState.effects.hasOwnProperty(effect)) continue;
+		soundState.effects[effect] = 0;
+	}
+	if (util.target.audioPlayer === null) return;
+	util.target.audioPlayer.clearEffects();
 }
 
 function _updateEffect(args, util, change) {
-    var effect = Cast.toString(args.EFFECT).toLowerCase();
-    var value = Cast.toNumber(args.VALUE);
+	var effect = Cast.toString(args.EFFECT).toLowerCase();
+	var value = Cast.toNumber(args.VALUE);
 
-    var soundState = this._getSoundState(util.target);
-    if (!soundState.effects.hasOwnProperty(effect)) return;
+	var soundState = this._getSoundState(util.target);
+	if (!soundState.effects.hasOwnProperty(effect)) return;
 
-    if (change) {
-        soundState.effects[effect] += value;
-    } else {
-        soundState.effects[effect] = value;
-    }
+	if (change) {
+		soundState.effects[effect] += value;
+	} else {
+		soundState.effects[effect] = value;
+	}
 
-    var effectRange = Scratch3SoundBlocks.EFFECT_RANGE[effect];
-    soundState.effects[effect] = MathUtil.clamp(soundState.effects[effect], effectRange.min, effectRange.max);
+	var effectRange = Scratch3SoundBlocks.EFFECT_RANGE[effect];
+	soundState.effects[effect] = MathUtil.clamp(soundState.effects[effect], effectRange.min, effectRange.max);
 
-    if (util.target.audioPlayer === null) return;
-    util.target.audioPlayer.setEffect(effect, soundState.effects[effect]);
+	if (util.target.audioPlayer === null) return;
+	util.target.audioPlayer.setEffect(effect, soundState.effects[effect]);
 }
 
 vm.runtime._primitives.sound_changevolumeby = function (args, util) {
-    var soundState = this._getSoundState(util.target);
-    var volume = Cast.toNumber(args.VOLUME) + soundState.volume;
-    this._updateVolume(volume, util);
+	var soundState = this._getSoundState(util.target);
+	var volume = Cast.toNumber(args.VOLUME) + soundState.volume;
+	this._updateVolume(volume, util);
 }
 
 vm.runtime._primitives.sound_setvolumeto = function (args, util) {
-    var volume = Cast.toNumber(args.VOLUME);
-    this._updateVolume(volume, util);
+	var volume = Cast.toNumber(args.VOLUME);
+	this._updateVolume(volume, util);
 }
 
 vm.runtime._primitives.sound_volume = function (args, util) {
-    var soundState = this._getSoundState(util.target);
-    return soundState.volume;
+	var soundState = this._getSoundState(util.target);
+	return soundState.volume;
 }
 
 vm.runtime._primitives.sound_changetempoby = function (args, util) {
-    var change = Cast.toNumber(args.TEMPO);
-    if (typeof this.runtime.audioEngine === 'undefined') return;
-    var tempo = change + this.runtime.audioEngine.currentTempo;
-    this._updateTempo(tempo);
+	var change = Cast.toNumber(args.TEMPO);
+	if (typeof this.runtime.audioEngine === 'undefined') return;
+	var tempo = change + this.runtime.audioEngine.currentTempo;
+	this._updateTempo(tempo);
 }
 
 vm.runtime._primitives.sound_settempotobpm = function (args, util) {
-    var tempo = Cast.toNumber(args.TEMPO);
-    this._updateTempo(tempo);
+	var tempo = Cast.toNumber(args.TEMPO);
+	this._updateTempo(tempo);
 }
 
 vm.runtime._primitives.sound_tempo = function (args, util) {
-    if (typeof this.runtime.audioEngine === 'undefined') return;
-    return this.runtime.audioEngine.currentTempo;
+	if (typeof this.runtime.audioEngine === 'undefined') return;
+	return this.runtime.audioEngine.currentTempo;
 }
 
 function _updateTempo(tempo) {
-    tempo = MathUtil.clamp(tempo, Scratch3SoundBlocks.TEMPO_RANGE.min, Scratch3SoundBlocks.TEMPO_RANGE.max);
-    if (typeof this.runtime.audioEngine === 'undefined') return;
-    this.runtime.audioEngine.setTempo(tempo);
+	tempo = MathUtil.clamp(tempo, Scratch3SoundBlocks.TEMPO_RANGE.min, Scratch3SoundBlocks.TEMPO_RANGE.max);
+	if (typeof this.runtime.audioEngine === 'undefined') return;
+	this.runtime.audioEngine.setTempo(tempo);
 }
 
 // PEN VM FUNCTIONS
 /**
- * The pen "clear" block clears the pen layer's contents.
- */
+* The pen "clear" block clears the pen layer's contents.
+*/
 vm.runtime._primitives.pen_clear = function (args, util) {
-    const penSkinId = this._getPenLayerID();
-    if (penSkinId >= 0) {
-        this.runtime.renderer.penClear(penSkinId);
-        this.runtime.requestRedraw();
-    }
+	const penSkinId = this._getPenLayerID();
+	if (penSkinId >= 0) {
+		this.runtime.renderer.penClear(penSkinId);
+		this.runtime.requestRedraw();
+	}
 }
 /**
- * The pen "stamp" block stamps the current drawable's image onto the pen layer.
- * @param {object} args - the block arguments.
- * @param {object} util - utility object provided by the runtime.
- */
+* The pen "stamp" block stamps the current drawable's image onto the pen layer.
+* @param {object} args - the block arguments.
+* @param {object} util - utility object provided by the runtime.
+*/
 vm.runtime._primitives.pen_stamp = function (args, util) {
-    const penSkinId = this._getPenLayerID();
-    if (penSkinId >= 0) {
-        const target = util.target;
-        this.runtime.renderer.penStamp(penSkinId, target.drawableID);
-        this.runtime.requestRedraw();
-    }
+	const penSkinId = this._getPenLayerID();
+	if (penSkinId >= 0) {
+		const target = util.target;
+		this.runtime.renderer.penStamp(penSkinId, target.drawableID);
+		this.runtime.requestRedraw();
+	}
 }
 /**
- * The pen "pen down" block causes the target to leave pen trails on future motion.
- * @param {object} args - the block arguments.
- * @param {object} util - utility object provided by the runtime.
- */
+* The pen "pen down" block causes the target to leave pen trails on future motion.
+* @param {object} args - the block arguments.
+* @param {object} util - utility object provided by the runtime.
+*/
 vm.runtime._primitives.pen_pendown = function (args, util) {
-    const target = util.target;
-    const penState = this._getPenState(target);
+	const target = util.target;
+	const penState = this._getPenState(target);
 
-    if (!penState.penDown) {
-        penState.penDown = true;
-        target.addListener(RenderedTarget.EVENT_TARGET_MOVED, this._onTargetMoved);
-    }
+	if (!penState.penDown) {
+		penState.penDown = true;
+		target.addListener(RenderedTarget.EVENT_TARGET_MOVED, this._onTargetMoved);
+	}
 
-    const penSkinId = this._getPenLayerID();
-    if (penSkinId >= 0) {
-        this.runtime.renderer.penPoint(penSkinId, penState.penAttributes, target.position);
-        this.runtime.requestRedraw();
-    }
+	const penSkinId = this._getPenLayerID();
+	if (penSkinId >= 0) {
+		this.runtime.renderer.penPoint(penSkinId, penState.penAttributes, target.position);
+		this.runtime.requestRedraw();
+	}
 }
 /**
- * The pen "pen up" block stops the target from leaving pen trails.
- * @param {object} args - the block arguments.
- * @param {object} util - utility object provided by the runtime.
- */
+* The pen "pen up" block stops the target from leaving pen trails.
+* @param {object} args - the block arguments.
+* @param {object} util - utility object provided by the runtime.
+*/
 vm.runtime._primitives.pen_penup = function (args, util) {
-    const target = util.target;
-    const penState = this._getPenState(target);
+	const target = util.target;
+	const penState = this._getPenState(target);
 
-    if (penState.penDown) {
-        penState.penDown = false;
-        target.removeListener(RenderedTarget.EVENT_TARGET_MOVED, this._onTargetMoved);
-    }
+	if (penState.penDown) {
+		penState.penDown = false;
+		target.removeListener(RenderedTarget.EVENT_TARGET_MOVED, this._onTargetMoved);
+	}
 }
 /**
- * The pen "set pen color to {color}" block sets the pen to a particular RGB color.
- * @param {object} args - the block arguments.
- *  @property {int} COLOR - the color to set, expressed as a 24-bit RGB value (0xRRGGBB).
- * @param {object} util - utility object provided by the runtime.
- */
+* The pen "set pen color to {color}" block sets the pen to a particular RGB color.
+* @param {object} args - the block arguments.
+*  @property {int} COLOR - the color to set, expressed as a 24-bit RGB value (0xRRGGBB).
+* @param {object} util - utility object provided by the runtime.
+*/
 vm.runtime._primitives.pen_setpencolortocolor = function (args, util) {
-    const penState = this._getPenState(util.target);
-    const rgb = Cast.toRgbColorObject(args.COLOR);
-    const hsv = Color.rgbToHsv(rgb);
+	const penState = this._getPenState(util.target);
+	const rgb = Cast.toRgbColorObject(args.COLOR);
+	const hsv = Color.rgbToHsv(rgb);
 
-    penState.hue = 200 * hsv.h / 360;
-    penState.shade = 50 * hsv.v;
-    penState.penAttributes.color[0] = rgb.r / 255.0;
-    penState.penAttributes.color[1] = rgb.g / 255.0;
-    penState.penAttributes.color[2] = rgb.b / 255.0;
-    if (rgb.hasOwnProperty('a')) {  // Will there always be an 'a'?
-        penState.penAttributes.color[3] = rgb.a / 255.0;
-    } else {
-        penState.penAttributes.color[3] = 1;
-    }
+	penState.hue = 200 * hsv.h / 360;
+	penState.shade = 50 * hsv.v;
+	penState.penAttributes.color[0] = rgb.r / 255.0;
+	penState.penAttributes.color[1] = rgb.g / 255.0;
+	penState.penAttributes.color[2] = rgb.b / 255.0;
+	if (rgb.hasOwnProperty('a')) {  // Will there always be an 'a'?
+		penState.penAttributes.color[3] = rgb.a / 255.0;
+	} else {
+		penState.penAttributes.color[3] = 1;
+	}
 }
 /**
- * The pen "change pen color by {number}" block rotates the hue of the pen by the given amount.
- * @param {object} args - the block arguments.
- *  @property {number} COLOR - the amount of desired hue rotation.
- * @param {object} util - utility object provided by the runtime.
- */
+* The pen "change pen color by {number}" block rotates the hue of the pen by the given amount.
+* @param {object} args - the block arguments.
+*  @property {number} COLOR - the amount of desired hue rotation.
+* @param {object} util - utility object provided by the runtime.
+*/
 vm.runtime._primitives.pen_changepencolorby = function (args, util) {
-    const penState = this._getPenState(util.target);
-    penState.hue = this._wrapHueOrShade(penState.hue + Cast.toNumber(args.COLOR));
-    this._updatePenColor(penState);
+	const penState = this._getPenState(util.target);
+	penState.hue = this._wrapHueOrShade(penState.hue + Cast.toNumber(args.COLOR));
+	this._updatePenColor(penState);
 }
 /**
- * The pen "set pen color to {number}" block sets the hue of the pen.
- * @param {object} args - the block arguments.
- *  @property {number} COLOR - the desired hue.
- * @param {object} util - utility object provided by the runtime.
- */
+* The pen "set pen color to {number}" block sets the hue of the pen.
+* @param {object} args - the block arguments.
+*  @property {number} COLOR - the desired hue.
+* @param {object} util - utility object provided by the runtime.
+*/
 vm.runtime._primitives.pen_setpencolortonum = function (args, util) {
-    const penState = this._getPenState(util.target);
-    penState.hue = this._wrapHueOrShade(Cast.toNumber(args.COLOR));
-    this._updatePenColor(penState);
+	const penState = this._getPenState(util.target);
+	penState.hue = this._wrapHueOrShade(Cast.toNumber(args.COLOR));
+	this._updatePenColor(penState);
 }
 /**
- * The pen "change pen shade by {number}" block changes the "shade" of the pen, related to the HSV value.
- * @param {object} args - the block arguments.
- *  @property {number} SHADE - the amount of desired shade change.
- * @param {object} util - utility object provided by the runtime.
- */
+* The pen "change pen shade by {number}" block changes the "shade" of the pen, related to the HSV value.
+* @param {object} args - the block arguments.
+*  @property {number} SHADE - the amount of desired shade change.
+* @param {object} util - utility object provided by the runtime.
+*/
 vm.runtime._primitives.pen_changepenshadeby = function (args, util) {
-    const penState = this._getPenState(util.target);
-    penState.shade = this._wrapHueOrShade(penState.shade + Cast.toNumber(args.SHADE));
-    this._updatePenColor(penState);
+	const penState = this._getPenState(util.target);
+	penState.shade = this._wrapHueOrShade(penState.shade + Cast.toNumber(args.SHADE));
+	this._updatePenColor(penState);
 }
 /**
- * The pen "set pen shade to {number}" block sets the "shade" of the pen, related to the HSV value.
- * @param {object} args - the block arguments.
- *  @property {number} SHADE - the amount of desired shade change.
- * @param {object} util - utility object provided by the runtime.
- */
+* The pen "set pen shade to {number}" block sets the "shade" of the pen, related to the HSV value.
+* @param {object} args - the block arguments.
+*  @property {number} SHADE - the amount of desired shade change.
+* @param {object} util - utility object provided by the runtime.
+*/
 vm.runtime._primitives.pen_setpenshadeto = function (args, util) {
-    const penState = this._getPenState(util.target);
-    penState.shade = this._wrapHueOrShade(Cast.toNumber(args.SHADE));
-    this._updatePenColor(penState);
+	const penState = this._getPenState(util.target);
+	penState.shade = this._wrapHueOrShade(Cast.toNumber(args.SHADE));
+	this._updatePenColor(penState);
 }
 /**
- * The pen "change pen size by {number}" block changes the pen size by the given amount.
- * @param {object} args - the block arguments.
- *  @property {number} SIZE - the amount of desired size change.
- * @param {object} util - utility object provided by the runtime.
- */
+* The pen "change pen size by {number}" block changes the pen size by the given amount.
+* @param {object} args - the block arguments.
+*  @property {number} SIZE - the amount of desired size change.
+* @param {object} util - utility object provided by the runtime.
+*/
 vm.runtime._primitives.pen_changepensizeby = function (args, util) {
-    const penAttributes = this._getPenState(util.target).penAttributes;
-    penAttributes.diameter = this._clampPenSize(penAttributes.diameter + Cast.toNumber(args.SIZE));
+	const penAttributes = this._getPenState(util.target).penAttributes;
+	penAttributes.diameter = this._clampPenSize(penAttributes.diameter + Cast.toNumber(args.SIZE));
 }
 /**
- * The pen "set pen size to {number}" block sets the pen size to the given amount.
- * @param {object} args - the block arguments.
- *  @property {number} SIZE - the amount of desired size change.
- * @param {object} util - utility object provided by the runtime.
- */
+* The pen "set pen size to {number}" block sets the pen size to the given amount.
+* @param {object} args - the block arguments.
+*  @property {number} SIZE - the amount of desired size change.
+* @param {object} util - utility object provided by the runtime.
+*/
 vm.runtime._primitives.pen_setpensizeto = function (args, util) {
-    const penAttributes = this._getPenState(util.target).penAttributes;
-    penAttributes.diameter = this._clampPenSize(Cast.toNumber(args.SIZE));
+	const penAttributes = this._getPenState(util.target).penAttributes;
+	penAttributes.diameter = this._clampPenSize(Cast.toNumber(args.SIZE));
 }
 
 vm.runtime._primitives.pen_sphere = function (args, util) {
-    const target = util.target;
-    const penAttributes = this._getPenState(target).penAttributes;
-    const penSkinId = this._getPenLayerID();
+	const target = util.target;
+	const penAttributes = this._getPenState(target).penAttributes;
+	const penSkinId = this._getPenLayerID();
 
-    if (penSkinId >= 0) {
-        this.runtime.renderer.penSphere(penSkinId, penAttributes, Cast.toNumber(args.RADIUS), target.position);
-        this.runtime.requestRedraw();
-    }
+	if (penSkinId >= 0) {
+		this.runtime.renderer.penSphere(penSkinId, penAttributes, Cast.toNumber(args.RADIUS), target.position);
+		this.runtime.requestRedraw();
+	}
 }
 
 vm.runtime._primitives.pen_box = function (args, util) {
-    const target = util.target;
-    const penAttributes = this._getPenState(target).penAttributes;
-    const penSkinId = this._getPenLayerID();
+	const target = util.target;
+	const penAttributes = this._getPenState(target).penAttributes;
+	const penSkinId = this._getPenLayerID();
 
-    if (penSkinId >= 0) {
-        const dimensions = [Cast.toNumber(args.WIDTH), Cast.toNumber(args.HEIGHT), Cast.toNumber(args.DEPTH)];
-        const position = target.position;
-        const rotation = target.rotation;
-        this.runtime.renderer.penCube(penSkinId, penAttributes, dimensions, position, rotation);
-    }
+	if (penSkinId >= 0) {
+		const dimensions = [Cast.toNumber(args.WIDTH), Cast.toNumber(args.HEIGHT), Cast.toNumber(args.DEPTH)];
+		const position = target.position;
+		const rotation = target.rotation;
+		this.runtime.renderer.penCube(penSkinId, penAttributes, dimensions, position, rotation);
+	}
 }
 
 vm.runtime._primitives.pen_arc = function (args, util) {
-    const target = util.target;
-    const penAttributes = this._getPenState(target).penAttributes;
-    const penSkinId = this._getPenLayerID();
+	const target = util.target;
+	const penAttributes = this._getPenState(target).penAttributes;
+	const penSkinId = this._getPenLayerID();
 
-    if (penSkinId >= 0) {
-        const dimensions = [Cast.toNumber(args.WIDTH), Cast.toNumber(args.HEIGHT)];
-        const position = target.position;
-        const rotation = target.rotation;
-        this.runtime.renderer.penArc(penSkinId, penAttributes, dimensions, position, rotation);
-    }
+	if (penSkinId >= 0) {
+		const dimensions = [Cast.toNumber(args.WIDTH), Cast.toNumber(args.HEIGHT)];
+		const position = target.position;
+		const rotation = target.rotation;
+		this.runtime.renderer.penArc(penSkinId, penAttributes, dimensions, position, rotation);
+	}
 }
 
 vm.runtime._primitives.pen_cylinder = function (args, util) {
-    const target = util.target;
-    const penAttributes = this._getPenState(target).penAttributes;
-    const penSkinId = this._getPenLayerID();
+	const target = util.target;
+	const penAttributes = this._getPenState(target).penAttributes;
+	const penSkinId = this._getPenLayerID();
 
-    if (penSkinId >= 0) {
-        const dimensions = [Cast.toNumber(args.TOP), Cast.toNumber(args.BOTTOM), Cast.toNumber(args.HEIGHT)];
-        const position = target.position;
-        const rotation = target.rotation;
-        this.runtime.renderer.penCylinder(penSkinId, penAttributes, dimensions, position, rotation);
-    }
+	if (penSkinId >= 0) {
+		const dimensions = [Cast.toNumber(args.TOP), Cast.toNumber(args.BOTTOM), Cast.toNumber(args.HEIGHT)];
+		const position = target.position;
+		const rotation = target.rotation;
+		this.runtime.renderer.penCylinder(penSkinId, penAttributes, dimensions, position, rotation);
+	}
 }
 
 // CONTROL VM FUNCTIONS
 vm.runtime._primitives.control_wait = function (args, util) {
-    var duration = Math.max(0, 1000 * Cast.toNumber(args.DURATION));
-    return new Promise(function (resolve) {
-        setTimeout(function () {
-            resolve();
-        }, duration);
-    });
+	var duration = Math.max(0, 1000 * Cast.toNumber(args.DURATION));
+	return new Promise(function (resolve) {
+		setTimeout(function () {
+			resolve();
+		}, duration);
+	});
 }
 
 vm.runtime._primitives.control_repeat = function (args, util) {
-    var times = Math.floor(Cast.toNumber(args.TIMES));
-    // Initialize loop
-    if (typeof util.stackFrame.loopCounter === 'undefined') {
-        util.stackFrame.loopCounter = times;
-    }
-    // Only execute once per frame.
-    // When the branch finishes, `repeat` will be executed again and
-    // the second branch will be taken, yielding for the rest of the frame.
-    // Decrease counter
-    util.stackFrame.loopCounter--;
-    // If we still have some left, start the branch.
-    if (util.stackFrame.loopCounter >= 0) {
-        util.startBranch(1, true);
-    }
+	var times = Math.floor(Cast.toNumber(args.TIMES));
+	// Initialize loop
+	if (typeof util.stackFrame.loopCounter === 'undefined') {
+		util.stackFrame.loopCounter = times;
+	}
+	// Only execute once per frame.
+	// When the branch finishes, `repeat` will be executed again and
+	// the second branch will be taken, yielding for the rest of the frame.
+	// Decrease counter
+	util.stackFrame.loopCounter--;
+	// If we still have some left, start the branch.
+	if (util.stackFrame.loopCounter >= 0) {
+		util.startBranch(1, true);
+	}
 }
 
 vm.runtime._primitives.control_forever = function (args, util) {
-    util.startBranch(1, true);
+	util.startBranch(1, true);
 }
 
 vm.runtime._primitives.control_if = function (args, util) {
-    var condition = Cast.toBoolean(args.CONDITION);
-    if (condition) {
-        util.startBranch(1, false);
-    }
+	var condition = Cast.toBoolean(args.CONDITION);
+	if (condition) {
+		util.startBranch(1, false);
+	}
 }
 
 vm.runtime._primitives.control_if_else = function (args, util) {
-    var condition = Cast.toBoolean(args.CONDITION);
-    if (condition) {
-        util.startBranch(1, false);
-    } else {
-        util.startBranch(2, false);
-    }
+	var condition = Cast.toBoolean(args.CONDITION);
+	if (condition) {
+		util.startBranch(1, false);
+	} else {
+		util.startBranch(2, false);
+	}
 }
 
 vm.runtime._primitives.control_wait_until = function (args, util) {
-    var condition = Cast.toBoolean(args.CONDITION);
-    if (!condition) {
-        util.yield();
-    }
+	var condition = Cast.toBoolean(args.CONDITION);
+	if (!condition) {
+		util.yield();
+	}
 }
 
 vm.runtime._primitives.control_repeat_until = function (args, util) {
-    var condition = Cast.toBoolean(args.CONDITION);
-    // If the condition is true, start the branch.
-    if (!condition) {
-        util.startBranch(1, true);
-    }
+	var condition = Cast.toBoolean(args.CONDITION);
+	// If the condition is true, start the branch.
+	if (!condition) {
+		util.startBranch(1, true);
+	}
 }
 
 vm.runtime._primitives.control_stop = function (args, util) {
-    var option = args.STOP_OPTION;
-    if (option === 'all') {
-        util.stopAll();
-    } else if (option === 'other scripts in sprite' || option === 'other scripts in stage') {
-        util.stopOtherTargetThreads();
-    } else if (option === 'this script') {
-        util.stopThisScript();
-    }
+	var option = args.STOP_OPTION;
+	if (option === 'all') {
+		util.stopAll();
+	} else if (option === 'other scripts in sprite' || option === 'other scripts in stage') {
+		util.stopOtherTargetThreads();
+	} else if (option === 'this script') {
+		util.stopThisScript();
+	}
 }
 
 vm.runtime._primitives.control_start_as_clone = function (args, util) {
-    var cloneTarget = util.target;
-    var newClone = cloneTarget.makeClone();
-    if (newClone) {
-        this.runtime.targets.push(newClone);
-    }
+	var cloneTarget = util.target;
+	var newClone = cloneTarget.makeClone();
+	if (newClone) {
+		this.runtime.targets.push(newClone);
+	}
 }
 
 vm.runtime._primitives.control_create_clone_of = function (args, util) {
-    var cloneTarget = this.runtime.getSpriteTargetByName(args.CLONE_OPTION);
-    var newClone = cloneTarget.makeClone();
-    if (newClone) {
-        this.runtime.targets.push(newClone);
-    }
+	var cloneTarget = this.runtime.getSpriteTargetByName(args.CLONE_OPTION);
+	var newClone = cloneTarget.makeClone();
+	if (newClone) {
+		this.runtime.targets.push(newClone);
+	}
 }
 
 vm.runtime._primitives.control_delete_this_clone = function (args, util) {
-    if (util.target.isOriginal) return;
-    this.runtime.disposeTarget(util.target);
-    this.runtime.stopForTarget(util.target);
+	if (util.target.isOriginal) return;
+	this.runtime.disposeTarget(util.target);
+	this.runtime.stopForTarget(util.target);
 }
 
 // SENSING VM FUNCTIONS
 vm.runtime._primitives.sensing_touchingobject = function (args, util) {
-    var requestedObject = args.TOUCHINGOBJECTMENU;
-    if (requestedObject === '_mouse_') {
-        var mouseX = util.ioQuery('mouse', 'getX');
-        var mouseY = util.ioQuery('mouse', 'getY');
-        return util.target.isTouchingPoint(mouseX, mouseY);
-    } else if (requestedObject === '_edge_') {
-        return util.target.isTouchingEdge();
-    }
-    return util.target.isTouchingSprite(requestedObject);
+	var requestedObject = args.TOUCHINGOBJECTMENU;
+	if (requestedObject === '_mouse_') {
+		var mouseX = util.ioQuery('mouse', 'getX');
+		var mouseY = util.ioQuery('mouse', 'getY');
+		return util.target.isTouchingPoint(mouseX, mouseY);
+	} else if (requestedObject === '_edge_') {
+		return util.target.isTouchingEdge();
+	}
+	return util.target.isTouchingSprite(requestedObject);
 }
 
 vm.runtime._primitives.sensing_touchingcolor = function (args, util) {
-    var color = Cast.toRgbColorList(args.COLOR);
-    return util.target.isTouchingColor(color);
+	var color = Cast.toRgbColorList(args.COLOR);
+	return util.target.isTouchingColor(color);
 }
 
 vm.runtime._primitives.sensing_coloristouchingcolor = function (args, util) {
-    var maskColor = Cast.toRgbColorList(args.COLOR);
-    var targetColor = Cast.toRgbColorList(args.COLOR2);
-    return util.target.colorIsTouchingColor(targetColor, maskColor);
+	var maskColor = Cast.toRgbColorList(args.COLOR);
+	var targetColor = Cast.toRgbColorList(args.COLOR2);
+	return util.target.colorIsTouchingColor(targetColor, maskColor);
 }
 
 vm.runtime._primitives.sensing_distanceto = function (args, util) {
-    if (util.target.isStage) return 10000;
+	if (util.target.isStage) return 10000;
 
-    var targetX = 0;
-    var targetY = 0;
-    if (args.DISTANCETOMENU === '_mouse_') {
-        targetX = util.ioQuery('mouse', 'getX');
-        targetY = util.ioQuery('mouse', 'getY');
-    } else {
-        var distTarget = this.runtime.getSpriteTargetByName(args.DISTANCETOMENU);
-        if (!distTarget) return 10000;
-        targetX = distTarget.x;
-        targetY = distTarget.y;
-    }
+	var targetX = 0;
+	var targetY = 0;
+	if (args.DISTANCETOMENU === '_mouse_') {
+		targetX = util.ioQuery('mouse', 'getX');
+		targetY = util.ioQuery('mouse', 'getY');
+	} else {
+		var distTarget = this.runtime.getSpriteTargetByName(args.DISTANCETOMENU);
+		if (!distTarget) return 10000;
+		targetX = distTarget.x;
+		targetY = distTarget.y;
+	}
 
-    var dx = util.target.x - targetX;
-    var dy = util.target.y - targetY;
-    return Math.sqrt(dx * dx + dy * dy);
+	var dx = util.target.x - targetX;
+	var dy = util.target.y - targetY;
+	return Math.sqrt(dx * dx + dy * dy);
 }
 
 vm.runtime._primitives.sensing_keypressed = function (args, util) {
-    return util.ioQuery('keyboard', 'getKeyIsDown', [args.KEY_OPTION]);
+	return util.ioQuery('keyboard', 'getKeyIsDown', [args.KEY_OPTION]);
 }
 
 vm.runtime._primitives.sensing_mousedown = function (args, util) {
-    return util.ioQuery('mouse', 'getIsDown');
+	return util.ioQuery('mouse', 'getIsDown');
 }
 
 vm.runtime._primitives.sensing_mousex = function (args, util) {
-    return util.ioQuery('mouse', 'getX');
+	return util.ioQuery('mouse', 'getX');
 }
 
 vm.runtime._primitives.sensing_mousey = function (args, util) {
-    return util.ioQuery('mouse', 'getY');
+	return util.ioQuery('mouse', 'getY');
 }
 
 vm.runtime._primitives.sensing_loudness = function (args, util) {
-    if (typeof this.runtime.audioEngine === 'undefined') return -1;
-    return this.runtime.audioEngine.getLoudness();
+	if (typeof this.runtime.audioEngine === 'undefined') return -1;
+	return this.runtime.audioEngine.getLoudness();
 }
 
 vm.runtime._primitives.sensing_timer = function (args, util) {
-    return util.ioQuery('clock', 'projectTimer');
+	return util.ioQuery('clock', 'projectTimer');
 }
 
 vm.runtime._primitives.sensing_resettimer = function (args, util) {
-    util.ioQuery('clock', 'resetProjectTimer');
+	util.ioQuery('clock', 'resetProjectTimer');
 }
 
 vm.runtime._primitives.sensing_of = function (args, util) {
-    var attrTarget = void 0;
+	var attrTarget = void 0;
 
-    if (args.OBJECT === '_stage_') {
-        attrTarget = this.runtime.getTargetForStage();
-    } else {
-        attrTarget = this.runtime.getSpriteTargetByName(args.OBJECT);
-    }
+	if (args.OBJECT === '_stage_') {
+		attrTarget = this.runtime.getTargetForStage();
+	} else {
+		attrTarget = this.runtime.getSpriteTargetByName(args.OBJECT);
+	}
 
-    // Generic attributes
-    if (attrTarget.isStage) {
-        switch (args.PROPERTY) {
-            // Scratch 1.4 support
-            case 'background #':
-                return attrTarget.currentCostume + 1;
+	// Generic attributes
+	if (attrTarget.isStage) {
+		switch (args.PROPERTY) {
+		// Scratch 1.4 support
+		case 'background #':
+			return attrTarget.currentCostume + 1;
 
-            case 'backdrop #':
-                return attrTarget.currentCostume + 1;
-            case 'backdrop name':
-                return attrTarget.sprite.costumes[attrTarget.currentCostume].name;
-            case 'volume':
-                return; // @todo: Keep this in mind for sound blocks!
-        }
-    } else {
-        switch (args.PROPERTY) {
-            case 'x position':
-                return attrTarget.x;
-            case 'y position':
-                return attrTarget.y;
-            case 'direction':
-                return attrTarget.direction;
-            case 'costume #':
-                return attrTarget.currentCostume + 1;
-            case 'costume name':
-                return attrTarget.sprite.costumes[attrTarget.currentCostume].name;
-            case 'size':
-                return attrTarget.size;
-            case 'volume':
-                return; // @todo: above, keep in mind for sound blocks..
-        }
-    }
+		case 'backdrop #':
+			return attrTarget.currentCostume + 1;
 
-    // Variables
-    var varName = args.PROPERTY;
-    if (attrTarget.variables.hasOwnProperty(varName)) {
-        return attrTarget.variables[varName].value;
-    }
+		case 'backdrop name':
+			return attrTarget.sprite.costumes[attrTarget.currentCostume].name;
 
-    // Otherwise, 0
-    return 0;
+		case 'volume':
+			return; // TODO: Keep this in mind for sound blocks!
+		}
+	} else {
+		switch (args.PROPERTY) {
+		case 'x position':
+			return attrTarget.x;
+		case 'y position':
+			return attrTarget.y;
+		case 'direction':
+			return attrTarget.direction;
+		case 'costume #':
+			return attrTarget.currentCostume + 1;
+		case 'costume name':
+			return attrTarget.sprite.costumes[attrTarget.currentCostume].name;
+		case 'size':
+			return attrTarget.size;
+		case 'volume':
+			return; // TODO: above, keep in mind for sound blocks..
+		}
+	}
+
+	// Variables
+	var varName = args.PROPERTY;
+	if (attrTarget.variables.hasOwnProperty(varName)) {
+		return attrTarget.variables[varName].value;
+	}
+
+	// Otherwise, 0
+	return 0;
 }
 
 vm.runtime._primitives.sensing_current = function (args, util) {
-    var menuOption = Cast.toString(args.CURRENTMENU).toLowerCase();
-    var date = new Date();
-    switch (menuOption) {
-        case 'year':
-            return date.getFullYear();
-        case 'month':
-            return date.getMonth() + 1; // getMonth is zero-based
-        case 'date':
-            return date.getDate();
-        case 'dayofweek':
-            return date.getDay() + 1; // getDay is zero-based, Sun=0
-        case 'hour':
-            return date.getHours();
-        case 'minute':
-            return date.getMinutes();
-        case 'second':
-            return date.getSeconds();
-    }
-    return 0;
+	var menuOption = Cast.toString(args.CURRENTMENU).toLowerCase();
+	var date = new Date();
+	switch (menuOption) {
+	case 'year':
+		return date.getFullYear();
+	case 'month':
+		return date.getMonth() + 1; // getMonth is zero-based
+	case 'date':
+		return date.getDate();
+	case 'dayofweek':
+		return date.getDay() + 1; // getDay is zero-based, Sun=0
+	case 'hour':
+		return date.getHours();
+	case 'minute':
+		return date.getMinutes();
+	case 'second':
+		return date.getSeconds();
+	}
+	return 0;
 }
 
 vm.runtime._primitives.sensing_dayssince2000 = function (args, util) {
-    var msPerDay = 24 * 60 * 60 * 1000;
-    var start = new Date(2000, 0, 1); // Months are 0-indexed.
-    var today = new Date();
-    var dstAdjust = today.getTimezoneOffset() - start.getTimezoneOffset();
-    var mSecsSinceStart = today.valueOf() - start.valueOf();
-    mSecsSinceStart += (today.getTimezoneOffset() - dstAdjust) * 60 * 1000;
-    return mSecsSinceStart / msPerDay;
+	var msPerDay = 24 * 60 * 60 * 1000;
+	var start = new Date(2000, 0, 1); // Months are 0-indexed.
+	var today = new Date();
+	var dstAdjust = today.getTimezoneOffset() - start.getTimezoneOffset();
+	var mSecsSinceStart = today.valueOf() - start.valueOf();
+	mSecsSinceStart += (today.getTimezoneOffset() - dstAdjust) * 60 * 1000;
+	return mSecsSinceStart / msPerDay;
 }
 
 // OPERATORS VM FUNCTIONS
 vm.runtime._primitives.operator_add = function (args, util) {
-    return Cast.toNumber(args.NUM1) + Cast.toNumber(args.NUM2);
+	return Cast.toNumber(args.NUM1) + Cast.toNumber(args.NUM2);
 }
 
 vm.runtime._primitives.operator_subtract = function (args, util) {
-    return Cast.toNumber(args.NUM1) - Cast.toNumber(args.NUM2);
+	return Cast.toNumber(args.NUM1) - Cast.toNumber(args.NUM2);
 }
 
 vm.runtime._primitives.operator_multiply = function (args, util) {
-    return Cast.toNumber(args.NUM1) * Cast.toNumber(args.NUM2);
+	return Cast.toNumber(args.NUM1) * Cast.toNumber(args.NUM2);
 }
 
 vm.runtime._primitives.operator_divide = function (args, util) {
-    return Cast.toNumber(args.NUM1) / Cast.toNumber(args.NUM2);
+	return Cast.toNumber(args.NUM1) / Cast.toNumber(args.NUM2);
 }
 
 vm.runtime._primitives.operator_random = function (args, util) {
-    const nFrom = Cast.toNumber(args.FROM);
-    const nTo = Cast.toNumber(args.TO);
-    const low = nFrom <= nTo ? nFrom : nTo;
-    const high = nFrom <= nTo ? nTo : nFrom;
-    if (low === high) return low;
-    // If both arguments are ints, truncate the result to an int.
-    if (Cast.isInt(args.FROM) && Cast.isInt(args.TO)) {
-        return low + Math.floor(Math.random() * ((high + 1) - low));
-    }
-    return (Math.random() * (high - low)) + low;
+	const nFrom = Cast.toNumber(args.FROM);
+	const nTo = Cast.toNumber(args.TO);
+	const low = nFrom <= nTo ? nFrom : nTo;
+	const high = nFrom <= nTo ? nTo : nFrom;
+	if (low === high) return low;
+	// If both arguments are ints, truncate the result to an int.
+	if (Cast.isInt(args.FROM) && Cast.isInt(args.TO)) {
+		return low + Math.floor(Math.random() * ((high + 1) - low));
+	}
+	return (Math.random() * (high - low)) + low;
 }
 
 vm.runtime._primitives.operator_lt = function (args, util) {
-    return Cast.compare(args.OPERAND1, args.OPERAND2) < 0;
+	return Cast.compare(args.OPERAND1, args.OPERAND2) < 0;
 }
 
 vm.runtime._primitives.operator_equals = function (args, util) {
-    return Cast.compare(args.OPERAND1, args.OPERAND2) === 0;
+	return Cast.compare(args.OPERAND1, args.OPERAND2) === 0;
 }
 
 vm.runtime._primitives.operator_gt = function (args, util) {
-    return Cast.compare(args.OPERAND1, args.OPERAND2) > 0;
+	return Cast.compare(args.OPERAND1, args.OPERAND2) > 0;
 }
 
 vm.runtime._primitives.operator_and = function (args, util) {
-    return Cast.toBoolean(args.OPERAND1) && Cast.toBoolean(args.OPERAND2);
+	return Cast.toBoolean(args.OPERAND1) && Cast.toBoolean(args.OPERAND2);
 }
 
 vm.runtime._primitives.operator_or = function (args, util) {
-    return Cast.toBoolean(args.OPERAND1) || Cast.toBoolean(args.OPERAND2);
+	return Cast.toBoolean(args.OPERAND1) || Cast.toBoolean(args.OPERAND2);
 }
 
 vm.runtime._primitives.operator_not = function (args, util) {
-    return !Cast.toBoolean(args.OPERAND);
+	return !Cast.toBoolean(args.OPERAND);
 }
 
 vm.runtime._primitives.operator_join = function (args, util) {
-    return Cast.toString(args.STRING1) + Cast.toString(args.STRING2);
+	return Cast.toString(args.STRING1) + Cast.toString(args.STRING2);
 }
 
 vm.runtime._primitives.operator_letter_of = function (args, util) {
-    const index = Cast.toNumber(args.LETTER) - 1;
-    const str = Cast.toString(args.STRING);
-    // Out of bounds?
-    if (index < 0 || index >= str.length) {
-        return '';
-    }
-    return str.charAt(index);
+	const index = Cast.toNumber(args.LETTER) - 1;
+	const str = Cast.toString(args.STRING);
+	// Out of bounds?
+	if (index < 0 || index >= str.length) {
+		return '';
+	}
+	return str.charAt(index);
 }
 
 vm.runtime._primitives.operator_length = function (args, util) {
-    return Cast.toString(args.STRING).length;
+	return Cast.toString(args.STRING).length;
 }
 
 vm.runtime._primitives.operator_mod = function (args, util) {
-    const n = Cast.toNumber(args.NUM1);
-    const modulus = Cast.toNumber(args.NUM2);
-    let result = n % modulus;
-    // Scratch mod is kept positive.
-    if (result / modulus < 0) result += modulus;
-    return result;
+	const n = Cast.toNumber(args.NUM1);
+	const modulus = Cast.toNumber(args.NUM2);
+	let result = n % modulus;
+	// Scratch mod is kept positive.
+	if (result / modulus < 0) result += modulus;
+	return result;
 }
 
 vm.runtime._primitives.operator_round = function (args, util) {
-    return Math.round(Cast.toNumber(args.NUM));
+	return Math.round(Cast.toNumber(args.NUM));
 }
 
 vm.runtime._primitives.operator_mathop = function (args, util) {
-    const operator = Cast.toString(args.OPERATOR).toLowerCase();
-    const n = Cast.toNumber(args.NUM);
-    switch (operator) {
-    case 'abs': return Math.abs(n);
-    case 'floor': return Math.floor(n);
-    case 'ceiling': return Math.ceil(n);
-    case 'sqrt': return Math.sqrt(n);
-    case 'sin': return parseFloat(Math.sin((Math.PI * n) / 180).toFixed(10));
-    case 'cos': return parseFloat(Math.cos((Math.PI * n) / 180).toFixed(10));
-    case 'tan': return MathUtil.tan(n);
-    case 'asin': return (Math.asin(n) * 180) / Math.PI;
-    case 'acos': return (Math.acos(n) * 180) / Math.PI;
-    case 'atan': return (Math.atan(n) * 180) / Math.PI;
-    case 'ln': return Math.log(n);
-    case 'log': return Math.log(n) / Math.LN10;
-    case 'e ^': return Math.exp(n);
-    case '10 ^': return Math.pow(10, n);
-    }
-    return 0;
+	const operator = Cast.toString(args.OPERATOR).toLowerCase();
+	const n = Cast.toNumber(args.NUM);
+	switch (operator) {
+	case 'abs': return Math.abs(n);
+	case 'floor': return Math.floor(n);
+	case 'ceiling': return Math.ceil(n);
+	case 'sqrt': return Math.sqrt(n);
+	case 'sin': return parseFloat(Math.sin((Math.PI * n) / 180).toFixed(10));
+	case 'cos': return parseFloat(Math.cos((Math.PI * n) / 180).toFixed(10));
+	case 'tan': return MathUtil.tan(n);
+	case 'asin': return (Math.asin(n) * 180) / Math.PI;
+	case 'acos': return (Math.acos(n) * 180) / Math.PI;
+	case 'atan': return (Math.atan(n) * 180) / Math.PI;
+	case 'ln': return Math.log(n);
+	case 'log': return Math.log(n) / Math.LN10;
+	case 'e ^': return Math.exp(n);
+	case '10 ^': return Math.pow(10, n);
+	}
+	return 0;
 }
 
 let toolboxDOM = (new DOMParser).parseFromString(ScratchBlocks.Blocks.defaultToolbox, 'text/xml')
@@ -1389,6 +1391,7 @@ toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_switchbackdropt
 toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_setscaleto.children[0])
 toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_costumeorder.children[0])
 toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_backdroporder.children[0])
+toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_backdropname.children[0])
 toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_setcamerato.children[0])
 toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_changecameraxby.children[0])
 toolboxDOM.getElementsByName('looks')[0].appendChild(newBlockDOM_changecamerayby.children[0])
