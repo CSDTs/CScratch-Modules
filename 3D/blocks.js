@@ -1,5 +1,5 @@
-const ScratchBlocks = require('original-blocks');
-const Toolbox = require('raw-loader!./default_toolbox.xml');
+const ScratchBlocks = Blockly;
+const Toolbox = ScratchBlocks.Blocks.defaultToolbox;
 
 Object.assign(ScratchBlocks.Blocks, {
 	'motion_rotate': {
@@ -373,7 +373,3 @@ Object.assign(ScratchBlocks.Blocks, {
 		}
 	}
 });
-
-ScratchBlocks.Blocks.defaultToolbox = Toolbox;
-
-module.exports = ScratchBlocks;

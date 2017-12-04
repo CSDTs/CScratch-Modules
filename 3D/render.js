@@ -1,4 +1,4 @@
-const three = require('three');
+const three = THREE;
 // const RenderWebGL = require('original-render');
 
 class RenderWebGL {
@@ -229,4 +229,3 @@ class RenderWebGL {
 	}
 }
 
-module.exports = RenderWebGL;
