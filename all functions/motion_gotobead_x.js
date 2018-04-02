@@ -22,10 +22,10 @@ ScratchBlocks.Blocks['motion_gotobead'] = {
      */
 	init: function () {
 		this.jsonInit({
-			message0: "go to bead %1 x, %2 y",
+			message0: 'go to bead %1 x, %2 y',
 			args0:
-				[{ type: "input_value", name: "NUM_X" },
-					{ type: "input_value", name: "NUM_Y" }
+				[{ type: 'input_value', name: 'NUM_X' },
+					{ type: 'input_value', name: 'NUM_Y' }
 				],
 			inputsInline: !0,
 			previousStatement: null,

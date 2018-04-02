@@ -13,7 +13,7 @@ ScratchBlocks.Blocks['operators_false'] = {
 	 */
 	init: function () {
 		this.jsonInit({
-			message0: "false",
+			message0: 'false',
 			inputsInline: 0,
 			previousStatement: null,
 			nextStatement: null,
@@ -21,7 +21,7 @@ ScratchBlocks.Blocks['operators_false'] = {
 			colour: ScratchBlocks.Colours.operators.primary,
 			colourSecondary: ScratchBlocks.Colours.operators.secondary,
 			colourTertiary: ScratchBlocks.Colours.operators.tertiary,
-			"extensions": ["colours_operators", "output_boolean"],
+			'extensions': ['colours_operators', 'output_boolean'],
 		})
 	}
 };

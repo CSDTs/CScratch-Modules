@@ -79,12 +79,12 @@ ScratchBlocks.Blocks['pen_drawline'] = {
 	 */
 	init: function () {
 		this.jsonInit({
-			"message0": "line: length %1 pen size %2 growth %3 round end? %4",
+			'message0': 'line: length %1 pen size %2 growth %3 round end? %4',
 			args0:
-				[{ type: "input_value", name: "length" },
-					{ type: "input_value", name: "pensize" },
-					{ type: "input_value", name: "growth" },
-					{ type: "input_value", name: "operand", check: "Boolean" }
+				[{ type: 'input_value', name: 'length' },
+					{ type: 'input_value', name: 'pensize' },
+					{ type: 'input_value', name: 'growth' },
+					{ type: 'input_value', name: 'operand', check: 'Boolean' }
 				],
 
 			inputsInline: !0,
