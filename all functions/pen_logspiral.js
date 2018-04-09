@@ -58,7 +58,7 @@ vm.runtime._primitives.pen_logspiralc = function (args, util) {
 			vm.runtime._primitives.motion_turnright(args, util);
 		}
 	}
-	for (i = 0; i < Math.abs((endangle - startangle) / tinc); i++) {
+	for (let i =0; i < Math.abs((endangle - startangle) / tinc); i++) {
 		t = t + tinc;
 		r = size * Math.pow(Math.E, beta * t) - size;
 		if (startangle > endangle) {

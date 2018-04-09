@@ -11,7 +11,7 @@ vm.runtime._primitives.motion_translate_inx = function (args, util) {
     dx = -1 * size;
     times = Math.abs(times);
   }
-  for (i = 0; i < times; i++) {
+  for (let i =0; i < times; i++) {
     // stamp
     vm.runtime._primitives.pen_stamp(args, util);
     // move

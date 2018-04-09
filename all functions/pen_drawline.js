@@ -21,7 +21,7 @@ vm.runtime._primitives.pen_drawline = function (args, util) {
 		vm.runtime._primitives.motion_turnleft(args, util);
 		linelength = Math.abs(linelength);
 	}
-	for (i = 0; i < linelength / stepinc; i++) {
+	for (let i =0; i < linelength / stepinc; i++) {
 		pensizetemp = pensizetemp + pengrowth1;
 		args.SIZE = pensizetemp;
 		vm.runtime._primitives.pen_setpensizeto(args, util);

@@ -20,7 +20,7 @@ vm.runtime._primitives.motion_translate_inx_nostamp = function (args, util) {
 		dx = -1 * size;
 		times = Math.abs(times);
 	}
-	for (i = 0; i < times; i++) {
+	for (let i =0; i < times; i++) {
 		args.STEPS = dx;
 		vm.runtime._primitives.motion_movesteps(args, util);
 	}
@@ -60,7 +60,7 @@ vm.runtime._primitives.motion_translate_iny_nostamp = function (args, util) {
 		times = Math.abs(times);
 	}
 	//repeat args times
-	for (i = 0; i < times; i++) {
+	for (let i =0; i < times; i++) {
 		// move
 		util.target.setXY(util.target.x + dx, util.target.y + dy);
 	}

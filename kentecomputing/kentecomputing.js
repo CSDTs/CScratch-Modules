@@ -110,7 +110,7 @@ vm.runtime._primitives.motion_translate_inx_stitch = function (args, util) {
     dx = -1 * size;
     times = Math.abs(times);
   }
-  for (i = 0; i < times; i++) {
+  for (let i =0; i < times; i++) {
     // move
     util.target.setXY(util.target.x + dx, util.target.y);
   }
@@ -149,7 +149,7 @@ vm.runtime._primitives.motion_translate_iny_stitch = function (args, util) {
     times = Math.abs(times);
   }
   //repeat args times
-  for (i = 0; i < times; i++) {
+  for (let i =0; i < times; i++) {
     // move
     util.target.setXY(util.target.x, util.target.y + dy);
 

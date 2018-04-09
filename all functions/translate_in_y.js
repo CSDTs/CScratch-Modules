@@ -13,7 +13,7 @@ vm.runtime._primitives.motion_translate_iny = function (args, util) {
     times = Math.abs(times);
   }
   //repeat args times
-  for (i = 0; i < times; i++) {
+  for (let i =0; i < times; i++) {
     // stamp
     vm.runtime._primitives.pen_stamp(args, util);
     // move
