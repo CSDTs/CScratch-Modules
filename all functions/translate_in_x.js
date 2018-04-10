@@ -26,7 +26,7 @@ ScratchBlocks.Blocks['motion_translate_inx'] = {
    */
   init: function () {
     this.jsonInit({
-      message0: "translate by %1 customes in x",
+      message0: "translate by %1 costumes in x",
       args0:
         [{ type: "input_value", name: "STEPS" }],
       inputsInline: !0,
